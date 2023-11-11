@@ -4,16 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Home = () => {
   return (
-    // <SafeAreaView>
-    //   <View style={{backgroundColor: 'red'}}>
-    //     <Text style={styles.text}>Home</Text>
-    //   </View>
-    // </SafeAreaView>
-
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-
+    <SafeAreaView>
+      <View style={{backgroundColor: 'red'}}>
+        <Text style={styles.text}>Home</Text>
+      </View>
+    </SafeAreaView>
     )
 }
 
