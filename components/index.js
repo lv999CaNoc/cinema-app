@@ -1,5 +1,6 @@
 import Button from "./Button"
+import MovieCard from "./MovieCard"
 export {
-    Button,
+    Button, MovieCard
     
 }
