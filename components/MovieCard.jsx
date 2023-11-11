@@ -67,9 +67,9 @@ const styles = StyleSheet.create({
         fontFamily: 'bold'
     },
     category:{
-        color: COLORS.white,
+        color: '#637394',
         fontSize: 14,
-        fontFamily: 'medium'
+        fontFamily: 'regular'
     },
 });
 

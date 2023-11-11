@@ -38,11 +38,11 @@ const styles = StyleSheet.create({
     borderColor: '#6D9EFF1A'
   },
   big:{
-    height: 56,
+    height: 54,
     paddingHorizontal: 24
   },
   small:{
-    height: 42,
+    height: 38,
     paddingHorizontal: 16
   },
   text:{
@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
     fontSize: 17
   },
   smallText:{
-    fontSize: 15
+    fontSize: 14
   }
 })
