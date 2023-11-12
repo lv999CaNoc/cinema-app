@@ -30,7 +30,10 @@ const Header = () => {
           <Text style={styles.text}>Vie</Text>
         </TouchableOpacity>
       </View>
-      <Button theme={'primary'} small={true} title={'Log in'}/>
+      
+      <View style={{flexDirection: 'row'}}>
+        <Button theme={'primary'} small={true} title={'Log in'} onPress={()=>console.log('login in press')}/>
+      </View>
     </View>
   )
 }

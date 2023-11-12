@@ -3,11 +3,10 @@ import React from 'react'
 import {COLORS} from '../constants'
 import { Ionicons } from '@expo/vector-icons';
 
-const Button = ({theme, small, icon, title}) => {
+const Button = ({theme, small, icon, title, onPress}) => {
   return (
-    <View style={{flexDirection: 'row'}}>
       <TouchableOpacity
-        onPress={() => console.log('button press')}
+        onPress={() => onPress()}
         style={[styles.button, (theme === 'primary') ? styles.buttonPrimary: ((theme === 'secondary')? styles.buttonSecondary : ''), small ? styles.small : styles.big]}
       >
         {icon ? (<Ionicons name="search" size={24} color="white" style={{ paddingEnd: 8 }} />) : ('')}
@@ -17,7 +16,6 @@ const Button = ({theme, small, icon, title}) => {
           <Text style={[styles.text, styles.bigText]}>{title}</Text>
         )}
       </TouchableOpacity>
-    </View>
   )
 }
 

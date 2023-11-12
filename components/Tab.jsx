@@ -15,7 +15,7 @@ export default Tab
 const styles = StyleSheet.create({
     tab:{
         flex: 1,
-        height: 48,
+        height: 46,
         marginBottom: SIZES.xxSmall,
         justifyContent: 'center',
         alignItems: 'center',
