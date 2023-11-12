@@ -13,7 +13,7 @@ const Header = () => {
       <View style={styles.controls}>
         <TouchableOpacity style={styles.control} onPress={() => { }}>
           <Image
-            style={styles.image}
+            style={styles.icon}
             contentFit="cover"
             source={require("../assets/icons/Location.png")}
           />
@@ -23,7 +23,7 @@ const Header = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.control} onPress={() => { }}>
           <Image
-            style={styles.image}
+            style={styles.icon}
             contentFit="cover"
             source={require("../assets/icons/Language.png")}
           />

@@ -7,6 +7,9 @@ const COLORS = {
  
   background: '#1A2232',
   background2: '#1d273a',
+
+  white: "#FFFFFF",
+  icon: '#637394',
   // 
   secondary: "#DDF0FF",
   tertiary: "#FF7754",
@@ -15,7 +18,6 @@ const COLORS = {
   gray2: "#C1C0C8",
 
   offwhite: "#F3F4F8",
-  white: "#FFFFFF",
   black: "#000000",
   red: "#e81e4d",
   green: " #00C135",
