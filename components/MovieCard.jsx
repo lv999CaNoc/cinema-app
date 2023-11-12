@@ -2,10 +2,11 @@ import * as React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { SIZES, SHADOWS, COLORS } from "../constants";
 
-const MovieCard = () => {
+
+const MovieCard = ({item, navigation}) => {
     return (
         <View className='flex-row'>
-            <TouchableOpacity onPress={() => console.log('press movie')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Movie', {movie: item})}>
                 <View style={styles.movieCard}>
                     <View style={styles.imageContainer}>
                         <Image style={styles.image}

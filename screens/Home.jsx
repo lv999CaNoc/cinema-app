@@ -5,7 +5,7 @@ import {Header, MovieCard} from '../components'
 import { COLORS, SIZES } from '../constants'
 import { Ionicons } from '@expo/vector-icons'
 
-const Home = () => {
+const Home = ({navigation}) => {
   const data = [1,2,3,4, 5, 6]
 
   return (
@@ -24,7 +24,7 @@ const Home = () => {
           data={data}
           numColumns={2}
           keyExtractor={(item) => item._id}
-          renderItem={({ item }) => <MovieCard />}
+          renderItem={({ item }) => <MovieCard item={item} navigation={navigation}/>}
           contentContainerStyle={styles.container}
           ItemSeparatorComponent={() => <View style={styles.separator}/>}
         />
