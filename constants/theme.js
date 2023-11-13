@@ -11,18 +11,7 @@ const COLORS = {
   white: "#FFFFFF",
   icon: '#637394',
   border: 'rgba(109, 158, 255, 0.1)',
-  // 
-  secondary: "#DDF0FF",
-  tertiary: "#FF7754",
-
-  gray: "#83829A",
-  gray2: "#C1C0C8",
-
-  offwhite: "#F3F4F8",
-  black: "#000000",
-  red: "#e81e4d",
-  green: " #00C135",
-  lightWhite: "#FAFAFC",
+  seatFree: '#253554',
 };
 
 

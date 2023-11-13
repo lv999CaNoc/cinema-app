@@ -3,7 +3,7 @@ import React from 'react'
 import { COLORS, SIZES } from '../../constants'
 import { Ionicons } from '@expo/vector-icons'
 
-const Symbol = ({ available, chosen, occupied }) => {
+const Symbol = ({ available, chosen, occupied, inUse }) => {
   return (
     <View style={styles.container}>
       {available &&
@@ -15,6 +15,11 @@ const Symbol = ({ available, chosen, occupied }) => {
         <View style={styles.item}>
           <View style={[styles.seat, styles.chosen]} />
           <Text style={styles.text}>Chosen</Text>
+        </View>}
+      {inUse &&
+        <View style={styles.item}>
+          <View style={[styles.seat, styles.inUse]} />
+          <Text style={styles.text}>In Use</Text>
         </View>}
       {occupied &&
         <View style={styles.item}>
@@ -38,17 +43,20 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   available: {
-    backgroundColor: COLORS.border,
+    backgroundColor: COLORS.seatFree,
   },
-  chosen: {
+  inUse: {
     backgroundColor: COLORS.primary,
+  },
+  chosen:{
+    backgroundColor: '#31D7A9'
   },
   text: {
     fontSize: 12,
     fontFamily: 'medium',
     color: COLORS.white,
     textAlign: "center",
-    marginLeft: SIZES.xSmall
+    marginLeft: SIZES.xxSmall
   },
   item: {
     flexDirection: "row",
