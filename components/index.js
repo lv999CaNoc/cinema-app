@@ -9,9 +9,9 @@ import Session from './Movie/Session'
 import SessionTile from "./Movie/SessionTile"
 import CinemaHeading from "./Movie/CinemaHeading"
 import Controls from "./Movie/Controls"
-import DateTimeBar from "./Seat/DateTimeBar"
-import Symbol from "./Seat/Symbol"
-import Seat from "./Seat/Seat"
+import DateTimeBar from "./SelectSeat/DateTimeBar"
+import Symbol from "./SelectSeat/Symbol"
+import Seat from "./SelectSeat/Seat"
 export {
     Button, MovieCard, Header,
     Topbar, Tab, Trailer, About,
