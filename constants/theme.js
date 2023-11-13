@@ -1,5 +1,5 @@
 
-import { Dimensions } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 const { height, width } = Dimensions.get('window');
 
 const COLORS = {
@@ -61,5 +61,10 @@ const SHADOWS = {
   },
 };
 
-
-export { COLORS, SIZES , SHADOWS };
+const STYLES = StyleSheet.create({
+  container: {
+    backgroundColor: COLORS.background2, 
+    flex: 1
+  }
+})
+export { COLORS, SIZES , SHADOWS , STYLES};
