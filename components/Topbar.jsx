@@ -1,17 +1,21 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import {COLORS, SIZES} from '../constants'
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-const Topbar = ({left, right, title, subtitle, navigation}) => {
+const Topbar = ({left, right, title, subtitle, navigation , goHome}) => {
     return (
         <View style={styles.topbar}>
-            {left? (<TouchableOpacity onPress={()=>navigation.goBack()}><Ionicons name="chevron-back" size={24} color={COLORS.icon} /></TouchableOpacity>):(<View></View>)}
+            {left? (<TouchableOpacity onPress={()=>navigation.goBack()}><Ionicons name="chevron-back" size={24} color={COLORS.icon} /></TouchableOpacity>):(<View style={styles.icon}></View>)}
             <View style={styles.contents}>
                 {title? (<Text style={[styles.text, styles.title]}>{title}</Text>):('')}
                 {subtitle? (<Text style={[styles.text, styles.subtitle]}>{subtitle}</Text>):('')}
             </View>
-            {right? (<TouchableOpacity onPress={()=>console.log('search press')}><Ionicons name="search" size={24} color={COLORS.icon}/></TouchableOpacity>):(<View></View>)}
+            
+            {right? (<TouchableOpacity onPress={()=>console.log('top bar: search press')}><Ionicons name="search" size={24} color={COLORS.icon}/></TouchableOpacity>):('')}
+            {goHome? (<TouchableOpacity onPress={()=>navigation.navigate('Home')}><MaterialCommunityIcons name="home-import-outline" size={24} color={COLORS.icon} /></TouchableOpacity>):('')}
+            
+            {!goHome && !right?(<View style={styles.icon}></View>):('')}
         </View>
     );
 }
@@ -41,5 +45,8 @@ const styles = StyleSheet.create({
         fontFamily: 'regular',
         letterSpacing: 0.9,
         color: COLORS.icon
+    },
+    icon: {
+        width: 24
     }
 })

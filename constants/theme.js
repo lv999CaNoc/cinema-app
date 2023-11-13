@@ -10,6 +10,7 @@ const COLORS = {
 
   white: "#FFFFFF",
   icon: '#637394',
+  border: 'rgba(109, 158, 255, 0.1)',
   // 
   secondary: "#DDF0FF",
   tertiary: "#FF7754",

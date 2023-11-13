@@ -2,14 +2,14 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {Header, MovieCard} from '../components'
-import { COLORS, SIZES } from '../constants'
+import { COLORS, SIZES, STYLES } from '../constants'
 import { Ionicons } from '@expo/vector-icons'
 
 const Home = ({navigation}) => {
   const data = [1,2,3,4, 5, 6]
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={STYLES.container}>
       <Header />
 
       <View style={styles.content}>
