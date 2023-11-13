@@ -2,9 +2,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { COLORS, SIZES } from '../../constants';
 
-const SessionTile = () => {
+const SessionTile = ({item, cinema}) => {
     return (
-        <TouchableOpacity style={styles.session} onPress={()=> console.log('session press')}>
+        <TouchableOpacity style={styles.session} onPress={()=> console.log('session press ' + item)}>
             <View style={[styles.border2, styles.border2Border]} />
             <View style={styles.wrap}>
                 <View style={styles.section}>
@@ -16,7 +16,7 @@ const SessionTile = () => {
                 </View>
                 <View style={[styles.divider1, styles.border2Border]} />
                 <View style={styles.section1}>
-                    <Text style={[styles.title, styles.titleTypo]}>Kinopark 8 IMAX Saryarka</Text>
+                    {cinema && <Text style={[styles.title, styles.titleTypo]}>Kinopark 8 IMAX Saryarka</Text>}
                     <View style={[styles.price, styles.priceSpaceBlock]}>
                         <View style={styles.itemFlexBox}>
                             <Text style={[styles.titleTypo, styles.price1]}>3500 ₸</Text>
