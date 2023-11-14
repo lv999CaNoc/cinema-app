@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES } from '../constants'
+import { COLORS, SIZES } from '../../constants'
 import Button from './Button'
 
 const Header = ({navigation}) => {
@@ -8,14 +8,14 @@ const Header = ({navigation}) => {
     <View style={styles.header}>
       <Image 
         contentFit={'cover'}
-        source={require('../assets/images/logo.png')} />
+        source={require('../../assets/images/logo.png')} />
 
       <View style={styles.controls}>
         <TouchableOpacity style={styles.control} onPress={() => { }}>
           <Image
             style={styles.icon}
             contentFit="cover"
-            source={require("../assets/icons/Location.png")}
+            source={require("../../assets/icons/Location.png")}
           />
           <Text style={styles.text}>
             Hà Nội
@@ -25,7 +25,7 @@ const Header = ({navigation}) => {
           <Image
             style={styles.icon}
             contentFit="cover"
-            source={require("../assets/icons/Language.png")}
+            source={require("../../assets/icons/Language.png")}
           />
           <Text style={styles.text}>Vie</Text>
         </TouchableOpacity>

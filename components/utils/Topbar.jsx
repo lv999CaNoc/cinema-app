@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import {COLORS, SIZES} from '../constants'
+import {COLORS, SIZES} from '../../constants'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Topbar = ({left, right, title, subtitle, navigation , goHome}) => {

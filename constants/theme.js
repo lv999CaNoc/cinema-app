@@ -6,7 +6,7 @@ const COLORS = {
   primary: "#FF8036",
  
   background: '#1A2232',
-  background2: '#1d273a', // #1C2536
+  background2: '#1d273a', // ##3b4d73
 
   white: "#FFFFFF",
   icon: '#637394',

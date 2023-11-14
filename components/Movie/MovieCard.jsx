@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { SIZES, SHADOWS, COLORS } from "../constants";
+import { SIZES, SHADOWS, COLORS } from "../../constants";
 
 
 const MovieCard = ({item, navigation}) => {

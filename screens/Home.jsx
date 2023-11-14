@@ -10,7 +10,7 @@ const Home = ({navigation}) => {
 
   return (
     <SafeAreaView style={STYLES.container}>
-      <Header />
+      <Header navigation={navigation}/>
 
       <View style={styles.content}>
         <View style={styles.contentHeader}>
@@ -23,7 +23,7 @@ const Home = ({navigation}) => {
         <FlatList
           data={data}
           numColumns={2}
-          keyExtractor={(item) => item._id}
+          // keyExtractor={(item) => item._id}
           renderItem={({ item }) => <MovieCard item={item} navigation={navigation}/>}
           contentContainerStyle={styles.container}
           ItemSeparatorComponent={() => <View style={styles.separator}/>}

@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import {COLORS} from '../constants'
+import {COLORS} from '../../constants'
 import { Ionicons } from '@expo/vector-icons';
 
 const Button = ({theme, small, icon, title, onPress}) => {

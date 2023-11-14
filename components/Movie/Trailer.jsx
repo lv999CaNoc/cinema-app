@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { COLORS, SIZES } from '../constants'
+import { COLORS, SIZES } from '../../constants'
 import { Ionicons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
 

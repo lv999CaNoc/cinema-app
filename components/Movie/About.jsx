@@ -1,9 +1,9 @@
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { COLORS, SIZES } from '../../constants'
-import Button from '../Button'
-import Topbar from '../Topbar'
-import Trailer from '../Trailer'
+import Button from '../utils/Button'
+import Topbar from '../utils/Topbar'
+import Trailer from './Trailer'
 
 const About = () => {
     return (
