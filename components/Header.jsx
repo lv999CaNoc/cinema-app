@@ -3,7 +3,7 @@ import React from 'react'
 import { COLORS, SIZES } from '../constants'
 import Button from './Button'
 
-const Header = () => {
+const Header = ({navigation}) => {
   return (
     <View style={styles.header}>
       <Image 
@@ -32,7 +32,7 @@ const Header = () => {
       </View>
       
       <View style={{flexDirection: 'row'}}>
-        <Button theme={'primary'} small={true} title={'Log in'} onPress={()=>console.log('login in press')}/>
+        <Button theme={'primary'} small={true} title={'Log in'} onPress={()=>navigation.navigate('Login')}/>
       </View>
     </View>
   )
