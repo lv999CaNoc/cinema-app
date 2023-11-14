@@ -5,7 +5,7 @@ import Button from '../utils/Button'
 import Topbar from '../utils/Topbar'
 import Trailer from './Trailer'
 
-const About = () => {
+const About = ({item}) => {
     return (
         <View style={{ flex: 1 }}> 
             <Trailer movieUri={"https://media.lottecinemavn.com/Media/MovieFile/MovieMedia/202305/11117_301_100001.mp4"} />

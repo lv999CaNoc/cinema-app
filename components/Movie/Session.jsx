@@ -8,17 +8,52 @@ import { COLORS, SIZES } from '../../constants'
 const Session = () => {
 
   const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-  const [selectedByCinema, setSelectedByCinema] = useState(false)
-  const [sessionsData, setSessionsData] = useState([{}])
-  const [theatersData, setTheatersData] = useState([{}])
 
+  // Update options
+  const [options, setOptions] = useState({
+    selectedDate: new Date(),
+    selectedSort: {
+      by: 'Time',
+      order: 0
+    },
+    selectedByCinema: false,
+  });
   useEffect(() => {
-    console.log('Session: ' + selectedByCinema);
-  }, [selectedByCinema, sessionsData, theatersData])
+    console.log('Session: ');
+    console.log(options); // Log giá trị options mỗi khi nó thay đổi
+  }, [options]);
+
+  const handleDateChange = (newDate) => {
+    setOptions((prevOptions) => ({
+      ...prevOptions,
+      selectedDate: newDate,
+    }));
+  };
+
+  const handleSortChange = (newSort) => {
+    setOptions((prevOptions) => ({
+      ...prevOptions,
+      selectedSort: newSort,
+    }));
+  };
+
+  const handleByCinemaChange = (newByCinema) => {
+    setOptions((prevOptions) => ({
+      ...prevOptions,
+      selectedByCinema: newByCinema,
+    }));
+  };
 
   return (
     <View style={{ flex: 1 }}>
-      <Controls sessionsData={setSessionsData} theatersData={setTheatersData} setSelectedByCinema={setSelectedByCinema} />
+      <Controls
+        selectedDate={options.selectedDate}
+        selectedSort={options.selectedSort}
+        selectedByCinema={options.selectedByCinema}
+        onDateChange={handleDateChange}
+        onSortChange={handleSortChange}
+        onByCinemaChange={handleByCinemaChange}
+      />
 
       <View style={styles.result}>
         <View style={styles.header}>
@@ -26,29 +61,30 @@ const Session = () => {
           <Text style={styles.txtHeader}>Cinema</Text>
         </View>
 
-        <FlatList
-          data={data}
-          // keyExtractor={(item) => item.id}
-          initialNumToRender={8}
-          renderItem={({ item }) => <SessionTile item={item} cinema={false} />}
-        />
-
-
-        {/* by cinema */}
-        {/* <FlatList
-          data={theatersData}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View>
-              <CinemaHeading/>
-              <FlatList
-                data={item.sessions}
-                // keyExtractor={(session) => session}
-                renderItem={(session) => <SessionTile item={session} cinema={false}/>}
-              />
-            </View>
-          )}
-        /> */}
+        {options.selectedByCinema ? (
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View>
+                <CinemaHeading />
+                <SessionTile item={item} cinema={false} />
+                {/* <FlatList
+                  data={item.sessions}
+                   keyExtractor={(session) => session}
+                  renderItem={(session) => <SessionTile item={session} cinema={false} />}
+                /> */}
+              </View>
+            )}
+          />
+        ) : (
+          <FlatList
+            data={data}
+            // keyExtractor={(item) => item.id}
+            initialNumToRender={8}
+            renderItem={({ item }) => <SessionTile item={item} cinema={true} />}
+          />
+        )}
       </View>
     </View>
   )

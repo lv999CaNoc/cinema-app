@@ -3,33 +3,16 @@ import { Image, StyleSheet, Text, View, Switch, Pressable } from "react-native";
 import { COLORS, SIZES } from '../../constants';
 import { AntDesign } from "@expo/vector-icons";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import Sort from '../modals/Sort';
+import Modal from 'react-native-modal';
 
-const Controls = ({ setSessionsData, setTheatersData, setSelectedByCinema }) => {
-
-    // Update options
-    const [options, setOptions] = useState({
-        selectedDate: new Date(),
-        selectedSort: {
-            by: 'time',
-            order: 'ascending'
-        },
-        selectedByCinema: false,
-    });
-
-    useEffect(() => {
-        console.log('Controls: ');
-        console.log(options); // Log giá trị options mỗi khi nó thay đổi
-    }, [options]);
-
-    const handleDateChange = (date) => {
-        setOptions({ ...options, selectedDate: date });
-    }
-    const handleSortChange = (sort) => {
-        setOptions({ ...options, selectedSort: sort });
-    }
-    const handleByCinemaChange = (option) => {
-        setOptions({ ...options, selectedByCinema: option });
-    }
+const Controls = (props) => {
+    const { selectedDate,
+        selectedSort,
+        selectedByCinema,
+        onDateChange,
+        onSortChange,
+        onByCinemaChange } = props
 
     // Date time picker
     const [datePickerVisible, setDatePickerVisible] = useState(false);
@@ -43,21 +26,20 @@ const Controls = ({ setSessionsData, setTheatersData, setSelectedByCinema }) => 
     };
 
     const handleConfirm = (date) => {
-        handleDateChange(date);
+        onDateChange(date);
         hideDatePicker();
     };
 
     // sort
+    const [isModalVisible, setModalVisible] = useState(false);
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
 
     // toggle switch
-    const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => {
-        setIsEnabled(previousState => {
-            const newState = !previousState;
-            handleByCinemaChange(newState);
-            setSelectedByCinema(newState);
-            return newState;
-        });
+        onByCinemaChange(!selectedByCinema);
     };
 
     return (
@@ -65,11 +47,11 @@ const Controls = ({ setSessionsData, setTheatersData, setSelectedByCinema }) => 
             <Pressable style={styles.control} onPress={showDatePicker}>
                 <Image style={styles.iconLayout} resizeMode="cover" source={require('../../assets/icons/Calendar.png')} />
                 <Text style={styles.title}>
-                    {options.selectedDate ? options.selectedDate.toLocaleDateString('en-GB') : 'No date selected'}
+                    {selectedDate ? selectedDate.toLocaleDateString('en-GB') : 'No date selected'}
                 </Text>
             </Pressable>
             <DateTimePickerModal
-                date={options.selectedDate}
+                date={selectedDate}
                 isVisible={datePickerVisible}
                 minimumDate={new Date()}
                 mode="date"
@@ -77,21 +59,33 @@ const Controls = ({ setSessionsData, setTheatersData, setSelectedByCinema }) => 
                 onCancel={hideDatePicker}
             />
 
-            <Pressable style={styles.control} onPress={() => { console.log('sort') }}>
+            <Pressable style={styles.control} onPress={toggleModal}>
                 <Image style={styles.iconLayout} resizeMode="cover" source={require("../../assets/icons/Sort.png")} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={styles.title}>Time </Text>
-                    <AntDesign name="arrowdown" size={15} color="white" />
+                    <Text style={styles.title}>{selectedSort.by}</Text>
+                    {selectedSort.order === 0 ? (
+                        <AntDesign name="arrowup" size={14} color="white" />
+                    ) : (
+                        <AntDesign name="arrowdown" size={14} color="white" />
+                    )}
                 </View>
             </Pressable>
-
+            <Modal
+                isVisible={isModalVisible}
+                animationIn="zoomIn"
+                animationOut="zoomOut"
+                onBackdropPress={toggleModal}
+                backdropOpacity={0.6}
+            >
+                <Sort selectedSort={selectedSort} onSortChange={onSortChange} onHide={toggleModal} />
+            </Modal>
 
             <View style={styles.control}>
                 <Switch style={{ height: 24 }}
                     trackColor={{ false: '#253554', true: COLORS.primary }}
-                    thumbColor={isEnabled ? 'white' : COLORS.icon}
+                    thumbColor={selectedByCinema ? 'white' : COLORS.icon}
                     onValueChange={toggleSwitch}
-                    value={isEnabled}
+                    value={selectedByCinema}
                 />
                 <Text style={styles.title}>By cinema</Text>
             </View>

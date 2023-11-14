@@ -55,6 +55,11 @@ const STYLES = StyleSheet.create({
   container: {
     backgroundColor: COLORS.background2, 
     flex: 1
+  },
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'    
   }
 })
 export { COLORS, SIZES , SHADOWS , STYLES};
