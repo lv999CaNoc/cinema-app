@@ -3,6 +3,8 @@ import MovieCard from "./movie/MovieCard"
 import Header from "./utils/Header"
 import Topbar from "./utils/Topbar"
 import Tab from './utils/Tab'
+import ItemList from "./utils/ItemList"
+import ItemInfo from "./utils/ItemInfo"
 import Trailer from "./movie/Trailer"
 import About from "./movie/About"
 import Session from './movie/Session'
@@ -12,9 +14,13 @@ import Controls from "./movie/Controls"
 import DateTimeBar from "./selectSeat/DateTimeBar"
 import Symbol from "./selectSeat/Symbol"
 import Seat from "./selectSeat/Seat"
+import Sort from "./modals/Sort"
+import TearLine from "./ticket/TearLine"
 export {
     Button, MovieCard, Header,
-    Topbar, Tab, Trailer, About,
+    Topbar, Tab, ItemList, ItemInfo, Trailer, About,
     Session, SessionTile, CinemaHeading, Controls,
-    DateTimeBar, Symbol, Seat
+    DateTimeBar, Symbol, Seat,
+    Sort, TearLine
+
 }
