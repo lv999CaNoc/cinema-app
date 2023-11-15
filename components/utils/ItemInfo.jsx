@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         fontFamily: 'regular',
         fontSize: 16,
         width: '25%',
-        paddingEnd: SIZES.medium
+        marginEnd: SIZES.medium
     },
     itemTitle: {
         fontSize: 15,
