@@ -11,6 +11,7 @@ import Session from './movie/Session'
 import SessionTile from "./movie/SessionTile"
 import CinemaHeading from "./movie/CinemaHeading"
 import Controls from "./movie/Controls"
+import MovieTile from "./movie/MovieTile"
 import DateTimeBar from "./selectSeat/DateTimeBar"
 import Symbol from "./selectSeat/Symbol"
 import Seat from "./selectSeat/Seat"
@@ -19,7 +20,7 @@ import TearLine from "./ticket/TearLine"
 export {
     Button, MovieCard, Header,
     Topbar, Tab, ItemList, ItemInfo, Trailer, About,
-    Session, SessionTile, CinemaHeading, Controls,
+    Session, SessionTile, CinemaHeading, Controls, MovieTile,
     DateTimeBar, Symbol, Seat,
     Sort, TearLine
 

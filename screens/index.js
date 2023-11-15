@@ -4,7 +4,6 @@ import SelectSeat from "./SelectSeat";
 import Profile from "./Profile";
 import Ticket from "./Ticket";
 import Pay from "./Pay";
-import Payment from "./Payment";
 import Login from "./Login";
 import Search from "./Search"
 import Register from "./Register";
@@ -12,6 +11,5 @@ import Register from "./Register";
 export {
     Home, Movie, SelectSeat, 
     Ticket, Profile, Search,
-    Pay, Payment,
-    Login, Register
+    Pay, Login, Register
 }
