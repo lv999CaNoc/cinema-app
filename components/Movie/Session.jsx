@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     fontFamily: 'bold',
     color: COLORS.icon,
     fontSize: 14,
-    width: 74,
+    width: '30%',
     textAlign: 'center',
     marginEnd: SIZES.large
   }

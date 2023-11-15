@@ -16,12 +16,13 @@ import DateTimeBar from "./selectSeat/DateTimeBar"
 import Symbol from "./selectSeat/Symbol"
 import Seat from "./selectSeat/Seat"
 import Sort from "./modals/Sort"
+import Language from "./modals/Language"
 import TearLine from "./ticket/TearLine"
 export {
     Button, MovieCard, Header,
     Topbar, Tab, ItemList, ItemInfo, Trailer, About,
     Session, SessionTile, CinemaHeading, Controls, MovieTile,
     DateTimeBar, Symbol, Seat,
-    Sort, TearLine
+    Sort, Language, TearLine
 
 }

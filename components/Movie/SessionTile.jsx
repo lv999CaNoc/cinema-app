@@ -2,24 +2,30 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { COLORS, SIZES } from '../../constants';
 
-const SessionTile = ({item, cinema}) => {
+const SessionTile = ({ item, cinema }) => {
     return (
-        <TouchableOpacity style={styles.session} onPress={()=> console.log('session press ' + item)}>
+        <TouchableOpacity style={styles.session} onPress={() => console.log('session press ' + item)}>
             <View style={[styles.border2, styles.border2Border]} />
             <View style={styles.wrap}>
                 <View style={styles.section}>
                     <Text style={styles.time}>15:10</Text>
                     <View style={styles.priceSpaceBlock}>
-                        <Text style={styles.paramTypo}>IMAX</Text>
-                        <Text style={[styles.param1, styles.paramTypo]}>Рус</Text>
+                        <Text style={styles.paramTypo}>130/140 seats</Text>
                     </View>
                 </View>
                 <View style={[styles.divider1, styles.border2Border]} />
                 <View style={styles.section1}>
-                    {cinema && <Text style={[styles.title, styles.titleTypo]}>Kinopark 8 IMAX Saryarka</Text>}
+                    {cinema && <Text style={[styles.title, styles.titleTypo]}>Cinema Hà Đông Hà Nội</Text>}
                     <View style={[styles.price, styles.priceSpaceBlock]}>
                         <View style={styles.itemFlexBox}>
-                            <Text style={[styles.titleTypo, styles.price1]}>3500 ₸</Text>
+                            <View style={styles.itemDetail}>
+                                <Text style={styles.titleDetail}>Room</Text>
+                                <Text style={styles.detail}>P104</Text>
+                            </View>
+                            <View style={styles.itemDetail}>
+                                <Text style={styles.titleDetail}>Cost</Text>
+                                <Text style={styles.detail}>130.000VND</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -39,23 +45,35 @@ const styles = StyleSheet.create({
     paramTypo: {
         color: COLORS.icon,
         fontSize: 14,
+        fontFamily: 'medium'
+    },
+    itemDetail: {
+        alignItems: 'center'
+    },
+    titleDetail: {
+        fontSize: 13,
+        color: COLORS.icon
+    },
+    detail: {
+        fontSize: 13,
         textAlign: "left",
-        fontFamily: 'bold'
+        color: COLORS.white,
+        fontFamily: 'medium',
     },
     titleTypo: {
         fontSize: 14,
         textAlign: "left",
         color: COLORS.white,
         fontFamily: 'bold',
-        alignSelf: "stretch"
     },
     priceSpaceBlock: {
         marginTop: 4,
         flexDirection: "row"
     },
     itemFlexBox: {
-        overflow: "hidden",
-        flex: 1
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     border2: {
         borderTopWidth: 1,
@@ -73,7 +91,7 @@ const styles = StyleSheet.create({
         marginLeft: 8
     },
     section: {
-        width: 74,
+        width: '30%',
         alignItems: "center"
     },
     divider1: {
@@ -87,11 +105,6 @@ const styles = StyleSheet.create({
         lineHeight: 24,
         fontSize: 14
     },
-    price1: {
-        fontFamily: 'regular',
-        lineHeight: 18,
-        height: 18
-    },
     item1: {
         marginLeft: 8
     },
@@ -103,10 +116,10 @@ const styles = StyleSheet.create({
         flex: 1
     },
     wrap: {
-        padding: 16,
+        paddingHorizontal: 16,
+        paddingVertical: SIZES.xSmall,
         alignItems: "center",
         flexDirection: "row",
-        alignSelf: "stretch"
     },
     session: {
         width: "100%",
