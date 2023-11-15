@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   list: {
     borderRadius: SIZES.medium,
     backgroundColor: "#1a2435",
-    width: '90%',
+    width: '98%',
     padding: SIZES.medium,
     borderWidth: 1,
     borderColor: COLORS.border,

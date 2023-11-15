@@ -75,7 +75,7 @@ const Controls = (props) => {
                 animationIn="zoomIn"
                 animationOut="zoomOut"
                 onBackdropPress={toggleModal}
-                backdropOpacity={0.6}
+                backdropOpacity={0.8}
             >
                 <Sort selectedSort={selectedSort} onSortChange={onSortChange} onHide={toggleModal} />
             </Modal>
