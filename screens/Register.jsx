@@ -79,7 +79,7 @@ const Register = ({ navigation }) => {
                     style={styles.inputTxt}
                   />
                 </View>
-                {touched.email && errors.email ? (
+                {errors.email ? (
                   <Text style={styles.errMessage}>{errors.email}</Text>
                 ):(
                   <Text style={styles.errMessage}></Text>
@@ -101,7 +101,7 @@ const Register = ({ navigation }) => {
                     style={styles.inputTxt}
                   />
                 </View>
-                {touched.username && errors.username ? (
+                {errors.username ? (
                   <Text style={styles.errMessage}>{errors.username}</Text>
                 ): (
                   <Text style={styles.errMessage}></Text>
@@ -124,10 +124,10 @@ const Register = ({ navigation }) => {
                     style={styles.inputTxt}
                   />
                   <TouchableOpacity onPress={() => { setPasswordSecureText(!passwordSecureText) }}>
-                    <MaterialCommunityIcons color={COLORS.icon} name={passwordSecureText ? 'eye-off-outline' : 'eye-outline'} size={18} />
+                    <MaterialCommunityIcons color={COLORS.icon} name={passwordSecureText ? 'eye-off-outline' : 'eye-outline'} size={22} />
                   </TouchableOpacity>
                 </View>
-                {touched.password && errors.password ? (
+                {errors.password ? (
                   <Text style={styles.errMessage}>{errors.password}</Text>
                 ):(
                   <Text style={styles.errMessage}></Text>
@@ -150,10 +150,10 @@ const Register = ({ navigation }) => {
                     style={styles.inputTxt}
                   />
                   <TouchableOpacity onPress={() => { setCPasswordSecureText(!cPasswordSecureText) }}>
-                    <MaterialCommunityIcons color={COLORS.icon} name={cPasswordSecureText ? 'eye-off-outline' : 'eye-outline'} size={18} />
+                    <MaterialCommunityIcons color={COLORS.icon} name={cPasswordSecureText ? 'eye-off-outline' : 'eye-outline'} size={22} />
                   </TouchableOpacity>
                 </View>
-                {touched.confirmPassword && errors.confirmPassword ? (
+                {errors.confirmPassword ? (
                   <Text style={styles.errMessage}>{errors.confirmPassword}</Text>
                 ):(
                   <Text style={styles.errMessage}></Text>
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: 'bold',
     letterSpacing: 1,
-    fontSize: 13,
+    fontSize: 15,
     textAlign: 'left',
     marginBottom: 5,
     marginStart: SIZES.xSmall
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     fontFamily: 'regular',
     marginTop: 5,
     marginLeft: SIZES.xSmall,
-    fontSize: SIZES.small
+    fontSize: 13
   },
   login:{
     flexDirection: 'row',
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loginTxt:{
-    fontSize: 13,
+    fontSize: 15,
     fontFamily: 'medium',
     color: COLORS.white
   },
