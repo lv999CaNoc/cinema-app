@@ -4,7 +4,7 @@ React Native App for Ticket Booking
 ## Installation
 
 ```bash
-git clone https://github.com/lv999CaNoc/cinema-mobile-app.git
+git clone https://github.com/lv999CaNoc/cinema-app.git
 ```
 
 Install node modules with npm
