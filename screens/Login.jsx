@@ -150,8 +150,8 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.xLarge
   },
   formContainer:{
-    maxWidth: 400,
-    paddingHorizontal: SIZES.xLarge
+    // maxWidth: 400,
+    paddingHorizontal: SIZES.xLarge,
   },
   wrapper: {
     marginBottom: SIZES.xxSmall,
