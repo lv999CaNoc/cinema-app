@@ -4,8 +4,12 @@ import { COLORS, SIZES } from '../../constants'
 import Button from './Button'
 import Language from '../modals/Language'
 import Modal from 'react-native-modal';
+import { AuthContext } from '../../contexts/AuthContext';
+import { useContext } from 'react'
 
-const Header = ({ navigation }) => {
+const Header = ({ navigation}) => {
+  const { isLoggedIn } = useContext(AuthContext);
+
   const [isLangModalVisible, setLangModalVisible] = useState(false);
   const toggleLangModal = () => {
     setLangModalVisible(!isLangModalVisible);
@@ -48,7 +52,9 @@ const Header = ({ navigation }) => {
       </View>
 
       <View style={{ flexDirection: 'row' }}>
-        <Button theme={'primary'} small={true} title={'Log in'} onPress={() => navigation.navigate('Login')} />
+        {!isLoggedIn ? (
+          <Button theme={'primary'} small={true} title={'Log in'} onPress={() => navigation.navigate('Login')}/>)
+        :(<Button theme={'primary'} small={true} title={'Profile'} onPress={() => navigation.navigate('Profile')} />)}
       </View>
     </View>
   )

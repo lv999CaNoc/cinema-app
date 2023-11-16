@@ -1,20 +1,26 @@
 import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Header, MovieCard } from '../components'
 import { COLORS, SIZES, STYLES } from '../constants'
 import { Ionicons } from '@expo/vector-icons'
 
 const Home = ({ navigation }) => {
+
   const data = [1, 2, 3, 4, 5, 6]
+
+  const [userData, setUserData] = useState(null)
 
   return (
     <SafeAreaView style={STYLES.container}>
-      <Header navigation={navigation} />
+      <Header navigation={navigation}/>
 
       <ScrollView>
         <View style={styles.content}>
-          <TouchableOpacity onPress={() => console.log('search press')}>
+          <TouchableOpacity onPress={() => {
+            console.log('search press')
+            navigation.navigate('Search')
+          }}>
             <View style={styles.contentHeader}>
               <Text style={styles.contentTxt}>Search movie</Text>
               <Ionicons name="search" size={24} color={COLORS.icon} />
@@ -24,7 +30,10 @@ const Home = ({ navigation }) => {
           <View style={styles.session}>
             <View style={styles.header}>
               <Text style={styles.title}>Popular Movies</Text>
-              <TouchableOpacity onPress={() => console.log('all press')}>
+              <TouchableOpacity onPress={() => {
+                console.log('all press')
+                navigation.navigate('ShowAll')
+              }}>
                 <Ionicons name="grid" size={24} color={COLORS.icon} />
               </TouchableOpacity>
             </View>
@@ -41,7 +50,10 @@ const Home = ({ navigation }) => {
           <View style={styles.session}>
             <View style={styles.header}>
               <Text style={styles.title}>Now Showing</Text>
-              <TouchableOpacity onPress={() => console.log('all press')}>
+              <TouchableOpacity onPress={() => {
+                console.log('all press')
+                navigation.navigate('ShowAll')
+              }}>
                 <Ionicons name="grid" size={24} color={COLORS.icon} />
               </TouchableOpacity>
             </View>
@@ -58,7 +70,10 @@ const Home = ({ navigation }) => {
           <View style={styles.session}>
             <View style={styles.header}>
               <Text style={styles.title}>Coming Soon</Text>
-              <TouchableOpacity onPress={() => console.log('all press')}>
+              <TouchableOpacity onPress={() => {
+                console.log('all press')
+                navigation.navigate('ShowAll')
+              }}>
                 <Ionicons name="grid" size={24} color={COLORS.icon} />
               </TouchableOpacity>
             </View>

@@ -1,10 +1,16 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { COLORS, SIZES } from '../../constants'
+import { useNavigation } from '@react-navigation/native'
 
 const Payment = () => {
+    const navigation = useNavigation();
     return (
-        <Pressable style={styles.container} onPress={() => { console.log('movie tile') }}>
+        <Pressable style={styles.container} 
+        onPress={() => { 
+            console.log('movie tile') 
+            navigation.navigate('Ticket')
+        }}>
             <Image style={styles.image} resizeMode='cover' source={{ uri: 'https://media.lottecinemavn.com/Media/MovieFile/MovieImg/202305/11117_103_100004.jpg' }} />
             <View style={styles.content}>
                 <Text numberOfLines={2} style={styles.title}>The Batman xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx</Text>

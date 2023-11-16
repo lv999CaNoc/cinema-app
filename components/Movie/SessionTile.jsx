@@ -1,10 +1,16 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { COLORS, SIZES } from '../../constants';
+import { useNavigation } from '@react-navigation/native';
 
 const SessionTile = ({ item, cinema }) => {
+    const navigation = useNavigation();
+
     return (
-        <TouchableOpacity style={styles.session} onPress={() => console.log('session press ' + item)}>
+        <TouchableOpacity style={styles.session} onPress={() => {
+            console.log('session press ' + item)
+            navigation.navigate('SelectSeat')
+        }}>
             <View style={[styles.border2, styles.border2Border]} />
             <View style={styles.wrap}>
                 <View style={styles.section}>

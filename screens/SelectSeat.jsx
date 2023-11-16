@@ -71,6 +71,7 @@ const SelectSeat = ({ navigation }) => {
     } else {
       // Gửi thông tin về các ghế được chọn
       console.log('Selected Seats:', selectedSeats);
+      navigation.navigate('Pay')
     }
   }
 

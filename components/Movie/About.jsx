@@ -5,7 +5,8 @@ import Button from '../utils/Button'
 import Topbar from '../utils/Topbar'
 import Trailer from './Trailer'
 
-const About = ({item}) => {
+const About = ({item, onSelectMovie}) => {
+    
     return (
         <View style={{ flex: 1 }}> 
             <Trailer movieUri={"https://media.lottecinemavn.com/Media/MovieFile/MovieMedia/202305/11117_301_100001.mp4"} />
@@ -22,7 +23,7 @@ const About = ({item}) => {
                 <View style={styles.content}>
                     <Text style={styles.title}>Doraemon: Nobita và Vùng Đất Lý Tưởng Trên Bầu Trời</Text>
                     <Text style={styles.description}>
-                        When the Riddler, a sadistic serial killer, begins murdering key political figures in Gotham, Batman is forced to investigate the city's hidden corruption and question his family's involvement.
+                    'Doraemon: Nobita và vùng đất lý tưởng trên bầu trời - kể câu chuyện khi Nobita tìm thấy một hòn đảo hình lưỡi liềm trên trời mây. Ở nơi đó, tất cả đều hoàn hảo… đến mức cậu nhóc Nobita mê ngủ ngày cũng có thể trở thành một thần đồng toán học, một siêu sao thể thao. Cả hội Doraemon cùng sử dụng một món bảo bối độc đáo chưa từng xuất hiện trước đây để đến với vương quốc tuyệt vời này. Cùng với những người bạn ở đây, đặc biệt là chàng robot mèo Sonya, cả hội đã có chuyến hành trình tới vương quốc trên mây tuyệt vời… cho đến khi những bí mật đằng sau vùng đất lý tưởng này được hé lộ.'
                     </Text>
                     <View style={styles.param}>
                         <View style={styles.row}>
@@ -55,7 +56,7 @@ const About = ({item}) => {
                             <Text style={styles.col2}>Robert Pattinson, Zoë Kravitz, Jeffrey Wright, Colin Farrell, Paul Dano, John Turturro, 	Andy Serkis, Peter Sarsgaard</Text>
                         </View>
                     </View>
-                    <Button theme='primary' small={false} icon={false} title={'Select Movie'} onPress={() => console.log('prrr')} />
+                    <Button theme='primary' small={false} icon={false} title={'Select Movie'} onPress={onSelectMovie} />
                 </View>
             </ScrollView>
             </View>

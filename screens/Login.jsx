@@ -1,11 +1,13 @@
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, SIZES, STYLES, SHADOWS } from '../constants'
 import { Button, Topbar } from '../components'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import * as SecureStore from 'expo-secure-store';
+import { AuthContext } from '../contexts/AuthContext';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Không đúng định dạng email.')
@@ -31,11 +33,31 @@ const inValidForm = () => {
 }
 
 const Login = ({ navigation }) => {
+  const { isLogin } = useContext(AuthContext);
   const [loader, setLoader] = useState(false)
   const [secureText, setSecureText] = useState(true)
 
-  const login = (values) => {
-    console.log(values)
+  const login = async(values) => {
+    if (values.email==='user@gmail.com' && values.password==='User@1234'){
+      await SecureStore.setItemAsync('jwt', '123456jwt');
+      console.log('Login with Email: user@gmail.com and Password: User@1234')
+      
+      isLogin()
+      navigation.goBack()
+    }else{
+      Alert.alert(
+        "Error Logging in",
+        "Sai Email hoặc Password",
+        [
+          {
+            text: 'Cancel', onPress: () => {}
+          },
+          {
+            text: 'Continue', onPress: () => {}
+          }
+        ]
+      )
+    }
   }
 
   return (

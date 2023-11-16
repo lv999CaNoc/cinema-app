@@ -1,18 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { STYLES } from '../constants'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Topbar } from '../components'
 
-const Search = ({navigation}) => {
+const ShowAll = ({navigation}) => {
   return (
     <SafeAreaView style={STYLES.container}>
-      <Topbar left={true} navigation={navigation} title={'Search movie'}/>
-      <Text style={{color: 'white'}}>Search.js (chưa làm)</Text>
+      <Topbar left={true} navigation={navigation} title={'Show All'}/>
+      <Text style={{color: 'white'}}>ShowAll.js (chưa làm)</Text>
     </SafeAreaView>
   )
 }
 
-export default Search
+export default ShowAll
 
 const styles = StyleSheet.create({})

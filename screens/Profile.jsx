@@ -8,7 +8,7 @@ const Profile = (props) => {
   const {navigation} = props
   return (
     <SafeAreaView style={STYLES.container}>
-      <Topbar left={true} logout={true} onLogout={()=>console.log('logout')} title={'Profile'}/>
+      <Topbar left={true} logout={true} title={'Profile'} navigation={navigation}/>
       
       <ScrollView style={styles.contents}>
         <View style={styles.content}>

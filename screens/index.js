@@ -6,10 +6,11 @@ import Ticket from "./Ticket";
 import Pay from "./Pay";
 import Login from "./Login";
 import Search from "./Search"
+import ShowAll from './ShowAll'
 import Register from "./Register";
 
 export {
     Home, Movie, SelectSeat, 
     Ticket, Profile, Search,
-    Pay, Login, Register
+    Pay, Login, Register, ShowAll
 }

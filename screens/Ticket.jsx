@@ -35,10 +35,10 @@ const Ticket = (props) => {
 
         <View style={styles.controls}>
           <View style={styles.control}>
-            <Button theme={'secondary'} title={'Refund'} />
+            <Button theme={'secondary'} title={'Refund'} onPress={()=> console.log('refund')}/>
           </View>
           <View style={styles.control}>
-            <Button theme={'primary'} title={'Send'} />
+            <Button theme={'primary'} title={'Send'} onPress={()=> console.log('send')}/>
           </View>
         </View>
 

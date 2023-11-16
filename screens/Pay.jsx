@@ -30,7 +30,11 @@ const Pay = ({navigation}) => {
       <TearLine/>
 
       <View style={styles.payment}>
-        <Button theme={'primary'} small={false} title={"Continue"} onPress={()=> console.log('continue')}/>
+        <Button theme={'primary'} small={false} title={"Continue"} 
+          onPress={()=> {
+            console.log('continue')
+            navigation.navigate('Ticket')  
+          }}/>
       </View>
     </SafeAreaView>
  
