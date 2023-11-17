@@ -10,14 +10,14 @@ const MovieCard = ({item, navigation}) => {
                 <View style={styles.movieCard}>
                     <View style={styles.imageContainer}>
                         <Image style={styles.image}
-                            source={{ uri: 'https://media.lottecinemavn.com/Media/MovieFile/MovieImg/202305/11117_103_100004.jpg' }}
+                            source={{ uri: item.movieImageURl }}
                         />
                     </View>
                     <View style={styles.rating}>
-                        <Text style={styles.text}>8.1</Text>
+                        <Text style={styles.text}>{item.likePercentage/10}</Text>
                     </View>
                     <View style={styles.info}>
-                        <Text style={styles.title} numberOfLines={1}>Doraemon: Nobita và Vùng Đất Lý Tưởng Trên Bầu Trời</Text>
+                        <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
                         <Text style={styles.category} numberOfLines={1}>Action</Text>
                     </View>
                 </View>
