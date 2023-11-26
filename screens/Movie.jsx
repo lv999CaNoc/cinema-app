@@ -5,7 +5,7 @@ import { COLORS, SIZES, STYLES } from '../constants'
 import { About, Button, Session, Tab, Topbar, Trailer } from '../components'
 
 const Movie = ({ navigation, route }) => {
-  // const {movie} = route.params
+  const {movie} = route.params
   const [tab1Active, setTab1Active] = useState(true)
 
   return (
@@ -17,7 +17,7 @@ const Movie = ({ navigation, route }) => {
       </View>
 
       {tab1Active ?
-        (<About onSelectMovie={()=>setTab1Active(false)}/>) :
+        (<About onSelectMovie={()=>setTab1Active(false)} item={movie}/>) :
         (<Session />)}
     </SafeAreaView>
   )
