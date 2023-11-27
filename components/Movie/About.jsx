@@ -4,6 +4,7 @@ import { COLORS, SIZES } from '../../constants'
 import Button from '../utils/Button'
 import Topbar from '../utils/Topbar'
 import Trailer from './Trailer'
+import i18n from '../../lib/I18n'
 
 const About = ({item, onSelectMovie}) => {
     
@@ -25,36 +26,36 @@ const About = ({item, onSelectMovie}) => {
                     <Text style={styles.description}>{item.description}</Text>
                     <View style={styles.param}>
                         <View style={styles.row}>
-                            <Text style={styles.col1}>Certificate</Text>
+                            <Text style={styles.col1}>{i18n.t('about.certificate')}</Text>
                             <Text style={styles.col2}>{item.rated}</Text>
                         </View>
 
                         <View style={styles.row}>
-                            <Text style={styles.col1}>Runtime</Text>
-                            <Text style={styles.col2}>{item.duration}m</Text>
+                            <Text style={styles.col1}>{i18n.t('about.runtime')}</Text>
+                            <Text style={styles.col2}>{item.duration} {i18n.t('common.minutes')}</Text>
                         </View>
 
                         <View style={styles.row}>
-                            <Text style={styles.col1}>Release</Text>
+                            <Text style={styles.col1}>{i18n.t('about.release')}</Text>
                             <Text style={styles.col2}>{item.releaseDate}</Text>
                         </View>
 
                         <View style={styles.row}>
-                            <Text style={styles.col1}>Genre</Text>
+                            <Text style={styles.col1}>{i18n.t('about.genre')}</Text>
                             <Text style={styles.col2}>...E... Action, Crime, Drama</Text>
                         </View>
 
                         <View style={styles.row}>
-                            <Text style={styles.col1}>Director</Text>
+                            <Text style={styles.col1}>{i18n.t('about.dir')}</Text>
                             <Text style={styles.col2}>{item.director}</Text>
                         </View>
 
                         <View style={styles.row}>
-                            <Text style={styles.col1}>Cast</Text>
+                            <Text style={styles.col1}>{i18n.t('about.actors')}</Text>
                             <Text style={styles.col2}>{item.actors}</Text>
                         </View>
                     </View>
-                    <Button theme='primary' small={false} icon={false} title={'Select Movie'} onPress={onSelectMovie} />
+                    <Button theme='primary' small={false} icon={false} title={i18n.t('about.select_movie')} onPress={onSelectMovie} />
                 </View>
             </ScrollView>
             </View>

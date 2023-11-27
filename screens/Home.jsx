@@ -5,6 +5,7 @@ import { Header, MovieCard } from '../components'
 import { COLORS, SIZES, STYLES, config } from '../constants'
 import { Ionicons } from '@expo/vector-icons'
 import useFetch from '../hook/useFetch'
+import i18n from '../lib/I18n'
 
 const Home = ({ navigation }) => {
 
@@ -29,23 +30,21 @@ const Home = ({ navigation }) => {
       <ScrollView>
         <View style={styles.content}>
           <TouchableOpacity onPress={() => {
-            console.log('search press')
             navigation.navigate('Search')
           }}>
             <View style={styles.contentHeader}>
-              <Text style={styles.contentTxt}>Search movie</Text>
+              <Text style={styles.contentTxt}>{i18n.t('home.search_title')}</Text>
               <Ionicons name="search" size={24} color={COLORS.icon} />
             </View>
           </TouchableOpacity>
 
           <View style={styles.session}>
             <View style={styles.header}>
-              <Text style={styles.title}>Newly Movies</Text>
+              <Text style={styles.title}>{i18n.t('movie.newly')}</Text>
               <TouchableOpacity onPress={() => {
-                console.log('all press')
                 navigation.navigate('ShowAll')
               }}>
-                <Ionicons name="grid" size={24} color={COLORS.icon} />
+                <Ionicons name="grid" size={22} color={COLORS.icon} />
               </TouchableOpacity>
             </View>
             {(errNew || !moviesNew.data) ? (<Text style={{color: 'white'}}>Error</Text>): 
@@ -62,12 +61,12 @@ const Home = ({ navigation }) => {
           
           <View style={styles.session}>
             <View style={styles.header}>
-              <Text style={styles.title}>Now Showing</Text>
+              <Text style={styles.title}>{i18n.t('movie.now')}</Text>
               <TouchableOpacity onPress={() => {
                 console.log('all press')
                 navigation.navigate('ShowAll')
               }}>
-                <Ionicons name="grid" size={24} color={COLORS.icon} />
+                <Ionicons name="grid" size={22} color={COLORS.icon} />
               </TouchableOpacity>
             </View>
             {(errNowShowing || !moviesNowShowing.data) ? (<Text style={{color: 'white'}}>Error</Text>): 
@@ -84,12 +83,12 @@ const Home = ({ navigation }) => {
           
           <View style={styles.session}>
             <View style={styles.header}>
-              <Text style={styles.title}>Coming Soon</Text>
+              <Text style={styles.title}>{i18n.t('movie.comming')}</Text>
               <TouchableOpacity onPress={() => {
                 console.log('all press')
                 navigation.navigate('ShowAll')
               }}>
-                <Ionicons name="grid" size={24} color={COLORS.icon} />
+                <Ionicons name="grid" size={22} color={COLORS.icon} />
               </TouchableOpacity>
             </View>
             {(errCommingSoon || !movieCommingSoon.data) ? (<Text style={{color: 'white'}}>Error</Text>): 

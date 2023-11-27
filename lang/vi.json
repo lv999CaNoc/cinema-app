@@ -1,0 +1,132 @@
+{
+  "greeting": "Xin chào!",
+  "welcome": "Chào mừng bạn đến với ứng dụng.",
+
+  "home": {
+    "search_title": "Tìm kiếm phim"
+  },
+  "movie":{
+    "newly": "Phim vừa ra mắt",
+    "now": "Phim đang chiếu",
+    "comming": "Phim sắp ra mắt",
+
+    "about":"Thông tin",
+    "session":"Rạp chiếu",
+    "_":"Phim"
+  },
+  "about":{
+    "certificate":"Đối tượng",
+    "runtime":"Thời lượng",
+    "release":"Phát hành",
+    "genre":"Thể loại",
+    "dir":"Đạo diễn",
+    "actors":"Diễn viên",
+    "select_movie":"Chọn phim",
+    "_":""
+  },
+  "session":{
+    "cinema":"Rạp",
+    "seats": "Ghế",
+    "seat": "Ghế",
+    "room": "Phòng",
+    "cost": "Giá tiền",
+    "date": "Ngày",
+    "total": "Tổng",
+    "_":""
+  },
+  "controls":{
+    "no_date_selected":"Chưa chọn ngày",
+    "by_cinema":"Gộp theo rạp",
+    "_":""
+  },
+  "sort":{
+    "time":"Thời gian",
+    "distance":"Khoảng cách",
+    "price":"Giá tiền",
+    "_":"Sắp xếp theo"
+  },
+  "order":{
+    "ascending": "Tăng dần ↑",
+    "descending": "Giảm dần ↓",
+    "_": "Giá trị"
+  },
+  "language":{
+    "en": "Tiếng Anh",
+    "vi": "Tiếng Việt"
+  },
+  "seat":{
+    "price": "Giá",
+
+    "select_min_1": "Vui lòng chọn ít nhất một ghế.",
+    "select_max_3": "Vui lòng chọn tối đa ba ghế.",
+    "_": "Chọn Ghế"
+  },
+  "pay":{
+    "available":"Khả dụng",
+    "_":"Thanh toán"
+  },
+  "ticket":{
+    "msg": "Hiển thị mã QR cho nhân viên tại rạp chiếu phim.",
+    "_": "Vé Của Bạn"
+  },
+  "profile":{
+    "update":"Cập nhật hồ sơ",
+    "pay_history":"Lịch sử thanh toán",
+    "pay_history_msg":"Bạn chưa mua vé",
+    "saved_cart":"Thẻ đã lưu",
+    "add_new_cart":"Thêm thẻ mới",
+    "_":"Hồ sơ"
+  },
+  "symbol":{
+    "available":"Available",
+    "chosen":"Chosen",
+    "in_use":"In Use",
+    "occupied":"Occupied",
+    "_": "Đặt vé"
+  },
+  
+  "error":{
+    "email_format": "Định dạng email không đúng.",
+    "email_required": "Email là trường bắt buộc.",
+    "username_leng":"Tên người dùng phải có ít nhất 6 ký tự.",
+    "username_required": "Tên người dùng là trường bắt buộc.",
+    "password_leng": "Mật khẩu phải có ít nhất 8 ký tự.",
+    "password_required": "Mật khẩu là trường bắt buộc.",
+    "password_format": "Mật khẩu phải bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.",
+    "c_password_not_match": "Mật khẩu xác nhận không khớp",
+    "c_password_required":"Mật khẩu xác nhận là trường bắt buộc."
+  },
+
+  "common":{
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "logout_message": "Bạn có chắc chắn muốn đăng xuất?",
+
+    "failed": "Thất bại!",
+    "notification": "Thông báo!",
+    "login_err_msg": "Tên người dùng hoặc mật khẩu không hợp lệ. Vui lòng thử lại.",
+    "incomplete": "Chưa hoàn thành!",
+    "incomplete_err_msg": "Thông tin chưa đầy đủ, vui lòng nhập đầy đủ thông tin cần thiết.",
+    "no_account": "Chưa có tài khoản?",
+    "have_account": "Đã có tài khoản?",
+    "cancel": "Hủy",
+    "continue": "Tiếp tục",
+
+    "enter_email": "Nhập email",
+    "username": "Tên người dùng",
+    "enter_username": "Nhập tên người dùng",
+    "password": "Mật khẩu",
+    "enter_password": "Nhập mật khẩu",
+    "c_password": "Xác nhận mật khẩu",
+    "enter_c_password": "Nhập xác nhận mật khẩu",
+
+    "show_all": "Hiển thị tất cả phim",
+    "apply": "Áp dụng",
+    "select_lang": "Vie",
+    "location": "Hà Nội",
+    "refund": "Hoàn tiền",
+    "send": "Gửi",
+    "minutes": "phút"
+  }
+}

@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { COLORS, SIZES } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
+import i18n from '../../lib/I18n';
 
 const SessionTile = ({ item, cinema }) => {
     const navigation = useNavigation();
@@ -16,7 +17,7 @@ const SessionTile = ({ item, cinema }) => {
                 <View style={styles.section}>
                     <Text style={styles.time}>15:10</Text>
                     <View style={styles.priceSpaceBlock}>
-                        <Text style={styles.paramTypo}>130/140 seats</Text>
+                        <Text style={styles.paramTypo}>130/140 {i18n.t('session.seats')}</Text>
                     </View>
                 </View>
                 <View style={[styles.divider1, styles.border2Border]} />
@@ -25,11 +26,11 @@ const SessionTile = ({ item, cinema }) => {
                     <View style={[styles.price, styles.priceSpaceBlock]}>
                         <View style={styles.itemFlexBox}>
                             <View style={styles.itemDetail}>
-                                <Text style={styles.titleDetail}>Room</Text>
+                                <Text style={styles.titleDetail}>{i18n.t('session.room')}</Text>
                                 <Text style={styles.detail}>P104</Text>
                             </View>
                             <View style={styles.itemDetail}>
-                                <Text style={styles.titleDetail}>Cost</Text>
+                                <Text style={styles.titleDetail}>{i18n.t('session.cost')}</Text>
                                 <Text style={styles.detail}>130.000VND</Text>
                             </View>
                         </View>

@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
   },
   buttonSecondary:{
-    borderWidth: 1,
-    borderColor: '#6D9EFF1A'
+    borderWidth: 2,
+    borderColor: COLORS.border
   },
   big:{
     height: 54,
