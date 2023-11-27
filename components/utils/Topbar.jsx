@@ -4,20 +4,21 @@ import { COLORS, SIZES } from '../../constants'
 import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../../contexts/AuthContext';
+import i18n from '../../lib/I18n';
 
 const Topbar = ({ left, right, title, subtitle, navigation, goHome, logout }) => {
     const { isLogout } = useContext(AuthContext);
 
     const onLogout = () => {
         Alert.alert(
-            "Logout",
-            "Are you sure to logout?",
+            i18n.t('common.logout'),
+            i18n.t('common.logout_message'),
             [
                 {
-                    text: "Cancel", onPress: () => console.log("cancel pressed")
+                    text: i18n.t('common.cancel'), onPress: () => console.log("cancel pressed")
                 },
                 {
-                    text: "Continue", onPress: async () => {
+                    text: i18n.t('common.continue'), onPress: async () => {
     
                         try {
                             await SecureStore.deleteItemAsync('jwt');

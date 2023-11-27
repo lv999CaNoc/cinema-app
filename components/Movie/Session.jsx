@@ -4,6 +4,7 @@ import SessionTile from './SessionTile'
 import CinemaHeading from './CinemaHeading'
 import Controls from './Controls'
 import { COLORS, SIZES } from '../../constants'
+import i18n from '../../lib/I18n'
 
 const Session = () => {
 
@@ -57,8 +58,8 @@ const Session = () => {
 
       <View style={styles.result}>
         <View style={styles.header}>
-          <Text style={styles.txtHeader}>Time</Text>
-          <Text style={styles.txtHeader}>Cinema</Text>
+          <Text style={styles.txtHeader}>{i18n.t('sort.time')}</Text>
+          <Text style={styles.txtHeader}>{i18n.t('session.cinema')}</Text>
         </View>
 
         {options.selectedByCinema ? (

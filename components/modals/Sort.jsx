@@ -3,16 +3,17 @@ import React, { useState } from 'react'
 import { COLORS, SIZES, STYLES } from '../../constants';
 import ItemList from '../utils/ItemList';
 import Button from '../utils/Button';
+import i18n from '../../lib/I18n';
 
 const sort = [
-  { id: 1, name: "Time" },
-  { id: 2, name: "Distance" },
-  { id: 3, name: "Price" },
+  { id: 1, name: i18n.t('sort.time') },
+  { id: 2, name: i18n.t('sort.distance') },
+  { id: 3, name: i18n.t('sort.price') },
 ];
 
 const order = [
-  { id: 0, name: "Ascending ↑" },
-  { id: 1, name: "Descending ↓" }
+  { id: 0, name: i18n.t('order.ascending') },
+  { id: 1, name: i18n.t('order.descending') },
 ];
 
 
@@ -42,7 +43,7 @@ const Sort = (props) => {
     <View style={STYLES.modal}>
       <View style={styles.list}>
         <View style={styles.box}>
-          <Text style={[styles.sortBy, styles.orderTypo]}>Sort by</Text>
+          <Text style={[styles.sortBy, styles.orderTypo]}>{i18n.t('sort._')}</Text>
           <FlatList
             data={sort}
             numColumns={1}
@@ -53,7 +54,7 @@ const Sort = (props) => {
           />
         </View>
         <View style={styles.box}>
-          <Text style={[styles.sortBy, styles.orderTypo]}>Order by</Text>
+          <Text style={[styles.sortBy, styles.orderTypo]}>{i18n.t('order._') }</Text>
           <FlatList
             data={order}
             numColumns={1}
@@ -63,7 +64,7 @@ const Sort = (props) => {
             )}
           />
         </View>
-        <Button theme="primary" small={true} title="Apply"
+        <Button theme="primary" small={true} title={i18n.t('common.apply')}
           onPress={() => {
             hasChange && onSortChange(sortOption)
             onHide()

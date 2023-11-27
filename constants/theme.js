@@ -60,6 +60,10 @@ const STYLES = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'    
+  },
+  centerXY:{
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 export { COLORS, SIZES , SHADOWS , STYLES};

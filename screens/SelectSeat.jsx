@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, SIZES, STYLES } from '../constants'
 import { DateTimeBar, Topbar, Symbol, Seat, Button, } from '../components'
+import i18n from '../lib/I18n'
 
 const seatsData = [
   { id: 'A1', status: 'SELECTED' },
@@ -65,9 +66,9 @@ const SelectSeat = ({ navigation }) => {
       .map(([id]) => id);
 
     if (selectedSeats.length === 0) {
-      Alert.alert('Thông báo', 'Vui lòng chọn ít nhất một ghế.');
+      Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_min_1'));
     } else if (selectedSeats.length > 3) {
-      Alert.alert('Thông báo', 'Bạn không được chọn quá 3 ghế.');
+      Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_max_3'));
     } else {
       // Gửi thông tin về các ghế được chọn
       console.log('Selected Seats:', selectedSeats);
@@ -90,7 +91,7 @@ const SelectSeat = ({ navigation }) => {
   return (
     <SafeAreaView style={STYLES.container}>
       <Topbar left={true} goHome={true} navigation={navigation}
-        title={'Select seat'} subtitle={'xxxxxxxxxxxxxxxxxxx'} />
+        title={i18n.t('seat._')} subtitle={'P104 - Cinema Hà Đông Hà Nội'} />
       <DateTimeBar date={"11/11/2023"} time={"15:10"} />
 
       <View style={styles.symbols}>
@@ -117,7 +118,7 @@ const SelectSeat = ({ navigation }) => {
       </View>
 
       <View style={styles.button}>
-        <Button theme={'primary'} title="Booking tickets" onPress={handleBookSeat} />
+        <Button theme={'primary'} title={i18n.t('symbol._')} onPress={handleBookSeat} />
       </View>
     </SafeAreaView>
   )

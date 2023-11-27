@@ -6,31 +6,35 @@ import { Button, Topbar } from '../components'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import i18n from '../lib/I18n'
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Không đúng định dạng email.')
-    .required('Email là trường bắt buộc.'),
+  email: Yup.string().email(i18n.t('error.email_format'))
+    .required(i18n.t('error.email_required')),
 
-  username: Yup.string().min(6, 'Username tối thiểu 6 ký tự.').required('Username là trường bắt buộc.'),
+  username: Yup.string().min(6, i18n.t('error.username_leng')).required(i18n.t('error.username_required')),
 
-  password: Yup.string().min(8, 'Mật khẩu ít nhất 8 ký tự.')
+  password: Yup.string().min(8, i18n.t('error.password_leng'))
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-      'Mật khẩu phải chứa chữ hoa, chữ thường, số và ký tự đặc biệt.'
+      i18n.t('error.password_format')
     )
-    .required('Mật khẩu là trường bắt buộc.'),
+    .required(i18n.t('error.password_required')),
 
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Mật khẩu nhập lại không khớp.')
-    .required('Nhập lại mật khẩu là trường bắt buộc.')
+    .oneOf([Yup.ref('password'), null], i18n.t('error.c_password_not_match'))
+    .required(i18n.t('error.c_password_required'))
 })
 
 const inValidForm = () => {
   Alert.alert(
-    "Thông tin không đầy đủ",
-    "Vui lòng nhập đầy đủ thông tin.",
+    i18n.t('common.incomplete'),
+    i18n.t('common.incomplete_err_msg'),
     [
       {
-        text: 'Continue', onPress: () => { }
+        text: i18n.t('common.cancel'), onPress: () => {}
+      },
+      {
+        text: i18n.t('common.continue'), onPress: () => {}
       }
     ]
   )
@@ -68,7 +72,7 @@ const Register = ({ navigation }) => {
                 <Text style={styles.label}>Email</Text>
                 <View style={styles.inputWrapper(touched.email ?  COLORS.icon : COLORS.border)}>
                   <MaterialCommunityIcons name='email-outline' size={20} color={COLORS.icon} style={styles.iconStyle} />
-                  <TextInput placeholder='Enter email'
+                  <TextInput placeholder={i18n.t('common.enter_email')}
                     placeholderTextColor={COLORS.icon}
                     onFocus={() => setFieldTouched('email')}
                     onBlur={() => setFieldTouched('email', '')}
@@ -87,10 +91,10 @@ const Register = ({ navigation }) => {
               </View>
 
               <View style={styles.wrapper}>
-                <Text style={styles.label}>Username</Text>
+                <Text style={styles.label}>{i18n.t('common.username')}</Text>
                 <View style={styles.inputWrapper(touched.username ?  COLORS.icon : COLORS.border)}>
                 <Ionicons name="person-outline" size={20} color={COLORS.icon} style={styles.iconStyle} />
-                  <TextInput placeholder='Enter username'
+                  <TextInput placeholder={i18n.t('common.enter_username')}
                     placeholderTextColor={COLORS.icon}
                     onFocus={() => setFieldTouched('username')}
                     onBlur={() => setFieldTouched('username', '')}
@@ -109,10 +113,10 @@ const Register = ({ navigation }) => {
               </View>
 
               <View style={styles.wrapper}>
-                <Text style={styles.label}>Password</Text>
+                <Text style={styles.label}>{i18n.t('common.password')}</Text>
                 <View style={styles.inputWrapper(touched.password ? COLORS.icon : COLORS.border)}>
                   <MaterialCommunityIcons name='lock-outline' size={20} color={COLORS.icon} style={styles.iconStyle} />
-                  <TextInput placeholder='Enter password'
+                  <TextInput placeholder={i18n.t('common.enter_password')}
                     placeholderTextColor={COLORS.icon}
                     secureTextEntry={passwordSecureText}
                     onFocus={() => setFieldTouched('password')}
@@ -135,10 +139,10 @@ const Register = ({ navigation }) => {
               </View>
 
               <View style={styles.wrapper}>
-                <Text style={styles.label}>Confirm Password</Text>
+                <Text style={styles.label}>{i18n.t('common.c_password')}</Text>
                 <View style={styles.inputWrapper(touched.confirmPassword ? COLORS.icon : COLORS.border)}>
                   <MaterialCommunityIcons name='lock-outline' size={20} color={COLORS.icon} style={styles.iconStyle} />
-                  <TextInput placeholder='Enter confirm password'
+                  <TextInput placeholder={i18n.t('common.enter_c_password')}
                     placeholderTextColor={COLORS.icon}
                     secureTextEntry={cPasswordSecureText}
                     onFocus={() => setFieldTouched('confirmPassword')}
@@ -160,15 +164,15 @@ const Register = ({ navigation }) => {
                 )}
               </View>
               
-              <Button theme={'primary'} small={true} title={'Register'} onPress={isValid ? handleSubmit : inValidForm}/>
+              <Button theme={'primary'} small={true} title={i18n.t('common.register')} onPress={isValid ? handleSubmit : inValidForm}/>
             </View>
           )}
 
         </Formik>
 
         <View style={styles.login}>
-          <Text style={styles.loginTxt}>Already have an account? </Text>
-          <Text style={[styles.loginTxt, styles.link]} onPress={() => navigation.navigate('Login')}>Login</Text>
+          <Text style={styles.loginTxt}>{i18n.t('common.have_account')} </Text>
+          <Text style={[styles.loginTxt, styles.link]} onPress={() => navigation.navigate('Login')}>{i18n.t('common.login')}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

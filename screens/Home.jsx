@@ -1,15 +1,27 @@
-import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Header, MovieCard } from '../components'
-import { COLORS, SIZES, STYLES } from '../constants'
+import { COLORS, SIZES, STYLES, config } from '../constants'
 import { Ionicons } from '@expo/vector-icons'
+import useFetch from '../hook/useFetch'
+import i18n from '../lib/I18n'
 
 const Home = ({ navigation }) => {
 
   const data = [1, 2, 3, 4, 5, 6]
-
+  const {data: moviesNew, loading: loadNew, error: errNew} = useFetch(config.BASE_URL+'/movies/newly-release');
+  const {data: moviesNowShowing, loading: loadNowShowing, error: errNowShowing} = useFetch(config.BASE_URL+'/movies/now-showing');
+  const {data: movieCommingSoon, loading: loadCommingSoon, error: errCommingSoon} = useFetch(config.BASE_URL+'/movies/coming-soon');
   const [userData, setUserData] = useState(null)
+
+  if (loadNew || loadNowShowing || loadCommingSoon){
+    return (
+      <View style={[STYLES.container, STYLES.centerXY]}>
+        <ActivityIndicator size="large" color={COLORS.white}/>
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={STYLES.container}>
@@ -18,73 +30,77 @@ const Home = ({ navigation }) => {
       <ScrollView>
         <View style={styles.content}>
           <TouchableOpacity onPress={() => {
-            console.log('search press')
             navigation.navigate('Search')
           }}>
             <View style={styles.contentHeader}>
-              <Text style={styles.contentTxt}>Search movie</Text>
+              <Text style={styles.contentTxt}>{i18n.t('home.search_title')}</Text>
               <Ionicons name="search" size={24} color={COLORS.icon} />
             </View>
           </TouchableOpacity>
 
           <View style={styles.session}>
             <View style={styles.header}>
-              <Text style={styles.title}>Popular Movies</Text>
+              <Text style={styles.title}>{i18n.t('movie.newly')}</Text>
               <TouchableOpacity onPress={() => {
-                console.log('all press')
                 navigation.navigate('ShowAll')
               }}>
-                <Ionicons name="grid" size={24} color={COLORS.icon} />
+                <Ionicons name="grid" size={22} color={COLORS.icon} />
               </TouchableOpacity>
             </View>
-            <FlatList
-              data={data}
+            {(errNew || !moviesNew.data) ? (<Text style={{color: 'white'}}>Error</Text>): 
+            (<FlatList
+              data={moviesNew.data}
               horizontal={true}
-              // keyExtractor={(item) => item._id}
+              initialNumToRender={4}
+              keyExtractor={(item) => item.id}
               renderItem={({ item }) => <MovieCard item={item} navigation={navigation} />}
               contentContainerStyle={styles.container}
               ItemSeparatorComponent={() => <View style={styles.separator} />}
-            />
+            />)}
           </View>
           
           <View style={styles.session}>
             <View style={styles.header}>
-              <Text style={styles.title}>Now Showing</Text>
+              <Text style={styles.title}>{i18n.t('movie.now')}</Text>
               <TouchableOpacity onPress={() => {
                 console.log('all press')
                 navigation.navigate('ShowAll')
               }}>
-                <Ionicons name="grid" size={24} color={COLORS.icon} />
+                <Ionicons name="grid" size={22} color={COLORS.icon} />
               </TouchableOpacity>
             </View>
-            <FlatList
-              data={data}
+            {(errNowShowing || !moviesNowShowing.data) ? (<Text style={{color: 'white'}}>Error</Text>): 
+            (<FlatList
+              data={moviesNowShowing.data}
               horizontal={true}
-              // keyExtractor={(item) => item._id}
+              initialNumToRender={4}
+              keyExtractor={(item) => item.id}
               renderItem={({ item }) => <MovieCard item={item} navigation={navigation} />}
               contentContainerStyle={styles.container}
               ItemSeparatorComponent={() => <View style={styles.separator} />}
-            />
+            />)}
           </View>
           
           <View style={styles.session}>
             <View style={styles.header}>
-              <Text style={styles.title}>Coming Soon</Text>
+              <Text style={styles.title}>{i18n.t('movie.comming')}</Text>
               <TouchableOpacity onPress={() => {
                 console.log('all press')
                 navigation.navigate('ShowAll')
               }}>
-                <Ionicons name="grid" size={24} color={COLORS.icon} />
+                <Ionicons name="grid" size={22} color={COLORS.icon} />
               </TouchableOpacity>
             </View>
-            <FlatList
-              data={data}
+            {(errCommingSoon || !movieCommingSoon.data) ? (<Text style={{color: 'white'}}>Error</Text>): 
+            (<FlatList
+              data={movieCommingSoon.data}
               horizontal={true}
-              // keyExtractor={(item) => item._id}
+              initialNumToRender={4}
+              keyExtractor={(item) => item.id}
               renderItem={({ item }) => <MovieCard item={item} navigation={navigation} />}
               contentContainerStyle={styles.container}
               ItemSeparatorComponent={() => <View style={styles.separator} />}
-            />
+            />)}
           </View>
 
         </View>
