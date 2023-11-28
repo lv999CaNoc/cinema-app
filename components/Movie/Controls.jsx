@@ -6,6 +6,8 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Sort from '../modals/Sort';
 import Modal from 'react-native-modal';
 
+import i18n from '../../lib/I18n';
+
 const Controls = (props) => {
     const { selectedDate,
         selectedSort,
@@ -47,7 +49,7 @@ const Controls = (props) => {
             <Pressable style={styles.control} onPress={showDatePicker}>
                 <Image style={styles.iconLayout} resizeMode="cover" source={require('../../assets/icons/Calendar.png')} />
                 <Text style={styles.title}>
-                    {selectedDate ? selectedDate.toLocaleDateString('en-GB') : 'No date selected'}
+                    {selectedDate ? selectedDate.toLocaleDateString('en-GB') : i18n.t('controls.no_date_selected')}
                 </Text>
             </Pressable>
             <DateTimePickerModal
@@ -87,7 +89,7 @@ const Controls = (props) => {
                     onValueChange={toggleSwitch}
                     value={selectedByCinema}
                 />
-                <Text style={styles.title}>By cinema</Text>
+                <Text style={styles.title}>{i18n.t('controls.by_cinema')}</Text>
             </View>
         </View>);
 };

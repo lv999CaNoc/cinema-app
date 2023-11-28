@@ -1,11 +1,13 @@
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { COLORS, SIZES } from '../../constants'
 import Button from './Button'
 import Language from '../modals/Language'
 import Modal from 'react-native-modal';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useContext } from 'react'
+
+import i18n from '../../lib/I18n'
 
 const Header = ({ navigation}) => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -29,7 +31,7 @@ const Header = ({ navigation}) => {
             source={require("../../assets/icons/Location.png")}
           />
           <Text style={styles.text}>
-            Ha Noi
+            {i18n.t('common.location')}
           </Text>
         </Pressable>
         <TouchableOpacity style={styles.control} onPress={toggleLangModal}>
@@ -38,7 +40,7 @@ const Header = ({ navigation}) => {
             contentFit="cover"
             source={require("../../assets/icons/Language.png")}
           />
-          <Text style={styles.text}>Eng</Text>
+          <Text style={styles.text}>{i18n.t('common.select_lang')}</Text>
         </TouchableOpacity>
         <Modal
           isVisible={isLangModalVisible}

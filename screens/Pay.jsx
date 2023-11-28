@@ -3,26 +3,27 @@ import React from 'react'
 import { STYLES, SIZES, COLORS } from '../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {Button, ItemInfo, TearLine, Topbar} from '../components'
+import i18n from '../lib/I18n'
 
 const Pay = ({navigation}) => {
   return (
     <SafeAreaView style={STYLES.container}>
-      <Topbar left={true} navigation={navigation} title={'Pay for tickets'}/>
+      <Topbar left={true} navigation={navigation} title={i18n.t('pay._')}/>
     
       <View style={styles.info}>
           <Text style={styles.title}>Movie name xxx xxxx xxx</Text>
           <View style={styles.details}>
-            <ItemInfo header={'Cinema'} title={'Eurasia Cinema7'} desc={'ул. Петрова, д.24, ТЦ "Евразия"'} />
-            <ItemInfo header={'Date'} title={'11/11/2023'} />
-            <ItemInfo header={'Time'} title={'14:40'} />
-            <ItemInfo header={'Room'} title={'P104'} />
-            <ItemInfo header={'Seats'} title={'A3'} />
-            <ItemInfo header={'Const'} title={'320.000 VNĐ'} />
+            <ItemInfo header={i18n.t('session.cinema')} title={'Eurasia Cinema7'} desc={'ул. Петрова, д.24, ТЦ "Евразия"'} />
+            <ItemInfo header={i18n.t('session.date')} title={'11/11/2023'} />
+            <ItemInfo header={i18n.t('sort.time')} title={'14:40'} />
+            <ItemInfo header={i18n.t('session.room')} title={'P104'} />
+            <ItemInfo header={i18n.t('session.seats')} title={'A3'} />
+            <ItemInfo header={i18n.t('session.cost')} title={'320.000 VNĐ'} />
           </View>
 
           <View style={styles.seats}>
-            <ItemInfo header={'2 x Seat'} title={'2 x 320.000 VNĐ'} />
-            <ItemInfo header={'Total'} title={'640.000 VNĐ'} />
+            <ItemInfo header={'2 x '+i18n.t('session.seat')} title={'2 x 320.000 VNĐ'} />
+            <ItemInfo header={i18n.t('session.total')} title={'640.000 VNĐ'} />
           </View>
 
         </View>
@@ -30,9 +31,8 @@ const Pay = ({navigation}) => {
       <TearLine/>
 
       <View style={styles.payment}>
-        <Button theme={'primary'} small={false} title={"Continue"} 
+        <Button theme={'primary'} small={false} title={i18n.t('common.continue')} 
           onPress={()=> {
-            console.log('continue')
             navigation.navigate('Ticket')  
           }}/>
       </View>

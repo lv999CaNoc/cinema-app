@@ -3,28 +3,29 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, SIZES, STYLES } from '../constants'
 import { Button, ItemInfo, MovieTile, Payment, Topbar } from '../components'
+import i18n from '../lib/I18n'
 
 const Profile = (props) => {
   const {navigation} = props
   return (
     <SafeAreaView style={STYLES.container}>
-      <Topbar left={true} logout={true} title={'Profile'} navigation={navigation}/>
+      <Topbar left={true} logout={true} title={i18n.t('profile._')} navigation={navigation}/>
       
       <ScrollView style={styles.contents}>
         <View style={styles.content}>
-          <ItemInfo header={'Username'} title={'username'} />
+          <ItemInfo header={i18n.t('common.username')} title={'username'} />
           <ItemInfo header={'Email'} title={'username@gmail.com'} />
-              <Button theme={'primary'} small={true} title={'Update profile'} onPress={()=> console.log('Add new card')}/>
+              <Button theme={'primary'} small={true} title={i18n.t('profile.update')} onPress={()=> console.log('Update profile')}/>
         </View>
         
         <View style={styles.content}>
-          <Text style={styles.contentTitle}>Saved cards</Text>
+          <Text style={styles.contentTitle}>{i18n.t('profile.saved_cart')}</Text>
           
-          <Button theme={'secondary'} small={true} title={'Add new card'} onPress={()=> console.log('Add new card')}/>
+          <Button theme={'secondary'} small={true} title={i18n.t('profile.add_new_cart')} onPress={()=> console.log('Add new card')}/>
         </View>
         
         <View style={styles.content}>
-          <Text style={styles.contentTitle}>Payment history</Text>
+          <Text style={styles.contentTitle}>{i18n.t('profile.pay_history')}</Text>
           
           <MovieTile/>
           <MovieTile/>
@@ -32,10 +33,10 @@ const Profile = (props) => {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.contentTitle}>Payment history</Text>
+          <Text style={styles.contentTitle}>{i18n.t('profile.pay_history')}</Text>
           <View style={styles.placeholder}>
             <Image resizeMode='cover' source={require('../assets/images/Illustration.png')}/>
-            <Text style={styles.placeholderTxt}>You haven't bought tickets yet</Text>
+            <Text style={styles.placeholderTxt}>{i18n.t('profile.pay_history_msg')}</Text>
           </View>
         </View>
       </ScrollView>
@@ -60,7 +61,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'medium',
     color: COLORS.icon,
-    paddingBottom: SIZES.xSmall
+    paddingBottom: SIZES.xSmall,
+    paddingTop: SIZES.xSmall,
+    borderTopWidth: 2.2,
+    borderColor: COLORS.background2
   },
   placeholder:{
     flex:1,

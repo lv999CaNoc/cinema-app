@@ -1,0 +1,133 @@
+{
+    "greeting": "Hello!",
+    "welcome": "Welcome to our app.",
+
+    "home": {
+      "search_title": "Search movie"
+    },
+    "movie":{
+      "newly": "Newly Movies",
+      "now": "Now Showing",
+      "comming": "Comming Soon",
+
+      "about":"About",
+      "session":"Session",
+      "_":"Movie"
+    },
+    "about":{
+      "certificate":"Certificate",
+      "runtime":"Runtime",
+      "release":"Release",
+      "genre":"Genre",
+      "dir":"Director",
+      "actors":"Actors",
+      "select_movie":"Select Movie",
+      "_":""
+    },
+    "session":{
+      "cinema":"Cinema",
+      "seats": "Seats",
+      "seat": "Seat",
+      "room": "Room",
+      "cost": "Cost",
+      "date": "Date",
+      "total": "Total",
+      "_":""
+    },
+    "controls":{
+      "no_date_selected":"No date selected",
+      "by_cinema":"By cinema",
+      "_":""
+    },
+    "sort":{
+      "time":"Time",
+      "distance":"Distance",
+      "price":"Price",
+      "_":"Sort By"
+    },
+    "order":{
+      "ascending":"Ascending ↑",
+      "descending":"Descending ↓",
+      "_":"Order By"
+    },
+    "language":{
+      "en": "English",
+      "vi": "Vietnamese"
+    },
+    "seat":{
+      "price":"Price",
+
+      "select_min_1": "Please select at least one seat.",
+      "select_max_3": "Please select a maximum of three seats.",
+      "_":"Select Seat"
+    },
+    "pay":{
+      "available":"Available",
+      "_":"Payment"
+    },
+    "ticket":{
+      "msg":"Show this code to the gatekeeper at the cinema.",
+      "_":"Your Ticket"
+    },
+    "profile":{
+      "update":"Update profile",
+      "pay_history":"Payment History",
+      "pay_history_msg":"You haven't bought tickets yet",
+      "saved_cart":"Saved Cards",
+      "add_new_cart":"Add new card",
+      "_":"Your Profile"
+    },
+    "symbol":{
+      "available":"Available",
+      "chosen":"Chosen",
+      "in_use":"In Use",
+      "occupied":"Occupied",
+      "_":"Booking Tickets"
+    },
+    
+    "error":{
+      "email_format": "Incorrect email format.",
+      "email_required": "Email is a required field.",
+      "username_leng":"Username must be at least 6 characters.",
+      "username_required": "Username is a required field.",
+      "password_leng": "Password must be at least 8 characters.",
+      "password_required": "Password is a required field.",
+      "password_format": "Password must include uppercase letters, lowercase letters, numbers, and special characters.",
+      "c_password_not_match": "Confirm password does not match",
+      "c_password_required":"Confirm password is a required field."
+    },
+
+    "common":{
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "logout_message": "Are you sure to logout?",
+
+      "failed": "Failed!",
+      "notification": "Notification!",
+      "login_err_msg": "Invalid username or password. Please try again.",
+      "incomplete": "Incomplete!",
+      "incomplete_err_msg": "Incomplete information, please enter all required details.",
+      "no_account": "Don't have an account?",
+      "have_account": "Already have an account?",
+      "cancel": "Cancel",
+      "continue": "Continue",
+
+      "enter_email": "Enter email",
+      "username": "Username",
+      "enter_username": "Enter username",
+      "password": "Password",
+      "enter_password": "Enter password",
+      "c_password": "Confirm Password",
+      "enter_c_password": "Enter confirm password",
+
+      "show_all": "Show All Movies",
+      "apply": "Apply",
+      "select_lang": "Eng",
+      "location": "Ha Noi",
+      "refund": "Refund",
+      "send": "Send",
+      "minutes": "minutes"
+    }
+  }
+  

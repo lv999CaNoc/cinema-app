@@ -8,25 +8,29 @@ import * as Yup from 'yup'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../contexts/AuthContext';
+import i18n from '../lib/I18n'
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Không đúng định dạng email.')
-    .required('Email là trường bắt buộc.'),
+  email: Yup.string().email(i18n.t('error.email_format'))
+    .required(i18n.t('error.email_required')),
 
-  password: Yup.string().min(8, 'Mật khẩu ít nhất 8 ký tự.')
+  password: Yup.string().min(8, i18n.t('error.password_leng'))
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-      'Mật khẩu phải chứa chữ hoa, chữ thường, số và ký tự đặc biệt.'
+      i18n.t('error.password_format')
     )
-    .required('Mật khẩu là trường bắt buộc.'),
+    .required(i18n.t('error.password_required')),
 })
 
 const inValidForm = () => {
   Alert.alert(
-    "Thông tin không đầy đủ",
-    "Vui lòng nhập đầy đủ thông tin.",
+    i18n.t('common.incomplete'),
+    i18n.t('common.incomplete_err_msg'),
     [
       {
-        text: 'Continue', onPress: () => { }
+        text: i18n.t('common.cancel'), onPress: () => {}
+      },
+      {
+        text: i18n.t('common.continue'), onPress: () => {}
       }
     ]
   )
@@ -46,14 +50,14 @@ const Login = ({ navigation }) => {
       navigation.goBack()
     }else{
       Alert.alert(
-        "Error Logging in",
-        "Sai Email hoặc Password",
+        i18n.t('common.failed'),
+        i18n.t('common.login_err_msg'),
         [
           {
-            text: 'Cancel', onPress: () => {}
+            text: i18n.t('common.cancel'), onPress: () => {}
           },
           {
-            text: 'Continue', onPress: () => {}
+            text: i18n.t('common.continue'), onPress: () => {}
           }
         ]
       )
@@ -64,7 +68,7 @@ const Login = ({ navigation }) => {
     <SafeAreaView style={STYLES.container}>
       <Topbar left={true} navigation={navigation} goHome={true} />
 
-      <Text style={styles.title}>LOGIN</Text>
+      <Text style={styles.title}>{i18n.t('common.login')}</Text>
       <ScrollView>
         <Formik
           initialValues={{
@@ -80,7 +84,7 @@ const Login = ({ navigation }) => {
                 <Text style={styles.label}>Email</Text>
                 <View style={styles.inputWrapper(touched.email ?  COLORS.icon : COLORS.border)}>
                   <MaterialCommunityIcons name='email-outline' size={20} color={COLORS.icon} style={styles.iconStyle} />
-                  <TextInput placeholder='Enter email'
+                  <TextInput placeholder={i18n.t('common.enter_email')}
                     placeholderTextColor={COLORS.icon}
                     onFocus={() => setFieldTouched('email')}
                     onBlur={() => setFieldTouched('email', '')}
@@ -99,10 +103,10 @@ const Login = ({ navigation }) => {
               </View>
 
               <View style={styles.wrapper}>
-                <Text style={styles.label}>Password</Text>
+                <Text style={styles.label}>{i18n.t('common.password')}</Text>
                 <View style={styles.inputWrapper(touched.password ? COLORS.icon : COLORS.border)}>
                   <MaterialCommunityIcons name='lock-outline' size={20} color={COLORS.icon} style={styles.iconStyle} />
-                  <TextInput placeholder='Enter password'
+                  <TextInput placeholder={i18n.t('common.enter_password')}
                     placeholderTextColor={COLORS.icon}
                     secureTextEntry={secureText}
                     onFocus={() => setFieldTouched('password')}
@@ -124,11 +128,11 @@ const Login = ({ navigation }) => {
                 )}
               </View>
               
-              <Button theme={'primary'} small={true} title={'Login'} onPress={isValid ? handleSubmit : inValidForm}/>
+              <Button theme={'primary'} small={true} title={i18n.t('common.login')} onPress={isValid ? handleSubmit : inValidForm}/>
               
               <View style={styles.register}>
-                <Text style={styles.registerTxt}>Need an account? </Text>
-                <Text style={[styles.registerTxt, styles.link]} onPress={() => navigation.navigate('Register')}>Register</Text>
+                <Text style={styles.registerTxt}>{i18n.t('common.no_account')} </Text>
+                <Text style={[styles.registerTxt, styles.link]} onPress={() => navigation.navigate('Register')}>{i18n.t('common.register')}</Text>
               </View>
             </View>
           )}
@@ -147,7 +151,8 @@ const styles = StyleSheet.create({
     fontSize: SIZES.xLarge,
     color: COLORS.primary,
     textAlign: 'center',
-    marginBottom: SIZES.xLarge
+    marginBottom: SIZES.xLarge,
+    textTransform: "uppercase"
   },
   formContainer:{
     paddingHorizontal: SIZES.xLarge,
