@@ -4,9 +4,10 @@ import { COLORS, SIZES } from '../../constants'
 import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../../contexts/AuthContext';
-import i18n from '../../lib/I18n';
+import { LangContext } from '../../contexts/LangContext';
 
 const Topbar = ({ left, right, title, subtitle, navigation, goHome, logout }) => {
+    const { i18n} = useContext(LangContext);    
     const { isLogout } = useContext(AuthContext);
 
     const onLogout = () => {

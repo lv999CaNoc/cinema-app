@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home, Login, Movie, Pay, Profile, Register, Search, SelectSeat, ShowAll, Ticket } from './screens';
 import { AuthProvider } from './contexts/AuthContext';
+import { LangProvider } from './contexts/LangContext';
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -33,6 +34,7 @@ export default function App() {
 
   return (
     <NavigationContainer onReady={onLayoutRootView}>
+      <LangProvider>
       <AuthProvider>
         <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen
@@ -87,6 +89,7 @@ export default function App() {
 
         </Stack.Navigator>
       </AuthProvider>
+      </LangProvider>
     </NavigationContainer>
   );
 }

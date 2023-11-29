@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { STYLES, SIZES, COLORS } from '../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {Button, ItemInfo, TearLine, Topbar} from '../components'
-import i18n from '../lib/I18n'
+import { LangContext } from '../contexts/LangContext'
 
 const Pay = ({navigation}) => {
+  const { i18n} = useContext(LangContext);    
   return (
     <SafeAreaView style={STYLES.container}>
       <Topbar left={true} navigation={navigation} title={i18n.t('pay._')}/>

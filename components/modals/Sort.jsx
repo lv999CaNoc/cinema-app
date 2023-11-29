@@ -1,23 +1,24 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { COLORS, SIZES, STYLES } from '../../constants';
 import ItemList from '../utils/ItemList';
 import Button from '../utils/Button';
-import i18n from '../../lib/I18n';
-
-const sort = [
-  { id: 1, name: i18n.t('sort.time') },
-  { id: 2, name: i18n.t('sort.distance') },
-  { id: 3, name: i18n.t('sort.price') },
-];
-
-const order = [
-  { id: 0, name: i18n.t('order.ascending') },
-  { id: 1, name: i18n.t('order.descending') },
-];
-
+import { LangContext } from '../../contexts/LangContext'
 
 const Sort = (props) => {
+  const { i18n } = useContext(LangContext);
+
+  const sort = [
+    { id: 1, name: i18n.t('sort.time') },
+    { id: 2, name: i18n.t('sort.distance') },
+    { id: 3, name: i18n.t('sort.price') },
+  ];
+  
+  const order = [
+    { id: 0, name: i18n.t('order.ascending') },
+    { id: 1, name: i18n.t('order.descending') },
+  ];
+  
   const { selectedSort, onSortChange, onHide } = props;
 
   // local sort option change

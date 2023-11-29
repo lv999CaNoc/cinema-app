@@ -1,46 +1,48 @@
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, SIZES, STYLES, SHADOWS } from '../constants'
 import { Button, Topbar } from '../components'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import i18n from '../lib/I18n'
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email(i18n.t('error.email_format'))
-    .required(i18n.t('error.email_required')),
-
-  username: Yup.string().min(6, i18n.t('error.username_leng')).required(i18n.t('error.username_required')),
-
-  password: Yup.string().min(8, i18n.t('error.password_leng'))
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-      i18n.t('error.password_format')
-    )
-    .required(i18n.t('error.password_required')),
-
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], i18n.t('error.c_password_not_match'))
-    .required(i18n.t('error.c_password_required'))
-})
-
-const inValidForm = () => {
-  Alert.alert(
-    i18n.t('common.incomplete'),
-    i18n.t('common.incomplete_err_msg'),
-    [
-      {
-        text: i18n.t('common.cancel'), onPress: () => {}
-      },
-      {
-        text: i18n.t('common.continue'), onPress: () => {}
-      }
-    ]
-  )
-}
+import { LangContext } from '../contexts/LangContext'
 
 const Register = ({ navigation }) => {
+  const { i18n} = useContext(LangContext);   
+   
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email(i18n.t('error.email_format'))
+      .required(i18n.t('error.email_required')),
+  
+    username: Yup.string().min(6, i18n.t('error.username_leng')).required(i18n.t('error.username_required')),
+  
+    password: Yup.string().min(8, i18n.t('error.password_leng'))
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+        i18n.t('error.password_format')
+      )
+      .required(i18n.t('error.password_required')),
+  
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], i18n.t('error.c_password_not_match'))
+      .required(i18n.t('error.c_password_required'))
+  })
+  
+  const inValidForm = () => {
+    Alert.alert(
+      i18n.t('common.incomplete'),
+      i18n.t('common.incomplete_err_msg'),
+      [
+        {
+          text: i18n.t('common.cancel'), onPress: () => {}
+        },
+        {
+          text: i18n.t('common.continue'), onPress: () => {}
+        }
+      ]
+    )
+  }
+
   const [loader, setLoader] = useState(false)
   const [responseData, setResponseData] = useState(null)
   const [passwordSecureText, setPasswordSecureText] = useState(true)

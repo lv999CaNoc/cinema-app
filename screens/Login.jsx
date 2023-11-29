@@ -8,35 +8,39 @@ import * as Yup from 'yup'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../contexts/AuthContext';
-import i18n from '../lib/I18n'
+import { LangContext } from '../contexts/LangContext'
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email(i18n.t('error.email_format'))
-    .required(i18n.t('error.email_required')),
 
-  password: Yup.string().min(8, i18n.t('error.password_leng'))
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-      i18n.t('error.password_format')
-    )
-    .required(i18n.t('error.password_required')),
-})
-
-const inValidForm = () => {
-  Alert.alert(
-    i18n.t('common.incomplete'),
-    i18n.t('common.incomplete_err_msg'),
-    [
-      {
-        text: i18n.t('common.cancel'), onPress: () => {}
-      },
-      {
-        text: i18n.t('common.continue'), onPress: () => {}
-      }
-    ]
-  )
-}
 
 const Login = ({ navigation }) => {
+  const { i18n} = useContext(LangContext);    
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email(i18n.t('error.email_format'))
+      .required(i18n.t('error.email_required')),
+  
+    password: Yup.string().min(8, i18n.t('error.password_leng'))
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+        i18n.t('error.password_format')
+      )
+      .required(i18n.t('error.password_required')),
+  })
+  
+  const inValidForm = () => {
+    Alert.alert(
+      i18n.t('common.incomplete'),
+      i18n.t('common.incomplete_err_msg'),
+      [
+        {
+          text: i18n.t('common.cancel'), onPress: () => {}
+        },
+        {
+          text: i18n.t('common.continue'), onPress: () => {}
+        }
+      ]
+    )
+  }
+
   const { isLogin } = useContext(AuthContext);
   const [loader, setLoader] = useState(false)
   const [secureText, setSecureText] = useState(true)

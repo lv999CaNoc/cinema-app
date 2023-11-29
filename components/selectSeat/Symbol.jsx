@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { COLORS, SIZES } from '../../constants'
 import { Ionicons } from '@expo/vector-icons'
-import i18n from '../../lib/I18n'
+import { LangContext } from '../../contexts/LangContext'
 
 const Symbol = ({ available, chosen, occupied, inUse }) => {
+  const { i18n} = useContext(LangContext);    
   return (
     <View style={styles.container}>
       {available &&

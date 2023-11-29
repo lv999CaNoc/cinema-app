@@ -1,9 +1,9 @@
 import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, SIZES, STYLES } from '../constants'
 import { DateTimeBar, Topbar, Symbol, Seat, Button, } from '../components'
-import i18n from '../lib/I18n'
+import { LangContext } from '../contexts/LangContext'
 
 const seatsData = [
   { id: 'A1', status: 'SELECTED' },
@@ -52,6 +52,8 @@ const seatsData = [
 ];
 
 const SelectSeat = ({ navigation }) => {
+  const { i18n} = useContext(LangContext);    
+
   const seatData = {};
   seatsData.forEach((seat) => {
     // Chuyển dạng JSON thành dạng key: value

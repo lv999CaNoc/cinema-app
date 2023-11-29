@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View, Switch, Pressable } from "react-native";
 import { COLORS, SIZES } from '../../constants';
 import { AntDesign } from "@expo/vector-icons";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Sort from '../modals/Sort';
 import Modal from 'react-native-modal';
-
-import i18n from '../../lib/I18n';
+import { LangContext } from '../../contexts/LangContext';
 
 const Controls = (props) => {
+    const { i18n } = useContext(LangContext);
+
     const { selectedDate,
         selectedSort,
         selectedByCinema,

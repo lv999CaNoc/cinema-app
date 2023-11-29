@@ -1,10 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { COLORS, SIZES } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
-import i18n from '../../lib/I18n';
+import { LangContext } from '../../contexts/LangContext';
 
 const SessionTile = ({ item, cinema }) => {
+    const { i18n} = useContext(LangContext);    
     const navigation = useNavigation();
 
     return (

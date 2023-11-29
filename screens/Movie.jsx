@@ -1,11 +1,12 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, SIZES, STYLES } from '../constants'
 import { About, Button, Session, Tab, Topbar, Trailer } from '../components'
-import i18n from '../lib/I18n'
+import { LangContext } from '../contexts/LangContext'
 
 const Movie = ({ navigation, route }) => {
+  const { i18n} = useContext(LangContext);    
   const {movie} = route.params
   const [tab1Active, setTab1Active] = useState(true)
 

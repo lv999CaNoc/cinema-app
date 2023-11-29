@@ -1,12 +1,13 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SessionTile from './SessionTile'
 import CinemaHeading from './CinemaHeading'
 import Controls from './Controls'
 import { COLORS, SIZES } from '../../constants'
-import i18n from '../../lib/I18n'
+import { LangContext } from '../../contexts/LangContext'
 
 const Session = () => {
+  const { i18n } = useContext(LangContext);
 
   const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 

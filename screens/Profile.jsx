@@ -1,11 +1,12 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, SIZES, STYLES } from '../constants'
 import { Button, ItemInfo, MovieTile, Payment, Topbar } from '../components'
-import i18n from '../lib/I18n'
+import { LangContext } from '../contexts/LangContext'
 
 const Profile = (props) => {
+  const { i18n} = useContext(LangContext);    
   const {navigation} = props
   return (
     <SafeAreaView style={STYLES.container}>

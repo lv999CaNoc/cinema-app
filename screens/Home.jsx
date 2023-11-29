@@ -5,9 +5,11 @@ import { Header, MovieCard } from '../components'
 import { COLORS, SIZES, STYLES, config } from '../constants'
 import { Ionicons } from '@expo/vector-icons'
 import useFetch from '../hook/useFetch'
-import i18n from '../lib/I18n'
+import { LangContext } from '../contexts/LangContext'
+
 
 const Home = ({ navigation }) => {
+  const { i18n} = useContext(LangContext);    
 
   const data = [1, 2, 3, 4, 5, 6]
   const {data: moviesNew, loading: loadNew, error: errNew} = useFetch(config.BASE_URL+'/movies/newly-release');

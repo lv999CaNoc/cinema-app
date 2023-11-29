@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { COLORS, SIZES } from '../../constants'
 import Button from '../utils/Button'
 import Topbar from '../utils/Topbar'
 import Trailer from './Trailer'
-import i18n from '../../lib/I18n'
+import { LangContext } from '../../contexts/LangContext'
 
 const About = ({item, onSelectMovie}) => {
-    
+    const { i18n } = useContext(LangContext);
+
     return (
         <View style={{ flex: 1 }}> 
             <Trailer movieUri={item.trailerURL} />
