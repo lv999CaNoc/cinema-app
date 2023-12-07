@@ -88,8 +88,10 @@
     "error":{
       "email_format": "Incorrect email format.",
       "email_required": "Email is a required field.",
+      "email_already_exist": "Email already exists.",
       "username_leng":"Username must be at least 6 characters.",
       "username_required": "Username is a required field.",
+      "username_already_exist": "Username already exists.",
       "password_leng": "Password must be at least 8 characters.",
       "password_required": "Password is a required field.",
       "password_format": "Password must include uppercase letters, lowercase letters, numbers, and special characters.",
@@ -106,6 +108,7 @@
       "failed": "Failed!",
       "notification": "Notification!",
       "login_err_msg": "Invalid username or password. Please try again.",
+      "register_err_msg": "Invalid registration information. Please try again.",
       "incomplete": "Incomplete!",
       "incomplete_err_msg": "Incomplete information, please enter all required details.",
       "no_account": "Don't have an account?",

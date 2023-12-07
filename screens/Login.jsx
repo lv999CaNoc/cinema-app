@@ -1,71 +1,81 @@
-import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useContext, useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { COLORS, SIZES, STYLES, SHADOWS } from '../constants'
-import { Button, Topbar } from '../components'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import axios from 'axios'
+import * as SecureStore from 'expo-secure-store'
 import { Formik } from 'formik'
+import React, { useContext, useState } from 'react'
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import * as Yup from 'yup'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import * as SecureStore from 'expo-secure-store';
-import { AuthContext } from '../contexts/AuthContext';
+import { Button, Topbar } from '../components'
+import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
+import { AuthContext } from '../contexts/AuthContext'
 import { LangContext } from '../contexts/LangContext'
 
-
-
 const Login = ({ navigation }) => {
-  const { i18n} = useContext(LangContext);    
+  const { i18n } = useContext(LangContext);
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email(i18n.t('error.email_format'))
-      .required(i18n.t('error.email_required')),
-  
+    username: Yup.string().min(6, i18n.t('error.username_leng')).required(i18n.t('error.username_required')),
+
     password: Yup.string().min(8, i18n.t('error.password_leng'))
       .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
         i18n.t('error.password_format')
       )
       .required(i18n.t('error.password_required')),
   })
-  
+
   const inValidForm = () => {
     Alert.alert(
       i18n.t('common.incomplete'),
       i18n.t('common.incomplete_err_msg'),
       [
         {
-          text: i18n.t('common.cancel'), onPress: () => {}
+          text: i18n.t('common.cancel'), onPress: () => { }
         },
         {
-          text: i18n.t('common.continue'), onPress: () => {}
+          text: i18n.t('common.continue'), onPress: () => { }
         }
       ]
     )
   }
 
   const { isLogin } = useContext(AuthContext);
-  const [loader, setLoader] = useState(false)
+  const [showError, setShowError] = useState([false, false]);
   const [secureText, setSecureText] = useState(true)
 
-  const login = async(values) => {
-    if (values.email==='user@gmail.com' && values.password==='User@1234'){
-      await SecureStore.setItemAsync('jwt', '123456jwt');
-      console.log('Login with Email: user@gmail.com and Password: User@1234')
-      
-      isLogin()
-      navigation.goBack()
-    }else{
-      Alert.alert(
-        i18n.t('common.failed'),
-        i18n.t('common.login_err_msg'),
-        [
-          {
-            text: i18n.t('common.cancel'), onPress: () => {}
-          },
-          {
-            text: i18n.t('common.continue'), onPress: () => {}
-          }
-        ]
-      )
-    }
+  const handleShowError = (index) => {
+    const updatedErrors = [...showError];
+    updatedErrors[index] = true;
+    setShowError(updatedErrors);
+  };
+
+  const login = async (values) => {
+    const endpoint = CONFIG.BASE_URL + "/auth/login";
+    console.log("POST " + endpoint);
+
+    await axios.post(endpoint, values)
+      .then(async (response) => {
+        await SecureStore.setItemAsync('jwt', response.data.data.token);
+        console.log('Info: Login success');
+
+        isLogin()
+        navigation.goBack()
+      })
+      .catch(error => {
+        Alert.alert(
+          i18n.t('common.failed'),
+          i18n.t('common.login_err_msg'),
+          [
+            {
+              text: i18n.t('common.cancel'), onPress: () => { }
+            },
+            {
+              text: i18n.t('common.continue'), onPress: () => { }
+            }
+          ]
+        )
+        console.log('Error:', error);
+      });
   }
 
   return (
@@ -76,7 +86,7 @@ const Login = ({ navigation }) => {
       <ScrollView>
         <Formik
           initialValues={{
-            email: '',
+            username: '',
             password: '',
           }}
           validationSchema={validationSchema}
@@ -85,23 +95,26 @@ const Login = ({ navigation }) => {
           {({ handleChange, handleSubmit, errors, touched, isValid, values, setFieldTouched }) => (
             <View style={styles.formContainer}>
               <View style={styles.wrapper}>
-                <Text style={styles.label}>Email</Text>
-                <View style={styles.inputWrapper(touched.email ?  COLORS.icon : COLORS.border)}>
-                  <MaterialCommunityIcons name='email-outline' size={20} color={COLORS.icon} style={styles.iconStyle} />
-                  <TextInput placeholder={i18n.t('common.enter_email')}
+                <Text style={styles.label}>{i18n.t('common.username')}</Text>
+                <View style={styles.inputWrapper(touched.username ? COLORS.icon : COLORS.border)}>
+                  <Ionicons name="person-outline" size={20} color={COLORS.icon} style={styles.iconStyle} />
+                  <TextInput placeholder={i18n.t('common.enter_username')}
                     placeholderTextColor={COLORS.icon}
-                    onFocus={() => setFieldTouched('email')}
-                    onBlur={() => setFieldTouched('email', '')}
-                    onChangeText={handleChange('email')}
-                    value={values.email}
+                    onFocus={() => setFieldTouched('username')}
+                    onBlur={() => {
+                      setFieldTouched('username', '')
+                      handleShowError(0)
+                    }}
+                    onChangeText={handleChange('username')}
+                    value={values.username}
                     autoCapitalize='none'
                     autoCorrect={false}
                     style={styles.inputTxt}
                   />
                 </View>
-                {errors.email ? (
-                  <Text style={styles.errMessage}>{errors.email}</Text>
-                ):(
+                {showError[0] && errors.username ? (
+                  <Text style={styles.errMessage}>{errors.username}</Text>
+                ) : (
                   <Text style={styles.errMessage}></Text>
                 )}
               </View>
@@ -114,7 +127,10 @@ const Login = ({ navigation }) => {
                     placeholderTextColor={COLORS.icon}
                     secureTextEntry={secureText}
                     onFocus={() => setFieldTouched('password')}
-                    onBlur={() => setFieldTouched('password', '')}
+                    onBlur={() => {
+                      setFieldTouched('password', '')
+                      handleShowError(1)
+                    }}
                     onChangeText={handleChange('password')}
                     value={values.password}
                     autoCapitalize='none'
@@ -125,15 +141,15 @@ const Login = ({ navigation }) => {
                     <MaterialCommunityIcons color={COLORS.icon} name={secureText ? 'eye-off-outline' : 'eye-outline'} size={22} />
                   </TouchableOpacity>
                 </View>
-                {errors.password ? (
+                {showError[1] && errors.password ? (
                   <Text style={styles.errMessage}>{errors.password}</Text>
-                ):(
+                ) : (
                   <Text style={styles.errMessage}></Text>
                 )}
               </View>
-              
-              <Button theme={'primary'} small={true} title={i18n.t('common.login')} onPress={isValid ? handleSubmit : inValidForm}/>
-              
+
+              <Button theme={'primary'} small={true} title={i18n.t('common.login')} onPress={isValid ? handleSubmit : inValidForm} />
+
               <View style={styles.register}>
                 <Text style={styles.registerTxt}>{i18n.t('common.no_account')} </Text>
                 <Text style={[styles.registerTxt, styles.link]} onPress={() => navigation.navigate('Register')}>{i18n.t('common.register')}</Text>
@@ -158,7 +174,7 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.xLarge,
     textTransform: "uppercase"
   },
-  formContainer:{
+  formContainer: {
     paddingHorizontal: SIZES.xLarge,
   },
   wrapper: {
@@ -183,8 +199,8 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 12,
   }),
-  inputTxt:{
-    flex: 1, 
+  inputTxt: {
+    flex: 1,
     color: COLORS.white
   },
   iconStyle: {
@@ -197,20 +213,20 @@ const styles = StyleSheet.create({
     marginLeft: SIZES.xSmall,
     fontSize: 13,
   },
-  register:{
+  register: {
     flexDirection: 'row',
     marginTop: SIZES.medium,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  registerTxt:{
+  registerTxt: {
     fontSize: 15,
     fontFamily: 'medium',
     color: COLORS.white
   },
-  link:{
+  link: {
     color: COLORS.primary,
-    textShadowColor: 'rgba(255,116,34, 0.5)', 
+    textShadowColor: 'rgba(255,116,34, 0.5)',
     textShadowOffset: { width: 3, height: 3 },
     textShadowRadius: 5,
   }

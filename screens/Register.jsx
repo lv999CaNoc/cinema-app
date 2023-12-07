@@ -1,11 +1,14 @@
-import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useContext, useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { COLORS, SIZES, STYLES, SHADOWS } from '../constants'
-import { Button, Topbar } from '../components'
-import { Formik } from 'formik'
-import * as Yup from 'yup'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import axios from 'axios'
+import * as SecureStore from 'expo-secure-store'
+import { Formik } from 'formik'
+import React, { useContext, useState } from 'react'
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import * as Yup from 'yup'
+import { Button, Topbar } from '../components'
+import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
+import { AuthContext } from '../contexts/AuthContext'
 import { LangContext } from '../contexts/LangContext'
 
 const Register = ({ navigation }) => {
@@ -43,13 +46,52 @@ const Register = ({ navigation }) => {
     )
   }
 
-  const [loader, setLoader] = useState(false)
-  const [responseData, setResponseData] = useState(null)
+  const { isLogin } = useContext(AuthContext);
+  const [showError, setShowError] = useState([false, false, false, false]);
   const [passwordSecureText, setPasswordSecureText] = useState(true)
   const [cPasswordSecureText, setCPasswordSecureText] = useState(true)
 
-  const register = (values) => {
-    console.log(values)
+  const handleShowError = (index) => {
+    const updatedErrors = [...showError];
+    updatedErrors[index] = true;
+    setShowError(updatedErrors);
+  };
+
+  const register = async (values) => {
+    const endpoint = CONFIG.BASE_URL + "/auth/register";
+    console.log("POST " + endpoint);
+
+    await axios.post(endpoint, values)
+      .then(async (response) => {
+        await SecureStore.setItemAsync('jwt', response.data.data.token);
+        console.log('Info: Register success');
+
+        isLogin()
+        navigation.navigate('Home')
+      })
+      .catch(error => {
+        var errMsg = 'common.register_err_msg';
+        if (error.response.data.errorCode === '409') {
+          const message = error.response.data.message;
+          if (message === "Username Already Exist") {
+            errMsg = 'error.username_already_exist';
+          } else if (message === "Email Already Exist") {
+            errMsg = 'error.email_already_exist';
+          }
+        }
+        Alert.alert(
+          i18n.t('common.failed'),
+          i18n.t(errMsg),
+          [
+            {
+              text: i18n.t('common.cancel'), onPress: () => { }
+            },
+            {
+              text: i18n.t('common.continue'), onPress: () => { }
+            }
+          ]
+        )
+      });
   }
 
   return (
@@ -77,7 +119,10 @@ const Register = ({ navigation }) => {
                   <TextInput placeholder={i18n.t('common.enter_email')}
                     placeholderTextColor={COLORS.icon}
                     onFocus={() => setFieldTouched('email')}
-                    onBlur={() => setFieldTouched('email', '')}
+                    onBlur={() => {
+                      setFieldTouched('email', '')
+                      handleShowError(0)
+                    }}
                     onChangeText={handleChange('email')}
                     value={values.email}
                     autoCapitalize='none'
@@ -85,7 +130,7 @@ const Register = ({ navigation }) => {
                     style={styles.inputTxt}
                   />
                 </View>
-                {errors.email ? (
+                {showError[0] && errors.email ? (
                   <Text style={styles.errMessage}>{errors.email}</Text>
                 ):(
                   <Text style={styles.errMessage}></Text>
@@ -98,8 +143,11 @@ const Register = ({ navigation }) => {
                 <Ionicons name="person-outline" size={20} color={COLORS.icon} style={styles.iconStyle} />
                   <TextInput placeholder={i18n.t('common.enter_username')}
                     placeholderTextColor={COLORS.icon}
-                    onFocus={() => setFieldTouched('username')}
-                    onBlur={() => setFieldTouched('username', '')}
+                    onFocus={() => {setFieldTouched('username')}}
+                    onBlur={() => {
+                      setFieldTouched('username', '')
+                      handleShowError(1)
+                    }}
                     onChangeText={handleChange('username')}
                     value={values.username}
                     autoCapitalize='none'
@@ -107,7 +155,7 @@ const Register = ({ navigation }) => {
                     style={styles.inputTxt}
                   />
                 </View>
-                {errors.username ? (
+                {showError[1] && errors.username ? (
                   <Text style={styles.errMessage}>{errors.username}</Text>
                 ): (
                   <Text style={styles.errMessage}></Text>
@@ -122,7 +170,10 @@ const Register = ({ navigation }) => {
                     placeholderTextColor={COLORS.icon}
                     secureTextEntry={passwordSecureText}
                     onFocus={() => setFieldTouched('password')}
-                    onBlur={() => setFieldTouched('password', '')}
+                    onBlur={() => {
+                      setFieldTouched('password', '')
+                      handleShowError(2)
+                    }}
                     onChangeText={handleChange('password')}
                     value={values.password}
                     autoCapitalize='none'
@@ -133,7 +184,7 @@ const Register = ({ navigation }) => {
                     <MaterialCommunityIcons color={COLORS.icon} name={passwordSecureText ? 'eye-off-outline' : 'eye-outline'} size={22} />
                   </TouchableOpacity>
                 </View>
-                {errors.password ? (
+                {showError[2] && errors.password ? (
                   <Text style={styles.errMessage}>{errors.password}</Text>
                 ):(
                   <Text style={styles.errMessage}></Text>
@@ -148,7 +199,10 @@ const Register = ({ navigation }) => {
                     placeholderTextColor={COLORS.icon}
                     secureTextEntry={cPasswordSecureText}
                     onFocus={() => setFieldTouched('confirmPassword')}
-                    onBlur={() => setFieldTouched('confirmPassword', '')}
+                    onBlur={() => {
+                      setFieldTouched('confirmPassword', '')
+                      handleShowError(3)
+                    }}
                     onChangeText={handleChange('confirmPassword')}
                     value={values.confirmPassword}
                     autoCapitalize='none'
@@ -159,7 +213,7 @@ const Register = ({ navigation }) => {
                     <MaterialCommunityIcons color={COLORS.icon} name={cPasswordSecureText ? 'eye-off-outline' : 'eye-outline'} size={22} />
                   </TouchableOpacity>
                 </View>
-                {errors.confirmPassword ? (
+                {showError[3] && errors.confirmPassword ? (
                   <Text style={styles.errMessage}>{errors.confirmPassword}</Text>
                 ):(
                   <Text style={styles.errMessage}></Text>
