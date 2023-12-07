@@ -1,12 +1,19 @@
+import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useContext } from 'react'
-import { STYLES, SIZES, COLORS } from '../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import {Button, ItemInfo, TearLine, Topbar} from '../components'
+import { Button, ItemInfo, TearLine, Topbar } from '../components'
+import { COLORS, SIZES, STYLES } from '../constants'
 import { LangContext } from '../contexts/LangContext'
 
-const Pay = ({navigation}) => {
-  const { i18n} = useContext(LangContext);    
+const Checkout = ({navigation}) => {
+  const { i18n} = useContext(LangContext);
+  const [order, setOrder] = useState(
+    {
+      total: '',
+      description: ''
+    }
+  )
+
   return (
     <SafeAreaView style={STYLES.container}>
       <Topbar left={true} navigation={navigation} title={i18n.t('pay._')}/>
@@ -32,9 +39,9 @@ const Pay = ({navigation}) => {
       <TearLine/>
 
       <View style={styles.payment}>
-        <Button theme={'primary'} small={false} title={i18n.t('common.continue')} 
+        <Button theme={'primary'} paypal={true} small={false} title={i18n.t('pay._')} 
           onPress={()=> {
-            navigation.navigate('Ticket')  
+            navigation.navigate("Payment")
           }}/>
       </View>
     </SafeAreaView>
@@ -42,7 +49,7 @@ const Pay = ({navigation}) => {
   )
 }
 
-export default Pay
+export default Checkout
 
 const styles = StyleSheet.create({
   info: {

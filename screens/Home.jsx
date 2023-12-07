@@ -2,7 +2,7 @@ import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TouchableOpa
 import React, { useContext, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Header, MovieCard } from '../components'
-import { COLORS, SIZES, STYLES, config } from '../constants'
+import { COLORS, SIZES, STYLES, CONFIG } from '../constants'
 import { Ionicons } from '@expo/vector-icons'
 import useFetch from '../hook/useFetch'
 import { LangContext } from '../contexts/LangContext'
@@ -12,9 +12,9 @@ const Home = ({ navigation }) => {
   const { i18n} = useContext(LangContext);    
 
   const data = [1, 2, 3, 4, 5, 6]
-  const {data: moviesNew, loading: loadNew, error: errNew} = useFetch(config.BASE_URL+'/movies/newly-release');
-  const {data: moviesNowShowing, loading: loadNowShowing, error: errNowShowing} = useFetch(config.BASE_URL+'/movies/now-showing');
-  const {data: movieCommingSoon, loading: loadCommingSoon, error: errCommingSoon} = useFetch(config.BASE_URL+'/movies/coming-soon');
+  const {data: moviesNew, loading: loadNew, error: errNew} = useFetch(CONFIG.BASE_URL+'/movies/newly-release');
+  const {data: moviesNowShowing, loading: loadNowShowing, error: errNowShowing} = useFetch(CONFIG.BASE_URL+'/movies/now-showing');
+  const {data: movieCommingSoon, loading: loadCommingSoon, error: errCommingSoon} = useFetch(CONFIG.BASE_URL+'/movies/coming-soon');
   const [userData, setUserData] = useState(null)
 
   if (loadNew || loadNowShowing || loadCommingSoon){

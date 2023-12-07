@@ -1,4 +1,4 @@
-import config from './config'
+import CONFIG from './config'
 import { COLORS, SIZES, SHADOWS, STYLES} from "./theme";
 
-export { COLORS, SIZES, SHADOWS, STYLES, config};
+export { COLORS, SIZES, SHADOWS, STYLES, CONFIG};

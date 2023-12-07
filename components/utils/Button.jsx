@@ -1,14 +1,15 @@
-import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import {COLORS} from '../../constants'
-import { Ionicons } from '@expo/vector-icons';
+import { Fontisto, Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { COLORS } from '../../constants';
 
-const Button = ({theme, small, icon, title, onPress}) => {
+const Button = ({theme, small, icon, title, onPress, paypal}) => {
   return (
       <TouchableOpacity
         onPress={() => onPress()}
         style={[styles.button, (theme === 'primary') ? styles.buttonPrimary: ((theme === 'secondary')? styles.buttonSecondary : ''), small ? styles.small : styles.big]}
       >
+        {paypal ? (<Fontisto name="paypal" size={24} color="white" style={{ paddingEnd: 8 }}/>) : ('')}
         {icon ? (<Ionicons name="search" size={24} color="white" style={{ paddingEnd: 8 }} />) : ('')}
         {small ? (
           <Text style={[styles.text, styles.smallText]}>{title}</Text>

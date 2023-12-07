@@ -1,10 +1,9 @@
-import { StyleSheet, } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home, Login, Movie, Pay, Profile, Register, Search, SelectSeat, ShowAll, Ticket } from './screens';
+import { Home, Login, Movie, Checkout, Profile, Register, Search, SelectSeat, ShowAll, Ticket, Payment } from './screens';
 import { AuthProvider } from './contexts/AuthContext';
 import { LangProvider } from './contexts/LangContext';
 
@@ -73,8 +72,13 @@ export default function App() {
             options={{ headerShown: false }} />
 
           <Stack.Screen
-            name="Pay"
-            component={Pay}
+            name="Checkout"
+            component={Checkout}
+            options={{ headerShown: false }} />
+          
+          <Stack.Screen
+            name="Payment"
+            component={Payment}
             options={{ headerShown: false }} />
 
           <Stack.Screen
