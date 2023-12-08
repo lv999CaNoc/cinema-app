@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
-import { COLORS, CONFIG, STYLES } from '../constants';
+import { Loader } from '../components';
+import { CONFIG, STYLES } from '../constants';
 import { LangContext } from '../contexts/LangContext';
 
 const Payment = ({navigation}) => {
@@ -81,14 +82,6 @@ const Payment = ({navigation}) => {
             return;
         }
     };
-  
-    const loader = () => {
-        return (
-            <View style={styles.loaderContainer}>
-                <ActivityIndicator color={COLORS.white} size={'large'}/>
-            </View>
-        );
-    }
 
     return (
         <SafeAreaView style={STYLES.container}>
@@ -97,7 +90,7 @@ const Payment = ({navigation}) => {
                 (<WebView source={{ uri: approvalUrl }}
                     onNavigationStateChange={data => { handleResponse(data) }
                   }
-                />): (loader())
+                />): (<Loader/>)
             }
         </SafeAreaView>
   )
@@ -106,9 +99,4 @@ const Payment = ({navigation}) => {
 export default Payment
 
 const styles = StyleSheet.create({
-    loaderContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
 })

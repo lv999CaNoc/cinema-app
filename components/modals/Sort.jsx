@@ -9,9 +9,8 @@ const Sort = (props) => {
   const { i18n } = useContext(LangContext);
 
   const sort = [
-    { id: 1, name: i18n.t('sort.time') },
-    { id: 2, name: i18n.t('sort.distance') },
-    { id: 3, name: i18n.t('sort.price') },
+    { id: 1, name: 'time' },
+    { id: 2, name: 'price' },
   ];
   
   const order = [
@@ -50,7 +49,7 @@ const Sort = (props) => {
             numColumns={1}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <ItemList selected={sortOption.by === item.name} title={item.name} onPress={() => handleSortBy(item.name)} />
+              <ItemList selected={sortOption.by === item.name} title={i18n.t("sort."+item.name)} onPress={() => handleSortBy(item.name)} />
             )}
           />
         </View>

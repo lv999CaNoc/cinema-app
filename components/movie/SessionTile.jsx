@@ -3,6 +3,7 @@ import React, { useContext } from 'react'
 import { COLORS, SIZES } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
 import { LangContext } from '../../contexts/LangContext';
+import moment from 'moment';
 
 const SessionTile = ({ item, cinema }) => {
     const { i18n} = useContext(LangContext);    
@@ -10,29 +11,28 @@ const SessionTile = ({ item, cinema }) => {
 
     return (
         <TouchableOpacity style={styles.session} onPress={() => {
-            console.log('session press ' + item)
-            navigation.navigate('SelectSeat')
+            navigation.navigate('SelectSeat', {item})
         }}>
             <View style={[styles.border2, styles.border2Border]} />
             <View style={styles.wrap}>
                 <View style={styles.section}>
-                    <Text style={styles.time}>15:10</Text>
+                    <Text style={styles.time}>{moment(item.startDate).format("HH:mm")}</Text>
                     <View style={styles.priceSpaceBlock}>
-                        <Text style={styles.paramTypo}>130/140 {i18n.t('session.seats')}</Text>
+                        <Text style={styles.paramTypo}>{item.room.capacity} {i18n.t('session.seats')}</Text>
                     </View>
                 </View>
                 <View style={[styles.divider1, styles.border2Border]} />
                 <View style={styles.section1}>
-                    {cinema && <Text style={[styles.title, styles.titleTypo]}>Cinema Hà Đông Hà Nội</Text>}
+                    {cinema && <Text style={[styles.title, styles.titleTypo]}>{item.room.theater.name}</Text>}
                     <View style={[styles.price, styles.priceSpaceBlock]}>
                         <View style={styles.itemFlexBox}>
                             <View style={styles.itemDetail}>
                                 <Text style={styles.titleDetail}>{i18n.t('session.room')}</Text>
-                                <Text style={styles.detail}>P104</Text>
+                                <Text style={styles.detail}>{item.room.name}</Text>
                             </View>
                             <View style={styles.itemDetail}>
                                 <Text style={styles.titleDetail}>{i18n.t('session.cost')}</Text>
-                                <Text style={styles.detail}>130.000VND</Text>
+                                <Text style={styles.detail}>{item.price} VND</Text>
                             </View>
                         </View>
                     </View>

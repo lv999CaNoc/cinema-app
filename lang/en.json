@@ -131,6 +131,13 @@
       "refund": "Refund",
       "send": "Send",
       "minutes": "minutes"
+    },
+    "rated": {
+      "P": "General audience",
+      "K": "Under 13 - Adult guidance required",
+      "C13": "For audiences over 13 years old",
+      "C16": "For audiences over 16 years old",
+      "C18": "For audiences over 18 years old"
     }
   }
   

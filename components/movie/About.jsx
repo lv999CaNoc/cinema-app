@@ -5,8 +5,9 @@ import Button from '../utils/Button'
 import Topbar from '../utils/Topbar'
 import Trailer from './Trailer'
 import { LangContext } from '../../contexts/LangContext'
+import moment from 'moment'
 
-const About = ({item, onSelectMovie}) => {
+const About = ({item, lineCategories, onSelectMovie}) => {
     const { i18n } = useContext(LangContext);
 
     return (
@@ -24,11 +25,11 @@ const About = ({item, onSelectMovie}) => {
 
                 <View style={styles.content}>
                     <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.description}>{item.description}</Text>
+                    <Text style={styles.description}>{'    '+item.description}</Text>
                     <View style={styles.param}>
                         <View style={styles.row}>
                             <Text style={styles.col1}>{i18n.t('about.certificate')}</Text>
-                            <Text style={styles.col2}>{item.rated}</Text>
+                            <Text style={styles.col2}>{i18n.t('rated.'+item.rated)}</Text>
                         </View>
 
                         <View style={styles.row}>
@@ -38,12 +39,12 @@ const About = ({item, onSelectMovie}) => {
 
                         <View style={styles.row}>
                             <Text style={styles.col1}>{i18n.t('about.release')}</Text>
-                            <Text style={styles.col2}>{item.releaseDate}</Text>
+                            <Text style={styles.col2}>{moment(item.releaseDate).format('DD/MM/YYYY')}</Text>
                         </View>
 
                         <View style={styles.row}>
                             <Text style={styles.col1}>{i18n.t('about.genre')}</Text>
-                            <Text style={styles.col2}>...E... Action, Crime, Drama</Text>
+                            <Text style={styles.col2}>{lineCategories}</Text>
                         </View>
 
                         <View style={styles.row}>

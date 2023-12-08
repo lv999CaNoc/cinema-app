@@ -1,12 +1,30 @@
 import * as React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { SIZES, SHADOWS, COLORS } from "../../constants";
+import { useEffect, useState } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { COLORS, SHADOWS, SIZES } from "../../constants";
 
 
 const MovieCard = ({item, navigation}) => {
+    const [lineCategories, setLineCategories] = useState('')
+
+    useEffect(()=>{
+        const renderCategories = ()=>{
+            var line=''
+            item.categories.map((category, index)=>{
+                if (index===0){
+                    line = category.name;
+                }else{
+                    line = line +", "+ category.name;
+                }
+            })
+            setLineCategories(line)
+        }
+        renderCategories()
+    },[])
+
     return (
         <View className='flex-row'>
-            <TouchableOpacity onPress={() => navigation.navigate('Movie', {movie: item})}>
+            <TouchableOpacity onPress={() => navigation.navigate('Movie', {movie: item, lineCategories: lineCategories})}>
                 <View style={styles.movieCard}>
                     <View style={styles.imageContainer}>
                         <Image style={styles.image}
@@ -18,7 +36,9 @@ const MovieCard = ({item, navigation}) => {
                     </View>
                     <View style={styles.info}>
                         <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
-                        <Text style={styles.category} numberOfLines={1}>Action</Text>
+                        <Text style={styles.category} numberOfLines={1}>
+                            {lineCategories}
+                        </Text>
                     </View>
                 </View>
             </TouchableOpacity>

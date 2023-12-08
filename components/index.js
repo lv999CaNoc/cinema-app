@@ -18,11 +18,12 @@ import Seat from "./selectSeat/Seat"
 import Sort from "./modals/Sort"
 import Language from "./modals/Language"
 import TearLine from "./ticket/TearLine"
+import Loader from "./utils/Loader"
 export {
     Button, MovieCard, Header,
     Topbar, Tab, ItemList, ItemInfo, Trailer, About,
     Session, SessionTile, CinemaHeading, Controls, MovieTile,
     DateTimeBar, Symbol, Seat,
-    Sort, Language, TearLine
+    Sort, Language, TearLine, Loader
 
 }

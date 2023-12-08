@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Image, StyleSheet, Text, View, Switch, Pressable } from "react-native";
-import { COLORS, SIZES } from '../../constants';
 import { AntDesign } from "@expo/vector-icons";
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import Sort from '../modals/Sort';
+import React, { useContext, useState } from 'react';
+import { Image, Pressable, StyleSheet, Switch, Text, View } from "react-native";
 import Modal from 'react-native-modal';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { COLORS, SIZES } from '../../constants';
 import { LangContext } from '../../contexts/LangContext';
+import Sort from '../modals/Sort';
 
 const Controls = (props) => {
     const { i18n } = useContext(LangContext);
@@ -65,7 +65,7 @@ const Controls = (props) => {
             <Pressable style={styles.control} onPress={toggleModal}>
                 <Image style={styles.iconLayout} resizeMode="cover" source={require("../../assets/icons/Sort.png")} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={styles.title}>{selectedSort.by}</Text>
+                    <Text style={styles.title}>{i18n.t("sort."+selectedSort.by)}</Text>
                     {selectedSort.order === 0 ? (
                         <AntDesign name="arrowup" size={14} color="white" />
                     ) : (

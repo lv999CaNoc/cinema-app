@@ -3,20 +3,21 @@ import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { COLORS } from '../../constants';
 import { Ionicons } from "@expo/vector-icons";
 
-const CinemaHeading = () => {
+const CinemaHeading = ({item}) => {
   return (
-    <TouchableOpacity style={styles.cinemaHeading}
-      onPress={() => console.log('Cinema Heading press')}  
-    >
+    <View style={styles.cinemaHeading}>
       <View style={[styles.title, styles.titleFlexBox]}>
-        <Text style={styles.title1}>Eurasia Cinema7</Text>
+        <Text style={styles.title1}>{item.name}</Text>
         <View style={[styles.distance, styles.titleFlexBox]}>
           <Ionicons name="location-sharp" size={18} color={COLORS.icon} />
-          <Text style={[styles.km, styles.kmTypo]}>1.5km</Text>
+            {item.id===1? 
+              (<Text style={[styles.km, styles.kmTypo]}>3.5km</Text>)
+              :(<Text style={[styles.km, styles.kmTypo]}>1600km</Text>)
+            }
         </View>
       </View>
-      <Text style={[styles.address, styles.kmTypo]}>ул. Петрова, д.24, ТЦ "Евразия"</Text>
-    </TouchableOpacity>);
+      <Text style={[styles.address, styles.kmTypo]}>{item.address}</Text>
+    </View>);
 };
 const styles = StyleSheet.create({
   titleFlexBox: {

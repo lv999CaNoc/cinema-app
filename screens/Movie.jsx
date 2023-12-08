@@ -1,13 +1,13 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useContext, useState } from 'react'
+import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { COLORS, SIZES, STYLES } from '../constants'
-import { About, Button, Session, Tab, Topbar, Trailer } from '../components'
+import { About, Session, Tab, Topbar } from '../components'
+import { STYLES } from '../constants'
 import { LangContext } from '../contexts/LangContext'
 
 const Movie = ({ navigation, route }) => {
   const { i18n} = useContext(LangContext);    
-  const {movie} = route.params
+  const {movie, lineCategories} = route.params
   const [tab1Active, setTab1Active] = useState(true)
 
   return (
@@ -19,8 +19,8 @@ const Movie = ({ navigation, route }) => {
       </View>
 
       {tab1Active ?
-        (<About onSelectMovie={()=>setTab1Active(false)} item={movie}/>) :
-        (<Session />)}
+        (<About onSelectMovie={()=>setTab1Active(false)} item={movie} lineCategories={lineCategories}/>) :
+        (<Session movieId={movie.id}/>)}
     </SafeAreaView>
   )
 }
