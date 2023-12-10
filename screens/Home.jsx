@@ -41,11 +41,11 @@ const Home = ({ navigation }) => {
           <View style={styles.session}>
             <View style={styles.header}>
               <Text style={styles.title}>{i18n.t('movie.newly')}</Text>
-              <TouchableOpacity onPress={() => {
+              {/* <TouchableOpacity onPress={() => {
                 navigation.navigate('ShowAll')
               }}>
                 <Ionicons name="grid" size={22} color={COLORS.icon} />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             {(errNew || !moviesNew.data) ? (<Text style={{color: 'white'}}>Error</Text>): 
             (<FlatList
@@ -62,12 +62,12 @@ const Home = ({ navigation }) => {
           <View style={styles.session}>
             <View style={styles.header}>
               <Text style={styles.title}>{i18n.t('movie.now')}</Text>
-              <TouchableOpacity onPress={() => {
+              {/* <TouchableOpacity onPress={() => {
                 console.log('all press')
                 navigation.navigate('ShowAll')
               }}>
                 <Ionicons name="grid" size={22} color={COLORS.icon} />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             {(errNowShowing || !moviesNowShowing.data) ? (<Text style={{color: 'white'}}>Error</Text>): 
             (<FlatList
@@ -84,12 +84,12 @@ const Home = ({ navigation }) => {
           <View style={styles.session}>
             <View style={styles.header}>
               <Text style={styles.title}>{i18n.t('movie.comming')}</Text>
-              <TouchableOpacity onPress={() => {
+              {/* <TouchableOpacity onPress={() => {
                 console.log('all press')
                 navigation.navigate('ShowAll')
               }}>
                 <Ionicons name="grid" size={22} color={COLORS.icon} />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             {(errCommingSoon || !movieCommingSoon.data) ? (<Text style={{color: 'white'}}>Error</Text>): 
             (<FlatList
