@@ -1,100 +1,108 @@
 import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { COLORS, SIZES, STYLES } from '../constants'
-import { DateTimeBar, Topbar, Symbol, Seat, Button, } from '../components'
+import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
+import { DateTimeBar, Topbar, Symbol, Seat, Button, Loader, } from '../components'
 import { LangContext } from '../contexts/LangContext'
+import axios from 'axios'
+import moment from 'moment'
+import { AuthContext } from '../contexts/AuthContext'
 
-const seatsData = [
-  { id: 'A1', status: 'SELECTED' },
-  { id: 'A2', status: 'BOOKED' },
-  { id: 'A3', status: 'PENDING' },
-  { id: 'A4', status: 'AVAILABLE' },
-  { id: 'A5', status: 'AVAILABLE' },
-  { id: 'A6', status: 'AVAILABLE' },
-  { id: 'A7', status: 'PENDING' },
-  { id: 'A8', status: 'AVAILABLE' },
-  { id: 'A9', status: 'AVAILABLE' },
-  { id: 'A10', status: 'AVAILABLE' },
-  { id: 'A11', status: 'AVAILABLE' },
-  { id: 'A12', status: 'AVAILABLE' },
-  { id: 'A13', status: 'AVAILABLE' },
-  { id: 'A14', status: 'AVAILABLE' },
-  { id: 'B1', status: 'SELECTED' },
-  { id: 'B2', status: 'BOOKED' },
-  { id: 'B3', status: 'PENDING' },
-  { id: 'B4', status: 'AVAILABLE' },
-  { id: 'B5', status: 'AVAILABLE' },
-  { id: 'B6', status: 'AVAILABLE' },
-  { id: 'B7', status: 'PENDING' },
-  { id: 'B8', status: 'AVAILABLE' },
-  { id: 'B9', status: 'AVAILABLE' },
-  { id: 'B10', status: 'AVAILABLE' },
-  { id: 'B11', status: 'AVAILABLE' },
-  { id: 'B12', status: 'AVAILABLE' },
-  { id: 'B13', status: 'AVAILABLE' },
-  { id: 'B14', status: 'AVAILABLE' },
-  { id: 'C1', status: 'SELECTED' },
-  { id: 'C2', status: 'BOOKED' },
-  { id: 'C3', status: 'PENDING' },
-  { id: 'C4', status: 'AVAILABLE' },
-  { id: 'C5', status: 'AVAILABLE' },
-  { id: 'C6', status: 'AVAILABLE' },
-  { id: 'C7', status: 'PENDING' },
-  { id: 'C8', status: 'AVAILABLE' },
-  { id: 'C9', status: 'AVAILABLE' },
-  { id: 'C10', status: 'AVAILABLE' },
-  { id: 'C11', status: 'AVAILABLE' },
-  { id: 'C12', status: 'AVAILABLE' },
-  { id: 'C13', status: 'AVAILABLE' },
-  { id: 'C14', status: 'AVAILABLE' },
 
-];
+const SelectSeat = ({ navigation, route }) => {
+  const { i18n} = useContext(LangContext); 
+  const { config } = useContext(AuthContext);
 
-const SelectSeat = ({ navigation }) => {
-  const { i18n} = useContext(LangContext);    
+  const {item} = route.params;
 
-  const seatData = {};
-  seatsData.forEach((seat) => {
-    // Chuyển dạng JSON thành dạng key: value
-    seatData[seat.id] = { status: seat.status };
-  });
+  const [seats, setSeats] = useState()
+  const [selectedSeat, setSelectedSeat] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [initialRender, setInitialRender] = useState(true);
 
-  const [seats, setSeats] = useState(seatData);
+  useEffect(()=>{
+    const loadSeat = async (scheduleId)=>{
+      var url = CONFIG.BASE_URL+"/seats?scheduleId="+scheduleId;
+      console.log("Select Seat: "+url);
+      
+      await axios.get(url)
+      .then((response) => {
+        setSeats(response.data.data);
+      })
+      .catch(error => {
+        console.log('Error:', error.response.data);
+      });
+    }
+    setLoading(true)
+    loadSeat(item.id)
+  }, [])
 
-  const handleBookSeat = () => {
-    const selectedSeats = Object.entries(seats)
-      .filter(([id, seat]) => seat.status === 'SELECTED')
-      .map(([id]) => id);
+  useEffect(()=>{
+    if (initialRender) {
+      setInitialRender(false);
+      return;
+    }
+    setLoading(false)
+  }, [seats])
 
-    if (selectedSeats.length === 0) {
+  useEffect(()=>{
+    if (initialRender) {
+      setInitialRender(false);
+      return;
+    }
+    console.log(selectedSeat);
+  }, [selectedSeat])
+
+  const handleBookSeat = async () => {
+    if (selectedSeat.length === 0) {
       Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_min_1'));
-    } else if (selectedSeats.length > 3) {
-      Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_max_3'));
     } else {
-      // Gửi thông tin về các ghế được chọn
-      console.log('Selected Seats:', selectedSeats);
-      navigation.navigate('Checkout')
+      setLoading(true);
+      const data = {
+        scheduleId: item.id,
+        listSeatIds: selectedSeat.map(seat=>seat.id),
+      }
+
+      var url = CONFIG.BASE_URL + "/bill";
+      console.log("handleBookSeat: " + url);
+
+      await axios.post(url, data, config)
+        .then((response) => {
+          navigation.navigate('Checkout', {item: response.data.data, selectedSeat})
+        })
+        .catch(error => {
+          Alert.alert(i18n.t('common.notification'), i18n.t('error._'));
+          console.log('Error:', error.response.data);
+        });
+    }
+  }
+    
+
+  const handleSeatRemove = (idToRemove) =>{
+    console.log("remove "+idToRemove);
+    const indexToRemove = selectedSeat.findIndex(item => item.id === idToRemove);
+
+    if (indexToRemove !== -1) {
+      const updatedArray = [...selectedSeat];
+      updatedArray.splice(indexToRemove, 1);
+      setSelectedSeat(updatedArray);
     }
   }
 
-  const handleSeatPress = (id) => {
-    setSeats((prevSeats) => {
-      const updatedSeats = { ...prevSeats };
-      if (updatedSeats[id].status === 'AVAILABLE') {
-        updatedSeats[id].status = 'SELECTED';
-      } else if (updatedSeats[id].status === 'SELECTED') {
-        updatedSeats[id].status = 'AVAILABLE';
-      }
-      return updatedSeats;
-    });
+  const handleSeatAdd = (item) => {
+    console.log("add "+item.id);
+    if (selectedSeat.length > 2) {
+      Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_max_3'));
+    }else{
+      setSelectedSeat([...selectedSeat, item]);
+    }
   }
 
   return (
     <SafeAreaView style={STYLES.container}>
       <Topbar left={true} goHome={true} navigation={navigation}
-        title={i18n.t('seat._')} subtitle={'P104 - Cinema Hà Đông Hà Nội'} />
-      <DateTimeBar date={"11/11/2023"} time={"15:10"} />
+        title={i18n.t('seat._')} subtitle={item.room.name +" - "+ item.room.theater.name} />
+      <DateTimeBar date={moment(item.startDate).format('DD/MM/YYYY')} time={moment(item.startDate).format('HH:mm')} />
 
       <View style={styles.symbols}>
         <Symbol occupied={true} />
@@ -106,22 +114,28 @@ const SelectSeat = ({ navigation }) => {
       <View style={styles.screen}>
         <Image resizeMode="cover" source={require('../assets/images/Screen.png')} />
       </View>
-
-      <View style={styles.seats}>
-        <ScrollView horizontal>
-          <FlatList data={Object.entries(seats)}
-            numColumns={14}
-            keyExtractor={([id]) => id}
-            renderItem={({ item }) => (
-              <Seat item={item} onPress={handleSeatPress} />
-            )}
-          />
-        </ScrollView>
-      </View>
-
-      <View style={styles.button}>
-        <Button theme={'primary'} title={i18n.t('symbol._')} onPress={handleBookSeat} />
-      </View>
+      {
+      loading? (<Loader/>) :(
+          <View style={{flex:1}}>
+            <View style={styles.seats}>
+              <ScrollView horizontal>
+                <FlatList data={seats}
+                  numColumns={14}
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item }) => (
+                    <Seat item={item}
+                      handleSeatAdd={handleSeatAdd}
+                      handleSeatRemove={handleSeatRemove}
+                      selectedSeat={selectedSeat} />
+                  )}
+                />
+              </ScrollView>
+            </View>
+            <View style={styles.button}>
+              <Button theme={'primary'} title={i18n.t('symbol._')} onPress={handleBookSeat} />
+            </View>
+          </View>)
+      }
     </SafeAreaView>
   )
 }

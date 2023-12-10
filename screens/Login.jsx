@@ -58,7 +58,7 @@ const Login = ({ navigation }) => {
         await SecureStore.setItemAsync('jwt', response.data.data.token);
         console.log('Info: Login success');
 
-        isLogin()
+        isLogin(response.data.data.token)
         navigation.goBack()
       })
       .catch(error => {

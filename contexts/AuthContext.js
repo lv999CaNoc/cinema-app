@@ -1,5 +1,5 @@
-import React, { createContext, useEffect, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
+import React, { createContext, useEffect, useState } from 'react';
 
 export const AuthContext = createContext();
 
@@ -24,13 +24,21 @@ export const AuthProvider = ({ children }) => {
     console.log("AuthProvider run checkLoginStatus()");
   }, []);
 
-  const isLogin = () => {
+  const isLogin = (jwt) => {
     setIsLoggedIn(true);
+    setJwtToken(jwt)
   };
 
   const isLogout = () => {
     setIsLoggedIn(false);
     SecureStore.deleteItemAsync('jwt');
+  };
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+jwtToken,
+    }
   };
 
   return (
@@ -39,6 +47,7 @@ export const AuthProvider = ({ children }) => {
         isLoggedIn,
         isLogin,
         isLogout,
+        config
       }}
     >
       {children}

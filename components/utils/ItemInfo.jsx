@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import { COLORS, SIZES } from '../../constants'
 
 const ItemInfo = ({ header, title, desc }) => {
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         fontFamily: 'medium'
     },
     itemDesc: {
-        color: COLORS.icon
+        color: COLORS.icon,
+        width: '75%',
     }
 })

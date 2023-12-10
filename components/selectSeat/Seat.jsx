@@ -1,47 +1,49 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { COLORS, SIZES } from '../../constants'
 import { Ionicons } from '@expo/vector-icons'
+import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { COLORS, SIZES } from '../../constants'
 
-const Seat =  React.memo(({ item, onPress }) => {
-  let seatComponent;
+const Seat = React.memo(({ item, handleSeatAdd, handleSeatRemove, selectedSeat }) => {
+  const avaiableSeat = () => (
+    <TouchableOpacity onPress={() => { handleSeatAdd({id: item.id, name: item.name}) }} style={[styles.seat, styles.statefree]}>
+      <Text style={styles.text}>{item.name}</Text>
+    </TouchableOpacity>
+  );
+  
+  const chosenSeat = () => (
+    <TouchableOpacity onPress={() => handleSeatRemove(item.id)} style={[styles.seat, styles.statechosen]}>
+      <Text style={styles.text}>{item.name}</Text>
+    </TouchableOpacity>
+  );
+  
+  const pendingSeat = () => (
+    <View style={[styles.seat, styles.stateinuse]}>
+      <Text style={styles.text}>{item.name}</Text>
+    </View>
+  );
+  
+  const bookedSeat = () => (
+    <View style={[styles.seat, styles.statefree]}>
+      <Ionicons name="close" size={16} color={COLORS.icon} />
+    </View>
+  );
 
-  switch (item[1].status) {
-    case 'AVAILABLE':
-      seatComponent = (
-        <TouchableOpacity onPress={() => { onPress(item[0]) }} style={[styles.seat, styles.statefree]}>
-          <Text style={styles.text}>{item[0]}</Text>
-        </TouchableOpacity>
-      );
-      break;
-    case 'SELECTED':
-      seatComponent = (
-        <TouchableOpacity onPress={() => onPress(item[0])} style={[styles.seat, styles.statechosen]}>
-          <Text style={styles.text}>{item[0]}</Text>
-        </TouchableOpacity>
-      );
-      break;
-    case 'PENDING':
-      seatComponent = (
-        <View style={[styles.seat, styles.stateinuse]}>
-          <Text style={styles.text}>{item[0]}</Text>
-        </View>
-      );
-      break;
-    case 'BOOKED':
-      seatComponent = (
-        <View style={[styles.seat, styles.statefree]}>
-          <Ionicons name="close" size={16} color={COLORS.icon} />
-        </View>
-      );
-      break;
-    default:
-      seatComponent = null;
+  const renderSeat = () => {
+    switch (item.status) {
+      case null:
+        return selectedSeat.find(seat => seat.id === item.id) ? chosenSeat() : avaiableSeat();
+      case "PENDING":
+        return pendingSeat();
+      case "COMPLETE":
+        return bookedSeat();
+      default:
+        return null;
+    }
   }
-
+  
   return (
     <View style={styles.container}>
-      {seatComponent}
+      {renderSeat()}
     </View>
   );
 })

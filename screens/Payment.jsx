@@ -5,55 +5,49 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import { Loader } from '../components';
 import { CONFIG, STYLES } from '../constants';
+import { AuthContext } from '../contexts/AuthContext';
 import { LangContext } from '../contexts/LangContext';
 
-const Payment = ({navigation}) => {
+const Payment = ({navigation, route}) => {
     const { i18n} = useContext(LangContext);
+    const { config } = useContext(AuthContext);
+
+    const {item, selectedSeat} = route.params;
     const [approvalUrl, setApprovalUrl] = useState(null)
     
-    const data = {
-        billId: 18,
-        price: 1.5,
-        description: 'description'
-      };
-
+    const numOfSeat = selectedSeat.length;
+      const order =
+      {
+        billId: item.id,
+        price: numOfSeat * item.schedule.price / 23000,
+        description: 'Pay for seat: ' + selectedSeat.map(seat => seat.name).join(', ')
+      }
     useEffect(() => {
-        createOrder(data)
+        createOrder(order)
     }, [])
 
     const createOrder = async (order)=>{
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob25nZHVjMjAwMiIsImlhdCI6MTcwMTkxNjQzNiwiZXhwIjoxNzAyMDAyODM2fQ.RtZCIBhoBPRguDrkrDj6_PfY6kbkdNqFFTt20ceJfWY',
-        }
-      };
-      
       const endpoint = CONFIG.BASE_URL+'/payment';
-
-      const response = await axios.post(endpoint, order, config);
-
-      if (response.status===200){
-        setApprovalUrl(response.data)
-      }else{
-        Alert.alert("Error"
-        [
-          {
-            text: i18n.t('common.cancel'), onPress: () => { }
-          },
-          {
-            text: i18n.t('common.continue'), onPress: () => { }
-          }
-        ])
-      }
+      console.log("POST "+endpoint);
+      await axios.post(endpoint, order, config)
+        .then((response) => {
+          setApprovalUrl(response.data)
+        })
+        .catch(error => {
+          Alert.alert(i18n.t('common.notification'), i18n.t('error._'),);
+          console.log('Error:', error.response.data);
+        });
     }
   
     const processOrder = async (endpoint)=> {
-        const response = await axios.get(endpoint);
-        console.log(response.data)
-        if (response.status===200){
-          navigation.navigate('Ticket')
-        }
+      await axios.get(endpoint)
+      .then((response) => {
+        navigation.navigate('Ticket', {billId: order.billId})
+      })
+      .catch(error => {
+        Alert.alert(i18n.t('common.notification'), i18n.t('error._'));
+        console.log('Error:', error.response.data);
+      });
     }
 
     const handleResponse= data => {

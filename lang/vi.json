@@ -32,6 +32,7 @@
     "cost": "Giá tiền",
     "date": "Ngày",
     "total": "Tổng",
+    "no_available": "Không còn lịch chiếu!",
     "_":""
   },
   "controls":{
@@ -67,6 +68,10 @@
   },
   "ticket":{
     "msg": "Hiển thị mã QR cho nhân viên tại rạp chiếu phim.",
+    "status":"Trạng thái",
+    "COMPLETE": "Thành công",
+    "PENDING": "Chưa thanh toán",
+    "CANCEL": "Bị hủy",
     "_": "Vé Của Bạn"
   },
   "profile":{
@@ -96,7 +101,8 @@
     "password_required": "Mật khẩu là trường bắt buộc.",
     "password_format": "Mật khẩu phải bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.",
     "c_password_not_match": "Mật khẩu xác nhận không khớp",
-    "c_password_required":"Mật khẩu xác nhận là trường bắt buộc."
+    "c_password_required":"Mật khẩu xác nhận là trường bắt buộc.",
+    "_": "Đã xảy ra lỗi!"
   },
 
   "common":{

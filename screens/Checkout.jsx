@@ -1,51 +1,50 @@
-import React, { useContext, useState } from 'react'
+import moment from 'moment'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, ItemInfo, TearLine, Topbar } from '../components'
 import { COLORS, SIZES, STYLES } from '../constants'
 import { LangContext } from '../contexts/LangContext'
 
-const Checkout = ({navigation}) => {
-  const { i18n} = useContext(LangContext);
-  const [order, setOrder] = useState(
-    {
-      total: '',
-      description: ''
-    }
-  )
+const Checkout = ({ navigation, route }) => {
+  const { i18n } = useContext(LangContext);
+
+  const { item, selectedSeat } = route.params;
+  const numOfSeat = selectedSeat.length;
 
   return (
     <SafeAreaView style={STYLES.container}>
-      <Topbar left={true} navigation={navigation} title={i18n.t('pay._')}/>
-    
+      <Topbar left={true} navigation={navigation} title={i18n.t('pay._')} />
+
       <View style={styles.info}>
-          <Text style={styles.title}>Movie name xxx xxxx xxx</Text>
-          <View style={styles.details}>
-            <ItemInfo header={i18n.t('session.cinema')} title={'Eurasia Cinema7'} desc={'ул. Петрова, д.24, ТЦ "Евразия"'} />
-            <ItemInfo header={i18n.t('session.date')} title={'11/11/2023'} />
-            <ItemInfo header={i18n.t('sort.time')} title={'14:40'} />
-            <ItemInfo header={i18n.t('session.room')} title={'P104'} />
-            <ItemInfo header={i18n.t('session.seats')} title={'A3'} />
-            <ItemInfo header={i18n.t('session.cost')} title={'320.000 VNĐ'} />
-          </View>
-
-          <View style={styles.seats}>
-            <ItemInfo header={'2 x '+i18n.t('session.seat')} title={'2 x 320.000 VNĐ'} />
-            <ItemInfo header={i18n.t('session.total')} title={'640.000 VNĐ'} />
-          </View>
-
+        <Text style={styles.title}>{item.schedule.movie.title}</Text>
+        <View style={styles.details}>
+          <ItemInfo header={i18n.t('session.cinema')} title={item.schedule.room.theater.name}
+            desc={item.schedule.room.theater.address} />
+          <ItemInfo header={i18n.t('session.date')} title={moment(item.schedule.startDate).format("DD/MM/YYYY")} />
+          <ItemInfo header={i18n.t('sort.time')} title={moment(item.schedule.startDate).format("HH:mm")} />
+          <ItemInfo header={i18n.t('session.room')} title={item.schedule.room.name} />
+          <ItemInfo header={i18n.t('session.seats')} title={selectedSeat.map(seat => seat.name).join(', ')} />
+          <ItemInfo header={i18n.t('session.cost')} title={item.schedule.price + " VND"} />
         </View>
 
-      <TearLine/>
+        <View style={styles.seats}>
+          <ItemInfo header={numOfSeat + ' x ' + i18n.t('session.seat')} title={numOfSeat + ' x ' + item.schedule.price + ' VND'} />
+          <ItemInfo header={i18n.t('session.total')} title={numOfSeat * item.schedule.price + ' VND'} />
+        </View>
+
+      </View>
+
+      <TearLine />
 
       <View style={styles.payment}>
-        <Button theme={'primary'} paypal={true} small={false} title={i18n.t('pay._')} 
-          onPress={()=> {
-            navigation.navigate("Payment")
-          }}/>
+        <Button theme={'primary'} paypal={true} small={false} title={i18n.t('pay._')}
+          onPress={() => {
+            navigation.navigate("Payment", { item, selectedSeat })
+          }} />
       </View>
     </SafeAreaView>
- 
+
   )
 }
 
@@ -61,12 +60,12 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     paddingVertical: SIZES.medium
   },
-  seats:{
+  seats: {
     borderTopColor: COLORS.border,
     borderTopWidth: 1,
     paddingTop: SIZES.small
   },
-  payment:{
+  payment: {
     padding: SIZES.medium
   }
 })

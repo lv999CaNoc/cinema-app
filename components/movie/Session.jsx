@@ -1,13 +1,13 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import axios from 'axios'
+import moment from 'moment'
 import React, { useContext, useEffect, useState } from 'react'
-import SessionTile from './SessionTile'
-import CinemaHeading from './CinemaHeading'
-import Controls from './Controls'
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { COLORS, CONFIG, SIZES } from '../../constants'
 import { LangContext } from '../../contexts/LangContext'
-import moment from 'moment'
-import axios from 'axios'
 import Loader from '../utils/Loader'
+import CinemaHeading from './CinemaHeading'
+import Controls from './Controls'
+import SessionTile from './SessionTile'
 
 const Session = ({movieId}) => {
   const { i18n } = useContext(LangContext);
@@ -25,7 +25,7 @@ const Session = ({movieId}) => {
 
   useEffect(()=>{
     const loadSession = async ()=>{
-      var url = CONFIG.BASE_URL+"/movies/"+movieId+"/schedules?dateTime="+moment(date).format('YYYY-MM-DD');
+      var url = CONFIG.BASE_URL+"/schedules?movieId="+movieId+"&date="+moment(date).format('YYYY-MM-DD');
       console.log(url);
 
       await axios.get(url)
@@ -33,6 +33,7 @@ const Session = ({movieId}) => {
         setResponseData(response.data.data);
       })
       .catch(error => {
+        Alert.alert(i18n.t('common.notification'), i18n.t('error._'));
         console.log('Error:', error.response.data);
       });
     }
@@ -67,6 +68,7 @@ const Session = ({movieId}) => {
     
         if (existingTheater) {
           existingTheater.schedules.push({
+            id: schedule.id,
             startDate: schedule.startDate,
             price: schedule.price,
             room: schedule.room
@@ -75,6 +77,7 @@ const Session = ({movieId}) => {
           acc.push({
             theater: schedule.room.theater,
             schedules: [{
+              id: schedule.id,
               startDate: schedule.startDate,
               price: schedule.price,
               room: schedule.room
@@ -93,6 +96,41 @@ const Session = ({movieId}) => {
     setLoading(false)
   }, [responseData, sort, group]);
 
+  const contentComp = ()=> {
+    return (group)? (
+      <FlatList
+        data={groupData}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View>
+            <CinemaHeading item={item.theater}/>
+            <FlatList
+              data={item.schedules}
+              renderItem={(schedule) => <SessionTile item={schedule.item} cinema={false} />}
+            />
+          </View>
+        )}
+      />
+    ) : (
+      <FlatList
+        data={notGroupData}
+        keyExtractor={(item, index) => index.toString()}
+        initialNumToRender={8}
+        renderItem={({ item }) => <SessionTile item={item} cinema={true} />}
+      />
+    )
+  }
+
+  const noContentComp = () =>{
+    return (
+    <View style={styles.content}>
+          <View style={styles.placeholder}>
+            <Image resizeMode='cover' source={require('../../assets/images/Illustration.png')}/>
+            <Text style={styles.placeholderTxt}>{i18n.t('session.no_available')}</Text>
+          </View>
+    </View>)
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <Controls
@@ -110,28 +148,17 @@ const Session = ({movieId}) => {
           <Text style={styles.txtHeader}>{i18n.t('session.cinema')}</Text>
         </View>
 
-        {loading? (<Loader/>) :(group ? (
-          <FlatList
-            data={groupData}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View>
-                <CinemaHeading item={item.theater}/>
-                <FlatList
-                  data={item.schedules}
-                  renderItem={(schedule) => <SessionTile item={schedule.item} cinema={false} />}
-                />
-              </View>
-            )}
-          />
-        ) : (
-          <FlatList
-            data={notGroupData}
-            keyExtractor={(item, index) => index.toString()}
-            initialNumToRender={8}
-            renderItem={({ item }) => <SessionTile item={item} cinema={true} />}
-          />
-        ))}
+        {
+          loading ? (
+            <Loader />
+          ) : (
+            responseData.length === 0 ? (
+              noContentComp()
+            ) : (
+              contentComp()
+            )
+          )
+        }
       </View>
     </View>
   )
@@ -156,5 +183,20 @@ const styles = StyleSheet.create({
     width: '30%',
     textAlign: 'center',
     marginEnd: SIZES.large
-  }
+  },
+  content:{
+    flex: 1,
+    paddingTop: SIZES.medium
+  },
+  placeholder:{
+    flex:1,
+    minHeight: 300,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  placeholderTxt:{
+    color: COLORS.icon,
+    marginTop: SIZES.small,
+    fontFamily: 'regular'
+  },
 })

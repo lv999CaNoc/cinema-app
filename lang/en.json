@@ -32,6 +32,7 @@
       "cost": "Cost",
       "date": "Date",
       "total": "Total",
+      "no_available": "No more screenings today!",
       "_":""
     },
     "controls":{
@@ -67,6 +68,10 @@
     },
     "ticket":{
       "msg":"Show this code to the gatekeeper at the cinema.",
+      "status": "Status",
+      "COMPLETE": "Completed",
+      "PENDING": "Pending",
+      "CANCEL": "Cancelled",
       "_":"Your Ticket"
     },
     "profile":{
@@ -96,7 +101,8 @@
       "password_required": "Password is a required field.",
       "password_format": "Password must include uppercase letters, lowercase letters, numbers, and special characters.",
       "c_password_not_match": "Confirm password does not match",
-      "c_password_required":"Confirm password is a required field."
+      "c_password_required":"Confirm password is a required field.",
+      "_": "Opps, has error!"
     },
 
     "common":{
