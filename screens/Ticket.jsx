@@ -7,10 +7,10 @@ import { Button, ItemInfo, Loader, QRView, TearLine, Topbar } from '../component
 import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
 import { LangContext } from '../contexts/LangContext'
 
-const Ticket = ({ navigation, route}) => {
-  const { i18n} = useContext(LangContext);    
+const Ticket = ({ navigation, route }) => {
+  const { i18n } = useContext(LangContext);
   const { billId } = route.params;
-  
+
   const [bill, setBill] = useState(null)
   const [tickets, setTickets] = useState([])
   const [loading, setLoading] = useState(true);
@@ -32,7 +32,7 @@ const Ticket = ({ navigation, route}) => {
               id: item.seat.id,
               name: item.seat.name
             },
-            bill:{
+            bill: {
               status: item.bill.status,
               createdTime: item.bill.createdTime,
             }
@@ -57,39 +57,32 @@ const Ticket = ({ navigation, route}) => {
 
   return (
     <SafeAreaView style={STYLES.container}>
-      <Topbar title={i18n.t('ticket._')} navigation={navigation} goHome={true} left={true}/>
-      
-      <ScrollView>
-        {
-        loading? <Loader/>:( 
+      <Topbar title={i18n.t('ticket._')} navigation={navigation} goHome={true} left={true} />
+
+      {loading ? <Loader /> :
+        (<ScrollView>
           <FlatList
-              data={tickets}
-              horizontal={true}
-              initialNumToRender={3}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => <QRView ticket={item}/>}
-            />
-            )
-        }
+            data={tickets}
+            horizontal={true}
+            initialNumToRender={3}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <QRView ticket={item} />}
+          />
+
           <Text style={styles.description}>{i18n.t('ticket.msg')}</Text>
           <TearLine />
-        {
-          loading? <Loader/> : (
-            <View style={styles.info}>
-              <Text style={styles.title}>{bill.schedule.movie.title}</Text>
-              <View style={styles.details}>
-                <ItemInfo header={i18n.t('session.cinema')} title={bill.schedule.room.theater.name}
-                  desc={bill.schedule.room.theater.address} />
-                <ItemInfo header={i18n.t('session.room')} title={bill.schedule.room.name} />
-                <ItemInfo header={i18n.t('session.seat')} title={tickets.map(ticket=> ticket.seat.name).join(", ")} />
-                <ItemInfo header={i18n.t('session.date')} title={moment(bill.schedule.startDate).format("DD/MM/YYYY")} />
-                <ItemInfo header={i18n.t('sort.time')} title={moment(bill.schedule.startDate).format("HH:mm")} />
-              </View>
+          <View style={styles.info}>
+            <Text style={styles.title}>{bill.schedule.movie.title}</Text>
+            <View style={styles.details}>
+              <ItemInfo header={i18n.t('session.cinema')} title={bill.schedule.room.theater.name}
+                desc={bill.schedule.room.theater.address} />
+              <ItemInfo header={i18n.t('session.room')} title={bill.schedule.room.name} />
+              <ItemInfo header={i18n.t('session.seat')} title={tickets.map(ticket => ticket.seat.name).join(", ")} />
+              <ItemInfo header={i18n.t('session.date')} title={moment(bill.schedule.startDate).format("DD/MM/YYYY")} />
+              <ItemInfo header={i18n.t('sort.time')} title={moment(bill.schedule.startDate).format("HH:mm")} />
             </View>
-          )
-        }
-        {
-          loading? <Loader/> :(
+          </View>
+          {
             (bill.status === "PENDING") ? (
               <View style={styles.payment}>
                 <Button theme={'primary'} paypal={true} small={false} title={i18n.t('pay._')}
@@ -107,10 +100,10 @@ const Ticket = ({ navigation, route}) => {
                 </View> */}
               </View>
             )
-          )
-        }
+          }
 
-      </ScrollView>
+        </ScrollView>
+        )}
     </SafeAreaView>
   )
 }
@@ -118,7 +111,7 @@ const Ticket = ({ navigation, route}) => {
 export default Ticket
 
 const styles = StyleSheet.create({
-  
+
   description: {
     fontFamily: 'regular',
     paddingVertical: SIZES.small,
@@ -139,13 +132,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: SIZES.medium,
   },
-  controls:{
+  controls: {
     marginBottom: SIZES.medium
   },
   control: {
     width: '47%'
   },
-  payment:{
+  payment: {
     marginHorizontal: SIZES.medium,
     marginBottom: SIZES.medium
   }

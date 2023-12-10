@@ -1,29 +1,28 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import moment from 'moment'
 import React from 'react'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import { COLORS, SIZES } from '../../constants'
-import { useNavigation } from '@react-navigation/native'
 
-const Payment = () => {
-    const navigation = useNavigation();
+const MovieTile = ({navigation, bill}) => {
     return (
         <Pressable style={styles.container} 
         onPress={() => { 
             console.log('movie tile') 
-            navigation.navigate('Ticket')
+            navigation.navigate('Ticket', {billId: bill.id})
         }}>
-            <Image style={styles.image} resizeMode='cover' source={{ uri: 'https://media.lottecinemavn.com/Media/MovieFile/MovieImg/202305/11117_103_100004.jpg' }} />
+            <Image style={styles.image} resizeMode='cover' source={{ uri: bill.schedule.movie.movieImageURl }} />
             <View style={styles.content}>
-                <Text numberOfLines={2} style={styles.title}>The Batman xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx</Text>
+                <Text numberOfLines={2} style={styles.title}>{bill.schedule.movie.title}</Text>
                 <View>
-                    <Text numberOfLines={1} style={styles.date}>11/11/2023, 14:40</Text>
-                    <Text numberOfLines={1} style={styles.cinema}>Eurasia Cinema7</Text>
+                    <Text numberOfLines={1} style={styles.date}>{moment(bill.schedule.startDate).format("DD/MM/YYYY")}, {moment(bill.schedule.startDate).format("HH:mm")}</Text>
+                    <Text numberOfLines={1} style={styles.cinema}>{bill.schedule.room.theater.name}</Text>
                 </View>
             </View>
         </Pressable>
     )
 }
 
-export default Payment
+export default MovieTile
 
 const styles = StyleSheet.create({
     container: {
