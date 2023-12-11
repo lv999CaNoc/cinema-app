@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import { Alert, FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, ItemInfo, Loader, MovieTile, Topbar } from '../components'
 import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
@@ -76,6 +76,12 @@ const Profile = (props) => {
               <ItemInfo header={i18n.t('common.username')} title={user.username} />
               <ItemInfo header={'Email'} title={user.email} />
               <Button theme={'primary'} small={true} title={i18n.t('profile.update')} onPress={() => console.log('Update profile')} />
+            </View>
+
+            <View style={styles.content}>
+              <Text style={styles.contentTitle}>{i18n.t('profile.scan_qr')}</Text>
+
+              <Button theme={'secondary'} small={true} title={i18n.t('profile.scan_qr')} onPress={() => navigation.navigate("Scanner")} />
             </View>
             {
               renderContent()

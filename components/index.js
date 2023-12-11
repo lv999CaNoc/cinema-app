@@ -20,12 +20,13 @@ import ItemList from "./utils/ItemList"
 import Loader from "./utils/Loader"
 import Tab from './utils/Tab'
 import Topbar from "./utils/Topbar"
+import QRData from "./ticket/QRData"
 
 export {
     About, Button, CinemaHeading, Controls,
     DateTimeBar, Header, ItemInfo, ItemList,
     Language, Loader, MovieCard, MovieTile, QRView,
     Seat, Session, SessionTile, Sort, Symbol, Tab,
-    TearLine, Topbar, Trailer
+    TearLine, Topbar, Trailer, QRData
 }
 

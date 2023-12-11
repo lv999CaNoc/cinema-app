@@ -80,6 +80,9 @@
     "pay_history_msg":"Bạn chưa mua vé",
     "saved_cart":"Thẻ đã lưu",
     "add_new_cart":"Thêm thẻ mới",
+    "scan_qr": "Quét mã QR",
+    "scan": "Quét mã",
+    "data": "Dữ liệu",
     "_":"Hồ sơ"
   },
   "symbol":{
@@ -136,7 +139,16 @@
     "location": "Hà Nội",
     "refund": "Hoàn tiền",
     "send": "Gửi",
-    "minutes": "phút"
+    "minutes": "phút",
+
+    "valid_QR_code": "Mã QR hợp lệ",
+    "invalid_QR_code": "Mã QR không hợp lệ",
+    "user_information": "Thông tin người dùng",
+    "ticket_information": "Thông tin vé",
+    "payment_time": "Thanh toán lúc",
+    "movie_information": "Thông tin phim",
+    "end_date": "Ngày kết thúc",
+    "release_date": "Ngày phát hành"
   },
   "rated": {
     "P": "Dành cho mọi khán giả",

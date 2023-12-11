@@ -80,7 +80,10 @@
       "pay_history_msg":"You haven't bought tickets yet",
       "saved_cart":"Saved Cards",
       "add_new_cart":"Add new card",
-      "_":"Your Profile"
+      "scan_qr": "Scan QR",
+      "scan": "Scan",
+      "data": "Data",
+      "_": "Your Profile"
     },
     "symbol":{
       "available":"Available",
@@ -136,7 +139,16 @@
       "location": "Ha Noi",
       "refund": "Refund",
       "send": "Send",
-      "minutes": "minutes"
+      "minutes": "minutes",
+
+      "valid_QR_code": "Valid QR code",
+      "invalid_QR_code": "Invalid QR code",
+      "user_information": "User information",
+      "ticket_information": "Ticket information",
+      "payment_time": "Payment time",
+      "movie_information": "Movie information",
+      "end_date": "End date",
+      "release_date": "Release date"
     },
     "rated": {
       "P": "General audience",

@@ -3,9 +3,14 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home, Login, Movie, Checkout, Profile, Register, Search, SelectSeat, ShowAll, Ticket, Payment } from './screens';
+import { Home, Login, Movie, Checkout, Profile, Register, Search, SelectSeat, ShowAll, Ticket, Payment, Scanner } from './screens';
 import { AuthProvider } from './contexts/AuthContext';
 import { LangProvider } from './contexts/LangContext';
+import { StatusBar } from 'react-native';
+
+StatusBar.setBarStyle('light-content');
+StatusBar.setBackgroundColor('transparent');
+StatusBar.setTranslucent(true);
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -89,6 +94,11 @@ export default function App() {
           <Stack.Screen
             name="Profile"
             component={Profile}
+            options={{ headerShown: false }} />
+
+          <Stack.Screen
+            name="Scanner"
+            component={Scanner}
             options={{ headerShown: false }} />
 
         </Stack.Navigator>

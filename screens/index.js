@@ -9,10 +9,11 @@ import Login from "./Login";
 import Search from "./Search"
 import ShowAll from './ShowAll'
 import Register from "./Register";
+import Scanner from "./Scanner";
 
 export {
     Home, Movie, SelectSeat, 
     Ticket, Profile, Search,
     Checkout, Payment,
-    Login, Register, ShowAll
+    Login, Register, ShowAll, Scanner
 }
