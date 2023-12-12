@@ -1,15 +1,14 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import axios from 'axios'
-import * as SecureStore from 'expo-secure-store'
 import { Formik } from 'formik'
 import React, { useContext, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as Yup from 'yup'
-import { Button, Topbar } from '../components'
+import { Button, RegisterSuccess, Topbar } from '../components'
 import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
-import { AuthContext } from '../contexts/AuthContext'
 import { LangContext } from '../contexts/LangContext'
+import Modal from 'react-native-modal';
 
 const Register = ({ navigation }) => {
   const { i18n} = useContext(LangContext);   
@@ -46,10 +45,10 @@ const Register = ({ navigation }) => {
     )
   }
 
-  const { isLogin } = useContext(AuthContext);
   const [showError, setShowError] = useState([false, false, false, false]);
   const [passwordSecureText, setPasswordSecureText] = useState(true)
   const [cPasswordSecureText, setCPasswordSecureText] = useState(true)
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const handleShowError = (index) => {
     const updatedErrors = [...showError];
@@ -62,12 +61,9 @@ const Register = ({ navigation }) => {
     console.log("POST " + endpoint);
 
     await axios.post(endpoint, values)
-      .then(async (response) => {
-        await SecureStore.setItemAsync('jwt', response.data.data.token);
-        console.log('Info: Register success');
-
-        isLogin()
-        navigation.navigate('Home')
+      .then(response => {
+        console.log('Info: '+response);
+        setModalVisible(true)
       })
       .catch(error => {
         var errMsg = 'common.register_err_msg';
@@ -91,7 +87,7 @@ const Register = ({ navigation }) => {
             }
           ]
         )
-      });
+    });
   }
 
   return (
@@ -231,6 +227,15 @@ const Register = ({ navigation }) => {
           <Text style={[styles.loginTxt, styles.link]} onPress={() => navigation.navigate('Login')}>{i18n.t('common.login')}</Text>
         </View>
       </ScrollView>
+
+      <Modal
+        isVisible={isModalVisible}
+        animationIn="zoomIn"
+        animationOut="zoomOut"
+        onBackdropPress={() => setModalVisible(false)}
+        backdropOpacity={0.8}>
+        <RegisterSuccess navigation={navigation} />
+      </Modal>
     </SafeAreaView>
   )
 }
@@ -278,8 +283,8 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   errMessage: {
-    color: '#999999',
-    fontFamily: 'regular',
+    color: '#DB1210',
+    fontFamily: 'semibold',
     marginTop: 5,
     marginLeft: SIZES.xSmall,
     fontSize: 13

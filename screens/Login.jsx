@@ -55,16 +55,27 @@ const Login = ({ navigation }) => {
 
     await axios.post(endpoint, values)
       .then(async (response) => {
-        await SecureStore.setItemAsync('jwt', response.data.data.token);
+        const jwtToken = response.data.data.token;
+        const roles = response.data.data.roles;
+        
+        await SecureStore.setItemAsync('jwt', jwtToken);
+        await SecureStore.setItemAsync('roles', JSON.stringify(roles));
         console.log('Info: Login success');
 
-        isLogin(response.data.data.token)
+        isLogin(jwtToken, roles)
         navigation.goBack()
       })
       .catch(error => {
+        var errMsg = 'common.login_err_msg';
+        if (error.response.data.errorCode === '401') {
+          const message = error.response.data.message;
+          if (message === "User is disabled") {
+            errMsg = "Người dùng chưa xác nhận email.";
+          }
+        }
         Alert.alert(
           i18n.t('common.failed'),
-          i18n.t('common.login_err_msg'),
+          i18n.t(errMsg),
           [
             {
               text: i18n.t('common.cancel'), onPress: () => { }
@@ -207,11 +218,11 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   errMessage: {
-    color: '#999999',
-    fontFamily: 'regular',
+    color: '#DB1210',
+    fontFamily: 'semibold',
     marginTop: 5,
     marginLeft: SIZES.xSmall,
-    fontSize: 13,
+    fontSize: 13
   },
   register: {
     flexDirection: 'row',

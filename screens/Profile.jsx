@@ -9,7 +9,7 @@ import { LangContext } from '../contexts/LangContext'
 
 const Profile = (props) => {
   const { i18n } = useContext(LangContext);
-  const { config } = useContext(AuthContext);
+  const { userRoles, config } = useContext(AuthContext);
   const { navigation } = props
 
   const [user, setUser] = useState()  
@@ -25,8 +25,8 @@ const Profile = (props) => {
       await axios.get(url, config)
         .then((response) => {
           const data = response.data.data;
-          setUser(data[0].user)
-          setBills(data.map(item => item).reverse())
+          setUser(data.user)
+          setBills(data.bills.map(item => item).reverse())
         })
         .catch(error => {
           Alert.alert(i18n.t('common.notification'), i18n.t('error._'),);
@@ -77,12 +77,13 @@ const Profile = (props) => {
               <ItemInfo header={'Email'} title={user.email} />
               <Button theme={'primary'} small={true} title={i18n.t('profile.update')} onPress={() => console.log('Update profile')} />
             </View>
-
-            <View style={styles.content}>
-              <Text style={styles.contentTitle}>{i18n.t('profile.scan_qr')}</Text>
-
-              <Button theme={'secondary'} small={true} title={i18n.t('profile.scan_qr')} onPress={() => navigation.navigate("Scanner")} />
-            </View>
+            {
+              userRoles.includes("ROLE_MANAGER") &&
+              <View style={styles.content}>
+                <Text style={styles.contentTitle}>{i18n.t('profile.scan_qr')}</Text>
+                <Button theme={'secondary'} small={true} title={i18n.t('profile.scan_qr')} onPress={() => navigation.navigate("Scanner")} />
+              </View>
+            }
             {
               renderContent()
             }

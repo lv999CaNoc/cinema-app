@@ -1,7 +1,7 @@
 import axios from 'axios'
 import moment from 'moment'
 import React, { useContext, useEffect, useState } from 'react'
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Alert, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, ItemInfo, Loader, QRView, TearLine, Topbar } from '../components'
 import { COLORS, CONFIG, SIZES, STYLES } from '../constants'

@@ -1,17 +1,24 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useContext } from 'react'
-import { COLORS, SIZES } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
-import { LangContext } from '../../contexts/LangContext';
 import moment from 'moment';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { COLORS, SIZES } from '../../constants';
+import { AuthContext } from '../../contexts/AuthContext';
+import { LangContext } from '../../contexts/LangContext';
 
 const SessionTile = ({ item, cinema }) => {
-    const { i18n} = useContext(LangContext);    
+    const { i18n} = useContext(LangContext);  
+    const { isLoggedIn } = useContext(AuthContext);
+
     const navigation = useNavigation();
 
     return (
         <TouchableOpacity style={styles.session} onPress={() => {
-            navigation.navigate('SelectSeat', {item})
+            if (isLoggedIn){
+                navigation.navigate('SelectSeat', {item})
+            }else{
+                navigation.navigate("Login")
+            }
         }}>
             <View style={[styles.border2, styles.border2Border]} />
             <View style={styles.wrap}>

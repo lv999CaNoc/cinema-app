@@ -57,6 +57,7 @@ const Controls = (props) => {
                 date={selectedDate}
                 isVisible={datePickerVisible}
                 minimumDate={new Date()}
+                display="inline"
                 mode="date"
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}

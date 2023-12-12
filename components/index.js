@@ -21,12 +21,13 @@ import Loader from "./utils/Loader"
 import Tab from './utils/Tab'
 import Topbar from "./utils/Topbar"
 import QRData from "./ticket/QRData"
+import RegisterSuccess from "./modals/RegisterSuccess"
 
 export {
     About, Button, CinemaHeading, Controls,
     DateTimeBar, Header, ItemInfo, ItemList,
     Language, Loader, MovieCard, MovieTile, QRView,
     Seat, Session, SessionTile, Sort, Symbol, Tab,
-    TearLine, Topbar, Trailer, QRData
+    TearLine, Topbar, Trailer, QRData, RegisterSuccess
 }
 
