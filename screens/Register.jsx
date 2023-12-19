@@ -94,7 +94,7 @@ const Register = ({ navigation }) => {
     <SafeAreaView style={STYLES.container}>
       <Topbar left={true} navigation={navigation} goHome={true} />
 
-      <Text style={styles.title}>REGISTER</Text>
+      <Text style={styles.title}>{i18n.t("common.register")}</Text>
       <ScrollView>
         <Formik
           initialValues={{

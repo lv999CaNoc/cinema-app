@@ -76,6 +76,7 @@ const Search = ({ navigation }) => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => <MovieCard item={item} navigation={navigation} />}
             ItemSeparatorComponent={() => <View style={{ height: 5 }} />}
+            contentContainerStyle={{justifyContent: 'center'}}
           />
         </View>
 

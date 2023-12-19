@@ -56,7 +56,7 @@ const Header = ({ navigation}) => {
       <View style={{ flexDirection: 'row' }}>
         {!isLoggedIn ? (
           <Button theme={'primary'} small={true} title={'Log in'} onPress={() => navigation.navigate('Login')}/>)
-        :(<Button theme={'primary'} small={true} title={'Profile'} onPress={() => navigation.navigate('Profile')} />)}
+        :(<Button theme={'primary'} small={true} title={i18n.t('profile._')} onPress={() => navigation.navigate('Profile')} />)}
       </View>
     </View>
   )

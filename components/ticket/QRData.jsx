@@ -78,7 +78,7 @@ const QRData = ({ token }) => {
                 }
 
                 {
-                    loading ? (<Loader />) : (
+                    loading ? (<Loader />) : accept && (
                         <View>
                             <View style={styles.content}>
                                 <Text style={styles.header}>{i18n.t('common.user_information')}</Text>
