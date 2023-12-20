@@ -1,17 +1,15 @@
 import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
 import { DateTimeBar, Topbar, Symbol, Seat, Button, Loader, } from '../components'
 import { LangContext } from '../contexts/LangContext'
 import axios from 'axios'
 import moment from 'moment'
-import { AuthContext } from '../contexts/AuthContext'
-
 
 const SelectSeat = ({ navigation, route }) => {
   const { i18n} = useContext(LangContext); 
-  const { config } = useContext(AuthContext);
 
   const {item} = route.params;
 
@@ -20,22 +18,24 @@ const SelectSeat = ({ navigation, route }) => {
   const [loading, setLoading] = useState(true);
   const [initialRender, setInitialRender] = useState(true);
 
-  useEffect(()=>{
-    const loadSeat = async (scheduleId)=>{
-      var url = CONFIG.BASE_URL+"/seats?scheduleId="+scheduleId;
-      console.log("Select Seat: "+url);
-      
-      await axios.get(url)
-      .then((response) => {
-        setSeats(response.data.data);
-      })
-      .catch(error => {
-        console.log('Error:', error.response.data);
-      });
-    }
-    setLoading(true)
-    loadSeat(item.id)
-  }, [])
+  useFocusEffect(
+    React.useCallback(()=>{
+      const loadSeat = async (scheduleId)=>{
+        var url = CONFIG.BASE_URL+"/seats?scheduleId="+scheduleId;
+        console.log("Select Seat: "+url);
+        
+        await axios.get(url)
+        .then((response) => {
+          setSeats(response.data.data);
+        })
+        .catch(error => {
+          console.log('Error:', error.response.data);
+        });
+      }
+      setLoading(true)
+      loadSeat(item.id)
+    }, [])
+  );
 
   useEffect(()=>{
     if (initialRender) {
@@ -58,22 +58,7 @@ const SelectSeat = ({ navigation, route }) => {
       Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_min_1'));
     } else {
       setLoading(true);
-      const data = {
-        scheduleId: item.id,
-        listSeatIds: selectedSeat.map(seat=>seat.id),
-      }
-
-      var url = CONFIG.BASE_URL + "/bill";
-      console.log("handleBookSeat: " + url);
-
-      await axios.post(url, data, config)
-        .then((response) => {
-          navigation.navigate('Checkout', {item: response.data.data, selectedSeat})
-        })
-        .catch(error => {
-          Alert.alert(i18n.t('common.notification'), i18n.t('error._'));
-          console.log('Error:', error.response.data);
-        });
+      navigation.navigate('Checkout', {item: item, selectedSeat})
     }
   }
     
@@ -91,8 +76,8 @@ const SelectSeat = ({ navigation, route }) => {
 
   const handleSeatAdd = (item) => {
     console.log("add "+item.id);
-    if (selectedSeat.length > 2) {
-      Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_max_3'));
+    if (selectedSeat.length > 8) {
+      Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_max_9'));
     }else{
       setSelectedSeat([...selectedSeat, item]);
     }

@@ -66,10 +66,10 @@ const Payment = ({navigation, route}) => {
             "Thanh toán thất bại",
             [
               {
-                text: i18n.t('common.cancel'), onPress: () => { }
+                text: i18n.t('common.cancel'), onPress: () => {navigation.navigate('Home')}
               },
               {
-                text: i18n.t('common.continue'), onPress: () => { }
+                text: i18n.t('common.continue'), onPress: () => {navigation.navigate('Home')}
               }
             ])
         } else {

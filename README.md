@@ -17,3 +17,7 @@ npm install
 ```bash
 npm start
 ```
+
+## Paypal
+sb-tbzb626421124@personal.example.com
+#d#nyW9l

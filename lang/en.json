@@ -58,8 +58,8 @@
     "seat":{
       "price":"Price",
 
-      "select_min_1": "Please select at least one seat.",
-      "select_max_3": "Please select a maximum of three seats.",
+      "select_min_1": "Please select at least 1 seat.",
+      "select_max_9": "Please select a maximum of 9 seats.",
       "_":"Select Seat"
     },
     "pay":{

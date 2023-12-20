@@ -57,7 +57,7 @@ const Ticket = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={STYLES.container}>
-      <Topbar title={i18n.t('ticket._')} navigation={navigation} goHome={true} left={true} />
+      <Topbar title={i18n.t('ticket._')} navigation={navigation} goHome={true}/>
 
       {loading ? <Loader /> :
         (<ScrollView>
