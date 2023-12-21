@@ -7,17 +7,22 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [jwtToken, setJwtToken] = useState(null)
   const [userRoles, setUserRoles] = useState([])
+  const [dob, setDob] = useState()
 
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
         const jwt = await SecureStore.getItemAsync('jwt');
         const roles = await SecureStore.getItemAsync('roles');
+        const dob = await SecureStore.getItemAsync('dob');
         if (jwt){
           setIsLoggedIn(true)
           setJwtToken(jwt)
           setUserRoles(JSON.parse(roles))
+          setDob(dob)
+
           console.log(roles);
+          console.log(dob);
         }else setIsLoggedIn(false);
       } catch (error) {
         console.log('Error checking login status:', error);
@@ -28,16 +33,18 @@ export const AuthProvider = ({ children }) => {
     console.log("AuthProvider run checkLoginStatus()");
   }, []);
 
-  const isLogin = (jwt, roles) => {
+  const isLogin = (jwt, roles, dob) => {
     setIsLoggedIn(true);
     setJwtToken(jwt)
     setUserRoles(roles)
+    setDob(dob)
   };
 
   const isLogout = () => {
     setIsLoggedIn(false);
     SecureStore.deleteItemAsync('jwt');
     SecureStore.deleteItemAsync('roles');
+    SecureStore.deleteItemAsync('dob');
   };
 
   const config = {
@@ -54,6 +61,7 @@ export const AuthProvider = ({ children }) => {
         isLogin,
         isLogout,
         userRoles,
+        dob,
         config
       }}
     >

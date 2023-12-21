@@ -60,9 +60,10 @@ const Login = ({ navigation }) => {
         
         await SecureStore.setItemAsync('jwt', jwtToken);
         await SecureStore.setItemAsync('roles', JSON.stringify(roles));
+        await SecureStore.setItemAsync('dob', "2010-10-05T02:15:23.586Z");
         console.log('Info: Login success');
 
-        isLogin(jwtToken, roles)
+        isLogin(jwtToken, roles, "2010-10-05T02:15:23.586Z")
         navigation.goBack()
       })
       .catch(error => {

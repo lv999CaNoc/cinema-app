@@ -1,21 +1,50 @@
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React, { useContext } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { COLORS, SIZES } from '../../constants';
 import { AuthContext } from '../../contexts/AuthContext';
 import { LangContext } from '../../contexts/LangContext';
 
 const SessionTile = ({ item, cinema }) => {
     const { i18n} = useContext(LangContext);  
-    const { isLoggedIn } = useContext(AuthContext);
+    const { isLoggedIn, dob } = useContext(AuthContext);
 
     const navigation = useNavigation();
 
+    const checkDob = ()=>{
+        const age = moment().diff(moment(dob), 'years');
+        const rated = item.movie.rated;
+        console.log(rated);
+        switch (rated){
+            case "C13":
+                return age>13;
+            case "C16":
+                return age>16;
+            case "C18":
+                return age>18;
+        }
+        return true;
+    }
     return (
         <TouchableOpacity style={styles.session} onPress={() => {
             if (isLoggedIn){
-                navigation.navigate('SelectSeat', {item})
+                if (checkDob()){
+                    navigation.navigate('SelectSeat', {item})
+                }else{
+                    Alert.alert(
+                        "Phim không phù hợp!",
+                        "Phim không phù hợp với tuổi của bạn.",
+                        [
+                          {
+                            text: i18n.t('common.cancel'), onPress: () => { navigation.navigate("Home")}
+                          },
+                          {
+                            text: i18n.t('common.continue'), onPress: () => { navigation.navigate("Home")}
+                          }
+                        ]
+                      )
+                }
             }else{
                 navigation.navigate("Login")
             }
