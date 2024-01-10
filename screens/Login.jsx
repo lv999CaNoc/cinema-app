@@ -57,13 +57,14 @@ const Login = ({ navigation }) => {
       .then(async (response) => {
         const jwtToken = response.data.data.token;
         const roles = response.data.data.roles;
-        
+        const dob =  response.data.data.dayOfBirth;
+
         await SecureStore.setItemAsync('jwt', jwtToken);
         await SecureStore.setItemAsync('roles', JSON.stringify(roles));
-        await SecureStore.setItemAsync('dob', "2010-10-05T02:15:23.586Z");
+        await SecureStore.setItemAsync('dob', dob);
         console.log('Info: Login success');
 
-        isLogin(jwtToken, roles, "2010-10-05T02:15:23.586Z")
+        isLogin(jwtToken, roles, dob)
         navigation.goBack()
       })
       .catch(error => {

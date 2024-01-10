@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
           setDob(dob)
 
           console.log(roles);
-          console.log(dob);
+          console.log("DOB: "+ dob);
         }else setIsLoggedIn(false);
       } catch (error) {
         console.log('Error checking login status:', error);
