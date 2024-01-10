@@ -14,7 +14,6 @@ const Scanner = ({ navigation }) => {
   const [scanned, setScanned] = useState(false)
   const [sizeQrCode, setSizeQrCode] = useState({ width: 0, height: 0 });
   const [token, setToken] = useState(null)
-  const [initialRender, setInitialRender] = useState(true);
 
   const lineAnim = useRef(new Animated.Value(0)).current;
 
@@ -32,11 +31,8 @@ const Scanner = ({ navigation }) => {
   }, []);
 
   useEffect(()=>{
-    if (initialRender) {
-      setInitialRender(false);
-      return;
-    }
-    setScreen('data');
+    // console .log("check screen. Token: "+token);
+    token && setScreen('data');
   }, [token])
 
   const onLineLayout = (event) => {
@@ -61,7 +57,7 @@ const Scanner = ({ navigation }) => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     setToken(data);
-    console.log(data);
+    // console .log("handleBarCodeScanned: "+data);
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
@@ -164,6 +160,7 @@ const Scanner = ({ navigation }) => {
         <TouchableOpacity onPress={() => {
           setScreen('scan')
           setScanned(false)
+          setToken(null)
         }}>
           <View style={styles.bottomButtonAction}>
             <MaterialIcons name="qr-code-scanner" size={20} color={COLORS.white} />

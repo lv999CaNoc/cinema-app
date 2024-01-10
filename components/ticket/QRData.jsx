@@ -23,7 +23,8 @@ const QRData = ({ token }) => {
     useEffect(() => {
         const loadTicket = async () => {
             var url = CONFIG.BASE_URL + "/tickets/check";
-            console.log("Check QR code: " + url);
+            // console .log("Check QR code: " + url);
+            setAccept()
             await axios.post(url, { token }, config)
                 .then((response) => {
                     setAccept(true)
@@ -32,8 +33,8 @@ const QRData = ({ token }) => {
                 })
                 .catch(error => {
                     setAccept(false)
-                    setErrorMsg(error.response.data)
-                    console.log('Error:', error.response.data);
+                    setErrorMsg(error.response.data.message)
+                    // console .log('Error:', error.response.data);
                 });
         }
         setLoading(true)
@@ -46,7 +47,7 @@ const QRData = ({ token }) => {
             return;
         }
         setLoading(false)
-    }, [bill])
+    }, [accept])
 
     return (
         <ScrollView style={{ marginBottom: 90 }}>
@@ -70,6 +71,7 @@ const QRData = ({ token }) => {
                 }
 
                 <TearLine />
+                
                 {
                     errorMsg &&
                     <View style={styles.content}>
@@ -78,7 +80,7 @@ const QRData = ({ token }) => {
                 }
 
                 {
-                    loading ? (<Loader />) : accept && (
+                    loading ? (<Loader />) : (accept && bill) && (
                         <View>
                             <View style={styles.content}>
                                 <Text style={styles.header}>{i18n.t('common.user_information')}</Text>
