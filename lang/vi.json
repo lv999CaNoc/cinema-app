@@ -58,8 +58,8 @@
   "seat":{
     "price": "Giá",
 
-    "select_min_1": "Vui lòng chọn ít nhất một ghế.",
-    "select_max_3": "Vui lòng chọn tối đa ba ghế.",
+    "select_min_1": "Vui lòng chọn ít nhất 1 ghế.",
+    "select_max_9": "Vui lòng chọn tối đa 9 ghế.",
     "_": "Chọn Ghế"
   },
   "pay":{

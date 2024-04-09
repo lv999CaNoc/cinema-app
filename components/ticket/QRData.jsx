@@ -47,7 +47,7 @@ const QRData = ({ token }) => {
             return;
         }
         setLoading(false)
-    }, [bill])
+    }, [accept])
 
     return (
         <ScrollView style={{ marginBottom: 90 }}>
@@ -71,6 +71,7 @@ const QRData = ({ token }) => {
                 }
 
                 <TearLine />
+                
                 {
                     errorMsg &&
                     <View style={styles.content}>
@@ -79,7 +80,7 @@ const QRData = ({ token }) => {
                 }
 
                 {
-                    loading ? (<Loader />) : accept && (
+                    loading ? (<Loader />) : (accept && bill) && (
                         <View>
                             <View style={styles.content}>
                                 <Text style={styles.header}>{i18n.t('common.user_information')}</Text>

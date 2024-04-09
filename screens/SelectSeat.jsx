@@ -1,17 +1,15 @@
 import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
 import { DateTimeBar, Topbar, Symbol, Seat, Button, Loader, } from '../components'
 import { LangContext } from '../contexts/LangContext'
 import axios from 'axios'
 import moment from 'moment'
-import { AuthContext } from '../contexts/AuthContext'
-
 
 const SelectSeat = ({ navigation, route }) => {
   const { i18n} = useContext(LangContext); 
-  const { config } = useContext(AuthContext);
 
   const {item} = route.params;
 
@@ -91,8 +89,8 @@ const SelectSeat = ({ navigation, route }) => {
 
   const handleSeatAdd = (item) => {
     console.log("add "+item.id);
-    if (selectedSeat.length > 2) {
-      Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_max_3'));
+    if (selectedSeat.length > 8) {
+      Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_max_9'));
     }else{
       setSelectedSeat([...selectedSeat, item]);
     }

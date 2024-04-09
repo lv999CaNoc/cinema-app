@@ -1,14 +1,16 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import axios from 'axios'
 import { Formik } from 'formik'
+import moment from 'moment'
 import React, { useContext, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import Modal from 'react-native-modal'
+import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as Yup from 'yup'
 import { Button, RegisterSuccess, Topbar } from '../components'
 import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
 import { LangContext } from '../contexts/LangContext'
-import Modal from 'react-native-modal';
 
 const Register = ({ navigation }) => {
   const { i18n} = useContext(LangContext);   
@@ -47,7 +49,8 @@ const Register = ({ navigation }) => {
 
   const [showError, setShowError] = useState([false, false, false, false]);
   const [passwordSecureText, setPasswordSecureText] = useState(true)
-  const [cPasswordSecureText, setCPasswordSecureText] = useState(true)
+  const [cPasswordSecureText, setCPasswordSecureText] = useState(true)   // Date time picker
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
 
   const handleShowError = (index) => {
@@ -62,8 +65,16 @@ const Register = ({ navigation }) => {
 
     await axios.post(endpoint, values)
       .then(response => {
-        console.log('Info: '+response);
-        setModalVisible(true)
+        console.log('Info: '+response.data);
+        Alert.alert(
+          "Đăng ký thành công!",
+          "Vui lòng kiểm tra email để xác nhận tạo tài khoản.",
+          [
+            {
+              text: i18n.t('common.continue'), onPress: () => {navigation.navigate("Login")}
+            }
+          ]
+        )
       })
       .catch(error => {
         var errMsg = 'common.register_err_msg';
@@ -101,12 +112,13 @@ const Register = ({ navigation }) => {
             username: '',
             email: '',
             password: '',
+            dayOfBirth: '',
             confirmPassword: '',
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => register(values)}
         >
-          {({ handleChange, handleSubmit, errors, touched, isValid, values, setFieldTouched }) => (
+          {({ handleChange, handleSubmit, errors, touched, isValid, values, setValues, setFieldTouched }) => (
             <View style={styles.formContainer}>
               <View style={styles.wrapper}>
                 <Text style={styles.label}>Email</Text>
@@ -156,6 +168,34 @@ const Register = ({ navigation }) => {
                 ): (
                   <Text style={styles.errMessage}></Text>
                 )}
+              </View>
+
+              <View style={styles.wrapper}>
+                <Text style={styles.label}>Ngày sinh</Text>
+                <TouchableOpacity
+                  style={styles.inputWrapper(touched.dayOfBirth ? COLORS.icon : COLORS.border)}
+                  onPress={() => {
+                    setFieldTouched('dayOfBirth');
+                    setDatePickerVisible(true);
+                  }}
+                >
+                  <Ionicons name="today" size={20} color={COLORS.icon} style={styles.iconStyle} />
+                  <Text style={styles.inputTxt}>{values.dayOfBirth ?  moment(values.dayOfBirth).format('DD/MM/YYYY') : 'DD/MM/YYYY'}</Text>
+                </TouchableOpacity>
+                <DateTimePickerModal
+                  date={values.dayOfBirth || new Date()}
+                  isVisible={datePickerVisible}
+                  maximumDate={new Date()}
+                  display="inline"
+                  mode="date"
+                  onConfirm={(date) => {
+                    setFieldTouched('dayOfBirth', '');
+                    setValues({ ...values, dayOfBirth: date });
+                    setDatePickerVisible(false);
+                  }}
+                  onCancel={()=>setDatePickerVisible(false)}
+                />
+                <Text style={styles.errMessage}></Text>
               </View>
 
               <View style={styles.wrapper}>
