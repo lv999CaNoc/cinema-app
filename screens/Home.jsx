@@ -11,9 +11,9 @@ import useFetch from '../hook/useFetch'
 const Home = ({ navigation }) => {
   const { i18n} = useContext(LangContext);    
 
-  const {data: moviesNew, loading: loadNew, error: errNew} = useFetch(CONFIG.BASE_URL+'/movies/newly-release');
-  const {data: moviesNowShowing, loading: loadNowShowing, error: errNowShowing} = useFetch(CONFIG.BASE_URL+'/movies/now-showing');
-  const {data: movieCommingSoon, loading: loadCommingSoon, error: errCommingSoon} = useFetch(CONFIG.BASE_URL+'/movies/coming-soon');
+  const {data: moviesNew, loading: loadNew, error: errNew} = useFetch(CONFIG.BASE_URL+'/movie/newly-release');
+  const {data: moviesNowShowing, loading: loadNowShowing, error: errNowShowing} = useFetch(CONFIG.BASE_URL+'/movie/now-showing');
+  const {data: movieCommingSoon, loading: loadCommingSoon, error: errCommingSoon} = useFetch(CONFIG.BASE_URL+'/movie/coming-soon');
 
   if (loadNew || loadNowShowing || loadCommingSoon){
     return (

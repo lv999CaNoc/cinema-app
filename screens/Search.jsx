@@ -32,7 +32,7 @@ const Search = ({ navigation }) => {
   }, []);
 
   const handleSearch = async (keyword) => {
-    const url = CONFIG.BASE_URL + "/movies/search?q=" + keyword;
+    const url = CONFIG.BASE_URL + "/movie/search?q=" + keyword;
     console.log("GET " + url);
 
     await axios.get(url)
@@ -49,7 +49,7 @@ const Search = ({ navigation }) => {
     clearTimeout(timeoutId);
     if (keyword !== '') {
       const newTimeoutId = setTimeout(async () => {
-        const url = CONFIG.BASE_URL + "/movies/suggest?keyword=" + keyword;
+        const url = CONFIG.BASE_URL + "/movie/suggest?keyword=" + keyword;
         console.log("GET " + url);
 
         await axios.get(url)

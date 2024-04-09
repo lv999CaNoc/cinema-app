@@ -25,7 +25,7 @@ const Session = ({movieId}) => {
 
   useEffect(()=>{
     const loadSession = async ()=>{
-      var url = CONFIG.BASE_URL+"/schedules?movieId="+movieId+"&date="+moment(date).format('YYYY-MM-DD');
+      var url = CONFIG.BASE_URL+"/theater/schedules?movieId="+movieId+"&date="+moment(date).format('YYYY-MM-DD');
       console.log(url);
 
       await axios.get(url)

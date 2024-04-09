@@ -22,7 +22,7 @@ const SelectSeat = ({ navigation, route }) => {
 
   useEffect(()=>{
     const loadSeat = async (scheduleId)=>{
-      var url = CONFIG.BASE_URL+"/seats?scheduleId="+scheduleId;
+      var url = CONFIG.BASE_URL+"/theater/seat?scheduleId="+scheduleId;
       console.log("Select Seat: "+url);
       
       await axios.get(url)
@@ -63,7 +63,7 @@ const SelectSeat = ({ navigation, route }) => {
         listSeatIds: selectedSeat.map(seat=>seat.id),
       }
 
-      var url = CONFIG.BASE_URL + "/bill";
+      var url = CONFIG.BASE_URL + "/order/bill";
       console.log("handleBookSeat: " + url);
 
       await axios.post(url, data, config)

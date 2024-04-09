@@ -19,7 +19,7 @@ const Profile = (props) => {
 
   useEffect(()=>{
     const loadProfile = async()=>{
-      const url = CONFIG.BASE_URL+'/bill';
+      const url = CONFIG.BASE_URL+'/order/bill';
       console.log("GET "+url);
   
       await axios.get(url, config)

@@ -27,7 +27,7 @@ const Payment = ({navigation, route}) => {
     }, [])
 
     const createOrder = async (order)=>{
-      const endpoint = CONFIG.BASE_URL+'/payment';
+      const endpoint = CONFIG.BASE_URL+'/order/payment';
       console.log("POST "+endpoint);
       await axios.post(endpoint, order, config)
         .then((response) => {

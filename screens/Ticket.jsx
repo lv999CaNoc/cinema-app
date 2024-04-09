@@ -18,7 +18,7 @@ const Ticket = ({ navigation, route }) => {
 
   useEffect(() => {
     const loadTickets = async () => {
-      const url = CONFIG.BASE_URL + "/bills/" + billId + "/tickets";
+      const url = CONFIG.BASE_URL + "/order/bills/" + billId + "/tickets";
       console.log("GET " + url);
 
       await axios.get(url)

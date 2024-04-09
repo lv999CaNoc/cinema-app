@@ -16,13 +16,13 @@ const QRData = ({ token }) => {
     const [seat, setSeat] = useState()
     const [bill, setBill] = useState()
     const [errorMsg, setErrorMsg] = useState()
-    const [accept, setAccept] = useState()
+    const [accept, setAccept] = useState(false)
     const [loading, setLoading] = useState(true);
     const [initialRender, setInitialRender] = useState(true);
 
     useEffect(() => {
         const loadTicket = async () => {
-            var url = CONFIG.BASE_URL + "/tickets/check";
+            var url = CONFIG.BASE_URL + "/order/tickets/check";
             console.log("Check QR code: " + url);
             await axios.post(url, { token }, config)
                 .then((response) => {
@@ -32,8 +32,9 @@ const QRData = ({ token }) => {
                 })
                 .catch(error => {
                     setAccept(false)
-                    setErrorMsg(error.response.data)
-                    console.log('Error:', error.response.data);
+                    // setErrorMsg(error.response.data)
+                    setLoading(false)
+                    console.log('Error:');
                 });
         }
         setLoading(true)
