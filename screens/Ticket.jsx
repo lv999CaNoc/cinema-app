@@ -6,9 +6,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, ItemInfo, Loader, QRView, TearLine, Topbar } from '../components'
 import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
 import { LangContext } from '../contexts/LangContext'
+import { AuthContext } from '../contexts/AuthContext'
 
 const Ticket = ({ navigation, route }) => {
   const { i18n } = useContext(LangContext);
+  const { config } = useContext(AuthContext);
   const { billId } = route.params;
 
   const [bill, setBill] = useState(null)
@@ -21,7 +23,7 @@ const Ticket = ({ navigation, route }) => {
       const url = CONFIG.BASE_URL + "/order/bills/" + billId + "/tickets";
       console.log("GET " + url);
 
-      await axios.get(url)
+      await axios.get(url, config)
         .then((response) => {
           setBill(response.data.data[0].bill)
 

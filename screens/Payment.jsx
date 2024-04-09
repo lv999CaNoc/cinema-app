@@ -31,6 +31,8 @@ const Payment = ({navigation, route}) => {
       console.log("POST "+endpoint);
       await axios.post(endpoint, order, config)
         .then((response) => {
+          console.log("createOrder: "+ response.data);
+
           setApprovalUrl(response.data)
         })
         .catch(error => {
@@ -40,8 +42,9 @@ const Payment = ({navigation, route}) => {
     }
   
     const processOrder = async (endpoint)=> {
-      await axios.get(endpoint)
+      await axios.get(endpoint, config)
       .then((response) => {
+        console.log("processOrder done!")
         navigation.navigate('Ticket', {billId: order.billId})
       })
       .catch(error => {
@@ -55,6 +58,7 @@ const Payment = ({navigation, route}) => {
             setApprovalUrl(null);
 
             const url = data.url;
+            console.log("url: (handleResponse)"+url)
             const processEndpoint = url.replace("http://sandbox", CONFIG.BASE_URL);
 
             console.log(processEndpoint);

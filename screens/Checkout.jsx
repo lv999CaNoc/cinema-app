@@ -1,6 +1,6 @@
 import moment from 'moment'
 import React, { useContext, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Alert, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, ItemInfo, Loader, TearLine, Topbar } from '../components'
 import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
@@ -22,7 +22,7 @@ const Checkout = ({ navigation, route }) => {
       scheduleId: item.id,
       listSeatIds: selectedSeat.map(seat=>seat.id),
     }
-    var url = CONFIG.BASE_URL + "/bill";
+    var url = CONFIG.BASE_URL + "/order/bill";
     console.log("Create bill: [Checkout.js]: " + url);
 
     await axios.post(url, data, config)

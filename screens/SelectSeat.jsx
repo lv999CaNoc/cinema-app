@@ -4,7 +4,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, CONFIG, SIZES, STYLES } from '../constants'
 import { DateTimeBar, Topbar, Symbol, Seat, Button, Loader, } from '../components'
-import { LangContext } from '../contexts/LangContext'
+import { LangContext } from '../contexts/LangContext';
+
 import axios from 'axios'
 import moment from 'moment'
 
@@ -56,22 +57,7 @@ const SelectSeat = ({ navigation, route }) => {
       Alert.alert(i18n.t('common.notification'), i18n.t('seat.select_min_1'));
     } else {
       setLoading(true);
-      const data = {
-        scheduleId: item.id,
-        listSeatIds: selectedSeat.map(seat=>seat.id),
-      }
-
-      var url = CONFIG.BASE_URL + "/order/bill";
-      console.log("handleBookSeat: " + url);
-
-      await axios.post(url, data, config)
-        .then((response) => {
-          navigation.navigate('Checkout', {item: response.data.data, selectedSeat})
-        })
-        .catch(error => {
-          Alert.alert(i18n.t('common.notification'), i18n.t('error._'));
-          console.log('Error:', error.response.data);
-        });
+      navigation.navigate('Checkout', {item: item, selectedSeat})
     }
   }
     
